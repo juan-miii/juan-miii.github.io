@@ -3,7 +3,7 @@ name: Link Checker
 on:
   push:
     branches:
-      - master
+      - main
       - readme
 
 permissions:
