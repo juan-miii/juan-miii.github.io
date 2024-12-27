@@ -34,7 +34,7 @@
 <h4 align="center">Extended Stack</h4>
 <p align="center">
   <a href="https://github.com/juan-miii?tab=repositories&q=&type=public&language=&sort=stargazers">
-    <!-- href="https://skillicons.dev/icons?i=c,githubactions,aws,py,bash,typescript,nodejs,html,css&theme=dark"-->
+    <!-- href="https://skillicons.dev/icons?i=c,githubactions,aws,py,bash,typescript,nodejs,astro,tailwind&theme=dark"-->
     <img src="public/skill-icons/extended-stack.svg" />
 	</a>
 </p>
@@ -43,6 +43,7 @@
 
 <!-- Contact Links -->
 <p align="right">
+  <a href="https://juan-miii.github.io/juan-miii" title="Portfolio">Portfolio</a> · 
   <a href="https://github.com/juan-miii" title="Sanity check">GitHub</a> · 
   <a href="mailto:94069179-juan-miii@proton.me" title="Contact email">Email</a>
 </p>
