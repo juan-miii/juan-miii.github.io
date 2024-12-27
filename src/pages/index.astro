@@ -1,11 +1,51 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import CodeIcon from "../assets/CodeIcon.astro";
+import ProfileIcon from "../assets/ProfileIcon.astro";
+import WorkIcon from "../assets/WorkIcon.astro";
+import AboutMe from "../components/AboutMe.astro";
+import Experience from "../components/Experience.astro";
+import Hero from "../components/Hero.astro";
+import Projects from "../components/Projects.astro";
+import SectionContainer from "../components/SectionContainer.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+	title="Juan Miguel Portfolio - Computer Science Engineer with Experience in Consulting, Cybersecurity, and Microservices"
+	description="Explore the portfolio of Juan Miguel, a Computer Science Engineer with experience in consulting, cybersecurity, and microservices. Focused on delivering innovative and scalable technology solutions."
+>
+	<main class="px-4">
+		<SectionContainer id="hero" class="py-16 md:py-36">
+			<Hero>
+				<slot />
+			</Hero>
+		</SectionContainer>
+
+		<div class="space-y-24">
+			<SectionContainer id="experience">
+				<SectionTitle>
+					<WorkIcon class="size-8" />
+					Experience
+				</SectionTitle>
+				<Experience />
+			</SectionContainer>
+
+			<SectionContainer id="projects">
+				<SectionTitle>
+					<CodeIcon class="size-7" />
+					Projects
+				</SectionTitle>
+				<Projects />
+			</SectionContainer>
+
+			<SectionContainer id="about">
+				<SectionTitle>
+					<ProfileIcon class="size-8" />
+					About me
+				</SectionTitle>
+				<AboutMe />
+			</SectionContainer>
+		</div>
+	</main>
 </Layout>

@@ -1,8 +1,10 @@
 // @ts-check
+import tailwind from '@astrojs/tailwind';
 import { defineConfig } from 'astro/config';
 
 // https://juan-miii.github.io/juan-miii
 export default defineConfig({
-    site: 'https://juan-miii.github.io',
-    base: 'juan-miii',
-  })
+	site: 'https://juan-miii.github.io',
+	base: 'juan-miii',
+	integrations: [tailwind()]
+})
