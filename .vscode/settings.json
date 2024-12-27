@@ -1,0 +1,16 @@
+{
+	"files.autoSave": "onFocusChange",
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.organizeImports": "always"
+	},
+	"editor.formatOnSaveMode": "file",
+	"task.saveBeforeRun": "always",
+	"editor.tabSize": 2,
+	"workbench.editor.customLabels.patterns": {
+		"**/types/**": "${filename}.${extname} - Types",
+		"**/pages/**": "${filename}.${extname} - Pages",
+	},
+	"editor.foldingImportsByDefault": true,
+	"editor.wordWrap": "on"
+}

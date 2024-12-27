@@ -1,0 +1,52 @@
+---
+import GitHub from "../assets/GitHub.astro";
+import MailIcon from "../assets/MailIcon.astro";
+import Badge from "./Badge.astro";
+import SocialBucket from "./SocialBucket.astro";
+
+const avatarAlt = "juan-miii avatar";
+---
+
+<div class="max-w-xl">
+  <div class="flex gap-4 mb-4">
+    <img
+      class="rounded-full shadow-lg size-16"
+      src="/juan-miii/profile.webp"
+      alt={avatarAlt}
+    />
+
+    <a
+      href="mailto:94069179-juan-miii@proton.me"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center transition md:justify-center md:hover:scale-105"
+    >
+      <Badge>Available for work</Badge>
+    </a>
+  </div>
+
+  <h1
+    class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
+  >
+    Hey, I'm Juan Miguel
+  </h1>
+
+  <p
+    class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-blue-300 [&>strong]:text-blue-500 [&>strong]:font-semibold dark:text-gray-200"
+  >
+    Experienced in consulting, cybersecurity, and microservices.
+    <strong>Computer Science Engineer</strong> based in Madrid, Spain. Passionate
+    about innovative projects and scalable, efficient technology solutions.
+  </p>
+
+  <nav class="flex flex-wrap gap-4 mt-8">
+    <SocialBucket href="mailto:94069179-juan-miii@proton.me">
+      <MailIcon class="size-4" />
+      Email
+    </SocialBucket>
+    <SocialBucket href="https://github.com/juan-miii">
+      <GitHub class="size-4" />
+      GitHub
+    </SocialBucket>
+  </nav>
+</div>
