@@ -1,0 +1,34 @@
+---
+import ExperienceItem from "./ExperienceItem.astro";
+
+const EXPERIENCE = [
+	{
+		date: "Present",
+		title: "Consulting Intern",
+		description:
+			"Engaging in various consulting activities, including analysis, strategy development, and implementation support, to help clients achieve their business objectives.",
+	},
+	{
+		date: "2024-2025",
+		title: "Developing my personal brand",
+		description:
+			"Revamping my personal website and enhancing my professional presence across various media and work-related platforms.",
+	},
+	{
+		date: "Summers 2021-2024",
+		title: "Football Tournament Direction",
+		description:
+			"I organized and managed an annual, week-long football tournament for four consecutive years, ensuring its success by coordinating logistics, engaging with participants and sponsors, and overseeing on-site operations to deliver a seamless event experience.",
+	},
+];
+---
+
+<ol class="relative mt-16">
+	{
+		EXPERIENCE.map((experience) => (
+			<li class="">
+				<ExperienceItem {...experience} />
+			</li>
+		))
+	}
+</ol>
