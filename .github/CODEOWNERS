@@ -1,0 +1,8 @@
+# This file manages automatic PR reviewer assignment. For more details, see:
+# * https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+# * https://docs.github.com/en/organizations/organizing-members-into-teams/managing-code-review-settings-for-your-team
+#
+# All PRs must be approved by at least one maintainer before merging.
+
+# Global owner
+* @juan-miii
