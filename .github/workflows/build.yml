@@ -1,0 +1,21 @@
+name: Verify Astro Build
+on:
+  pull_request:
+    branches: [main]
+
+# Allow this job to clone the repo and create a page deployment
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Install and build your site
+        uses: withastro/action@44cbafd43567733e3b007918c6e0711480560516
+        with:
+        # path: . # The root location of your Astro project inside the repository. (optional)
+          node-version: 22 # The specific version of Node that should be used to build your site. Defaults to 20. (optional)
+          package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
