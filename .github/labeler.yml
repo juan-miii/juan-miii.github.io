@@ -1,0 +1,26 @@
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: "**/*.md"
+
+actions:
+  - changed-files:
+      - any-glob-to-any-file: ".github/workflows/**"
+
+config:
+  - changed-files:
+      - any-glob-to-any-file:
+          [
+            ".gitignore",
+            "astro.config.mjs",
+            "tailwind.config.mjs",
+            "tsconfig.json",
+          ]
+
+bump-patch:
+  - changed-files:
+      - all-globs-to-all-files: ".github/readme.md"
+      - any-glob-to-any-file: ".github/workflows/**"
+      - any-glob-to-any-file: ".gitignore"
+      - any-glob-to-any-file: "astro.config.mjs"
+      - any-glob-to-any-file: "tailwind.config.mjs"
+      - any-glob-to-any-file: "tsconfig.json"

@@ -2,6 +2,22 @@
   "name": "juan-miii",
   "type": "module",
   "version": "0.0.2",
+  "description": "GitHub profile README and portfolio website for juan-miii.",
+  "keywords": [
+    "astro",
+    "portfolio",
+    "github",
+    "readme"
+  ],
+  "author": {
+    "name": "Juan Miii",
+    "email": "94069179-juan-miii@proton.me"
+  },
+  "license": "AGPL-3.0-only",
+  "repository": "github:juan-miii/juan-miii",
+  "bugs": {
+    "url": "https://github.com/juan-miii/juan-miii/issues"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
