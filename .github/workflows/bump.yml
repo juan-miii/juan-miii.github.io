@@ -112,14 +112,14 @@ jobs:
           echo "semversion=$SEMVERSION" >> $GITHUB_ENV
 
       - name: Create GitHub Release
-        if: env.impact == 'patch' || env.impact == 'minor' || env.impact == 'major'
+        if: env.impact == 'minor' || env.impact == 'major'
         uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5
         with:
           tag: ${{ env.semversion }}
           generateReleaseNotes: true
 
       - name: Summary
-        if: env.impact == 'patch' || env.impact == 'minor' || env.impact == 'major'
+        if: env.impact == 'minor' || env.impact == 'major'
         run: |
           echo "### GitHub Release" >> $GITHUB_STEP_SUMMARY
           echo "- :bookmark: Release created for ${{ env.semversion }}" >> $GITHUB_STEP_SUMMARY
