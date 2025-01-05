@@ -1,4 +1,5 @@
 name: Verify Astro Build
+
 on:
   pull_request:
     branches: [main]
