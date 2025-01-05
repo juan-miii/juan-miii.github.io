@@ -1,7 +1,7 @@
 {
   "name": "juan-miii",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "GitHub profile README and portfolio website for juan-miii.",
   "keywords": [
     "astro",
