@@ -1,0 +1,125 @@
+name: Version Bump and Release
+
+on:
+  pull_request:
+    branches: [master]
+    types:
+      - closed
+
+permissions:
+  pull-requests: read
+  issues: read
+  contents: write
+
+jobs:
+  version-bump-and-release:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2
+        with:
+          version: 9
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Extract Change Impact from PR Labels
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          REPO=${{ github.repository }}
+
+          # Fetch the labels on the PR
+          RESPONSE=$(curl -s -H "Accept: application/vnd.github+json" \
+                          -H "Authorization: Bearer $GITHUB_TOKEN" \
+                          "https://api.github.com/repos/$REPO/issues/$PR_NUMBER/labels")
+
+          # Check if the response is a valid JSON array
+          if echo "$RESPONSE" | jq -e 'type=="array"' >/dev/null 2>&1; then
+            LABELS=$(echo "$RESPONSE" | jq -r '.[].name')
+          else
+            echo "Error: API response is not a valid array or contains an error."
+            echo "Response: $RESPONSE"
+            exit 1
+          fi
+
+          # Define valid bump labels
+          VALID_BUMP_LABELS=("bump-major" "bump-minor" "bump-patch")
+
+          # Define priority map
+          declare -A PRIORITY_MAP
+          PRIORITY_MAP["bump-patch"]=1
+          PRIORITY_MAP["bump-minor"]=2
+          PRIORITY_MAP["bump-major"]=3
+
+          IMPACT="none"
+          SELECTED_LABEL=""
+          HIGHEST_PRIORITY=0
+
+          for LABEL in "${VALID_BUMP_LABELS[@]}"; do
+            if echo "$LABELS" | grep -qw "$LABEL"; then
+              if [ ${PRIORITY_MAP["$LABEL"]} -gt $HIGHEST_PRIORITY ]; then
+                IMPACT=${LABEL#"bump-"}
+                HIGHEST_PRIORITY=${PRIORITY_MAP["$LABEL"]}
+              fi
+            fi
+          done
+
+          echo "Detected impact: $IMPACT"
+          echo "impact=$IMPACT" >> $GITHUB_ENV
+          echo "### Extracted Change Impact" >> $GITHUB_STEP_SUMMARY
+          echo "- **Impact:** $IMPACT" >> $GITHUB_STEP_SUMMARY
+
+      - name: Bump version
+        env:
+          IMPACT: ${{ env.impact }}
+        run: |
+          if [[ "$IMPACT" != "patch" && "$IMPACT" != "minor" && "$IMPACT" != "major" ]]; then
+            echo "### Version Bump Status" >> $GITHUB_STEP_SUMMARY
+            echo "- :x: No version bump will be performed." >> $GITHUB_STEP_SUMMARY
+            exit 0
+          fi
+
+          pnpm version $IMPACT --no-git-tag-version
+          echo "### Version Bump Status" >> $GITHUB_STEP_SUMMARY
+          echo "- :white_check_mark: Version bumped to $IMPACT" >> $GITHUB_STEP_SUMMARY
+
+      - name: Commit and Tag Changes
+        if: env.impact == 'patch' || env.impact == 'minor' || env.impact == 'major'
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          SEMVERSION="v$VERSION"
+          echo "New version: $SEMVERSION"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json pnpm-lock.yaml
+          git commit -m "chore: bump package version to $VERSION"
+          git tag -a "$SEMVERSION" -m "Release $VERSION"
+          git push origin HEAD --tags
+          echo "semversion=$SEMVERSION" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        if: env.impact == 'patch' || env.impact == 'minor' || env.impact == 'major'
+        uses: ncipollo/release-action@2c591bcc8ecdcd2db72b97d6147f871fcd833ba5
+        with:
+          tag: ${{ env.semversion }}
+          generateReleaseNotes: true
+
+      - name: Summary
+        if: env.impact == 'patch' || env.impact == 'minor' || env.impact == 'major'
+        run: |
+          echo "### GitHub Release" >> $GITHUB_STEP_SUMMARY
+          echo "- :bookmark: Release created for ${{ env.semversion }}" >> $GITHUB_STEP_SUMMARY
