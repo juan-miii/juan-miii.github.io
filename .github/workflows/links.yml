@@ -3,8 +3,11 @@ name: Link Checker
 on:
   push:
     branches:
-      - main
       - readme
+      - main
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -22,7 +25,7 @@ jobs:
         uses: lycheeverse/lychee-action@f796c8b7d468feb9b8c0a46da3fac0af6874d374
         with:
           # Check all markdown, html files in repo
-          args: "--verbose './**/*.md' './**/*.html'"
+          args: "--verbose './**/*.md' './**/*.html' './**/*.astro'"
           # Use makdown as output format (easier to work on issues)
           format: markdown
           # Don't fail action on broken links
