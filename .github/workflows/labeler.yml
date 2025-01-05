@@ -1,0 +1,90 @@
+name: Pull Request Labeler
+
+on:
+  pull_request_target:
+    types: [opened, reopened]
+
+jobs:
+  labeler:
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Run Labeler
+        uses: actions/labeler@8558fd74291d67161a8a78ce36a881fa63b766a9
+        with:
+          configuration-path: ".github/labeler.yml"
+
+      - name: Check Labels
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get the PR number and repo details
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          REPO=${{ github.repository }}
+
+          # Fetch the labels on the PR
+          RESPONSE=$(curl -s -H "Accept: application/vnd.github+json" \
+                          -H "Authorization: Bearer $GITHUB_TOKEN" \
+                          "https://api.github.com/repos/$REPO/issues/$PR_NUMBER/labels")
+
+          # Check if the response is a valid JSON array
+          if echo "$RESPONSE" | jq -e 'type=="array"' >/dev/null 2>&1; then
+            LABELS=$(echo "$RESPONSE" | jq -r '.[].name')
+          else
+            echo "Error: API response is not a valid array or contains an error."
+            echo "Response: $RESPONSE"
+            exit 1
+          fi
+
+          # Define valid bump labels
+          VALID_BUMP_LABELS=("bump-major" "bump-minor" "bump-patch")
+          
+          # Define priority map
+          declare -A PRIORITY_MAP
+          PRIORITY_MAP["bump-patch"]=1
+          PRIORITY_MAP["bump-minor"]=2
+          PRIORITY_MAP["bump-major"]=3
+          
+          # Set initial values
+          SELECTED_LABEL=""
+          HIGHEST_PRIORITY=0
+
+          # Check for valid bump labels and select the highest priority
+          for LABEL in "${VALID_BUMP_LABELS[@]}"; do
+            if echo "$LABELS" | grep -qw "$LABEL"; then
+              if [ ${PRIORITY_MAP["$LABEL"]} -gt $HIGHEST_PRIORITY ]; then
+                SELECTED_LABEL=$LABEL
+                HIGHEST_PRIORITY=${PRIORITY_MAP["$LABEL"]}
+              fi
+            fi
+          done
+
+          echo "Step 1 OK"
+
+          # Check for multiple bump labels
+          COUNT=$(echo "$LABELS" | grep -o "bump-" | wc -l)
+          if [ "$COUNT" -gt 1 ]; then
+            COMMENT_BODY=":warning: **Multiple bump labels detected.**\n\nThe highest impact label, \`$SELECTED_LABEL\`, will be used for the version bump.\n\nPlease ensure only one bump label is assigned to avoid confusion. This label will be used for the version bump when this PR is merged.\n\nLabels can still be updated if needed."
+          elif [ "$COUNT" -eq 0 ]; then
+            COMMENT_BODY=":white_check_mark: **No bump label found.**\n\nThis means no version bump will be performed on merge.\n\nLabels can still be updated if needed."
+          else
+            COMMENT_BODY=":white_check_mark: **Bump Validation Passed.**\n\nDetected \`$SELECTED_LABEL\` as the selected version bump label.\n\nThis label will be used for the version bump when this PR is merged. Labels can still be updated if needed."
+          fi
+
+          echo "Step 2 OK"
+
+          echo "COMMENT_BODY=$COMMENT_BODY" >> $GITHUB_ENV
+
+          COMMENTS_URL="${{ github.event.pull_request.comments_url }}"
+
+          curl -X POST \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"body\":\"$COMMENT_BODY\"}" \
+            "$COMMENTS_URL"
