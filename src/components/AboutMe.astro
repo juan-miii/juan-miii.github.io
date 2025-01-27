@@ -1,4 +1,8 @@
 ---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const personalImageAlt = "Juan Miguel";
 ---
 
@@ -7,31 +11,8 @@ const personalImageAlt = "Juan Miguel";
 >
   <div
     class="[&>p]:mb-4 [&>p>strong]:text-blue-500 dark:[&>p>strong]:text-blue-300 [&>p>strong]:font-normal [&>p>strong]:font-mono text-pretty order-2 md:order-1"
-  >
-    <p>
-      My name is Juan Miguel. I am a Computer Science Engineer with experience
-      in <strong>technology consulting, cybersecurity, and microservices</strong
-      >. I started programming by creating simple Python scripts, which sparked
-      my interest in technology. Now, I focus on delivering efficient solutions
-      and contributing to the success of development teams in diverse projects.
-    </p>
-
-    <p>
-      Throughout my career, I have worked on <strong
-        >critical infrastructure projects</strong
-      >, ensuring secure coding practices from the early stages of the software
-      lifecycle. Additionally, I have contributed to initiatives focused on
-      enhancing the <strong>efficiency and scalability</strong> of technological
-      systems.
-    </p>
-
-    <p>
-      Beyond my professional experience, I participate in technology events to
-      exchange knowledge and stay updated on the latest advancements. My primary
-      focus is <strong>solving complex challenges</strong> and helping organizations
-      implement efficient, tailored solutions to meet their technological objectives.
-    </p>
-  </div>
+    set:html={t("about.bio")}
+  />
 
   <img
     width="200"

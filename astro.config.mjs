@@ -6,5 +6,15 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
 	site: 'https://juan-miii.github.io',
 	base: 'juan-miii',
-	integrations: [tailwind()]
+	integrations: [tailwind()],
+	i18n: {
+		defaultLocale: 'en',
+		locales: ['en', 'es'],
+		routing: {
+			prefixDefaultLocale: false
+		},
+		fallback: {
+			es: 'en'
+		}
+	}
 })

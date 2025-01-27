@@ -1,18 +1,19 @@
 ---
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
 import "@fontsource/albert-sans";
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header.astro";
 
 interface Props {
 	title: string;
 	description: string;
 }
+const { currentLocale } = Astro;
 
 const { title, description } = Astro.props as Props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={currentLocale}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
@@ -23,9 +24,17 @@ const { title, description } = Astro.props as Props;
 	</head>
 	<body class="relative text-black dark:text-white">
 		<div class="fixed left-0 top-0 -z-10 size-full">
-			<div class="relative size-full bg-slate-950">
+			<!-- Dark BG, from bg.ibelick.com -->
+			<div class="relative size-full bg-slate-950 dark:block hidden">
 				<div
 					class="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"
+				>
+				</div>
+			</div>
+			<!-- Light BG, from bg.ibelick.com -->
+			<div class="relative size-full bg-white dark:hidden">
+				<div
+					class="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"
 				>
 				</div>
 			</div>

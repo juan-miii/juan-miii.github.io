@@ -1,0 +1,49 @@
+---
+import { languages } from "@/i18n/ui";
+import { getLangFromUrl } from "@/i18n/utils";
+
+const currentLang = getLangFromUrl(Astro.url);
+---
+
+<div class="relative ml-1 mr-1">
+  <button
+    transition:persist
+    id="language-toggle-btn"
+    class="appearance-none border-none flex hover:scale-105 transition"
+  >
+    {languages[currentLang]}
+  </button>
+
+  <ul
+    id="languages-menu"
+    class="hidden absolute top-10 right-0 bg-white dark:bg-gray-900 rounded-md shadow-lg"
+  >
+    {
+      Object.entries(languages).map(
+        ([langCode, label]) =>
+          langCode !== currentLang && (
+            <li>
+              <button
+                class="block w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700"
+                onclick={`window.location.href = "${langCode === "en" ? "/juan-miii" : "/juan-miii/" + langCode}"`}
+              >
+                {label}
+              </button>
+            </li>
+          ),
+      )
+    }
+  </ul>
+</div>
+
+<script>
+  // Toggle the dropdown menu
+  const toggleBtn = document.getElementById("language-toggle-btn");
+  const menu = document.getElementById("languages-menu");
+
+  if (toggleBtn && menu) {
+    toggleBtn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    });
+  }
+</script>

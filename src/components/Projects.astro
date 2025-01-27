@@ -1,4 +1,6 @@
 ---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
 // const TAGS = {
 //   NEXT: {
 //     name: "Next.js",
@@ -27,13 +29,13 @@
 //     tags: [TAGS.PYTHON],
 //   }
 // ];
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <div class="flex flex-col gap-y-16">
-  Most of my current projects are subject to NDAs or are collaborative efforts
-  where other members prefer not to disclose them publicly yet. However, if
-  you're interested in my experience and skills, feel free to contact me
-  directly. I'd be happy to discuss my background and the kind of work I do.
+  {t("project.placeholder")}
   {
     //PROJECTS.map((project) => <ProjectItem {...project} />)
   }

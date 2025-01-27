@@ -9,11 +9,11 @@
 
 <!-- About me -->
 <ul align="left">
-  <li title="Ingeniero informático con experiencia en consultoría y tecnología aplicada a la seguridad, enfocado en ciberseguridad, soluciones cloud-native y microservicios. Me apasiona liderar proyectos innovadores y contribuir a la transformación digital mediante tecnología eficiente y escalable.">
-  Computer engineer with experience in consulting and applied security technology, focused on cybersecurity, cloud-native solutions, and microservices. I’m passionate about leading innovative projects and contributing to digital transformation through efficient, scalable technology.
+  <li title="Ingeniero informático con experiencia en consultoría y tecnología aplicada a la seguridad, enfocado en ciberseguridad, agentes inteligentes y microservicios. Me apasiona liderar proyectos innovadores y contribuir a la transformación digital mediante tecnología eficiente y escalable.">
+  Computer engineer with experience in consulting and applied security technology, focused on cybersecurity, intelligent agents, and microservices. I’m passionate about leading innovative projects and contributing to digital transformation through efficient, scalable technology.
   </li><p />
-  <li title="Con fundamentos sólidos en desarrollo de software y experiencia en diversas etapas del ciclo de vida de los proyectos, me centro en crear soluciones eficientes y escalables que aborden necesidades reales, con un enfoque en calidad y sostenibilidad.">
-  With strong foundations in software development and experience across various stages of the project lifecycle, I focus on building efficient, scalable solutions that address real-world needs, with an emphasis on quality and sustainability.
+  <li title="Con sólidos fundamentos en desarrollo de software y experiencia en todas las etapas del ciclo de vida de los proyectos, diseño y entrego soluciones adaptadas con un enfoque en la calidad, la adaptabilidad y el impacto real.">
+  With strong foundations in software development and experience across all stages of the project lifecycle, I design and deliver tailored solutions with a focus on quality, adaptability, and real-world impact.
   </li><p />
 </ul>
 
