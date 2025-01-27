@@ -10,6 +10,7 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "friday"
   # Enable version updates for npm
   - package-ecosystem: "npm"
     # Look for `package.json` and `lock` files in the `root` directory
@@ -17,3 +18,4 @@ updates:
     # Check the npm registry for updates every day (weekdays)
     schedule:
       interval: "weekly"
+      day: "thursday"
