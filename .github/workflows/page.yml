@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       - name: Install, build, and upload your site
-        uses: withastro/action@44cbafd43567733e3b007918c6e0711480560516
+        uses: withastro/action@56781b97402ce0487b7e61ce2cb960c0e2cc5289
         with:
         # path: . # The root location of your Astro project inside the repository. (optional)
           node-version: 22 # The specific version of Node that should be used to build your site. Defaults to 20. (optional)
