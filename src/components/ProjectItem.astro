@@ -9,10 +9,11 @@ export interface Props {
   link?: string;
   github?: string;
   image: string;
+  imageAlt: string;
   tags: { name: string; class: string; icon: any }[];
 }
 
-const { title, description, tags, link, github, image } = Astro.props;
+const { title, description, tags, link, github, image, imageAlt } = Astro.props;
 ---
 
 <article
@@ -23,7 +24,7 @@ const { title, description, tags, link, github, image } = Astro.props;
       class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50"
     >
       <img
-        alt="Social preview of the project"
+        alt={imageAlt}
         class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
         loading="lazy"
         src={image}
@@ -55,6 +56,7 @@ const { title, description, tags, link, github, image } = Astro.props;
         {description}
       </div>
       <footer class="flex items-end justify-start mt-4 gap-x-4">
+        <!-- no i18n -->
         {
           github && (
             <LinkButton href={github}>
@@ -63,6 +65,7 @@ const { title, description, tags, link, github, image } = Astro.props;
             </LinkButton>
           )
         }
+        <!-- no i18n -->
         {
           link && (
             <LinkButton href={link}>

@@ -1,26 +1,19 @@
 ---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import ExperienceItem from "./ExperienceItem.astro";
 
-const EXPERIENCE = [
-	{
-		date: "Present",
-		title: "Consulting Intern",
-		description:
-			"Engaging in various consulting activities, including analysis, strategy development, and implementation support, to help clients achieve their business objectives.",
-	},
-	{
-		date: "2024-2025",
-		title: "Developing my personal brand",
-		description:
-			"Revamping my personal website and enhancing my professional presence across various media and work-related platforms.",
-	},
-	{
-		date: "Summers 2021-2024",
-		title: "Football Tournament Direction",
-		description:
-			"I organized and managed an annual, week-long football tournament for four consecutive years, ensuring its success by coordinating logistics, engaging with participants and sponsors, and overseeing on-site operations to deliver a seamless event experience.",
-	},
-];
+type tLang = (str: any) => any;
+const lang = getLangFromUrl(Astro.url);
+const t: tLang = useTranslations(lang);
+
+type Experience = {
+	title: string;
+	company: string;
+	date: string;
+	description: string;
+	link: string;
+};
+const EXPERIENCE: Experience[] = t("experience");
 ---
 
 <ol class="relative mt-16">

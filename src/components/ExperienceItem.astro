@@ -8,9 +8,10 @@ export interface Props {
 	description: string;
 	date: string;
 	link?: string;
+	linkLabel?: string;
 }
 
-const { title, company, description, date, link } = Astro.props;
+const { title, company, description, date, link, linkLabel } = Astro.props;
 ---
 
 <div
@@ -42,7 +43,7 @@ const { title, company, description, date, link } = Astro.props;
 		{
 			link && (
 				<LinkInline href={link}>
-					Know more <ChevronRight class="w-5" />
+					{linkLabel} <ChevronRight class="w-5" />
 				</LinkInline>
 			)
 		}

@@ -9,12 +9,14 @@ import Projects from "@/components/Projects.astro";
 import SectionContainer from "@/components/SectionContainer.astro";
 import SectionTitle from "@/components/SectionTitle.astro";
 import Layout from "@/layouts/Layout.astro";
+
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<Layout
-	title="Juan Miguel Portfolio - Computer Science Engineer with Experience in Consulting, Cybersecurity, and Microservices"
-	description="Explore the portfolio of Juan Miguel, a Computer Science Engineer with experience in consulting, cybersecurity, and microservices. Focused on delivering innovative and scalable technology solutions."
->
+<Layout title={t("layout.title")} description={t("layout.description")}>
 	<main class="px-4">
 		<SectionContainer id="hero" class="py-16 md:py-36">
 			<Hero>
@@ -26,7 +28,7 @@ import Layout from "@/layouts/Layout.astro";
 			<SectionContainer id="experience">
 				<SectionTitle>
 					<WorkIcon class="size-8" />
-					Experience
+					{t("experience.title")}
 				</SectionTitle>
 				<Experience />
 			</SectionContainer>
@@ -34,7 +36,7 @@ import Layout from "@/layouts/Layout.astro";
 			<SectionContainer id="projects">
 				<SectionTitle>
 					<CodeIcon class="size-7" />
-					Projects
+					{t("projects.title")}
 				</SectionTitle>
 				<Projects />
 			</SectionContainer>
@@ -42,7 +44,7 @@ import Layout from "@/layouts/Layout.astro";
 			<SectionContainer id="about">
 				<SectionTitle>
 					<ProfileIcon class="size-8" />
-					About me
+					{t("about.title")}
 				</SectionTitle>
 				<AboutMe />
 			</SectionContainer>

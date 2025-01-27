@@ -1,9 +1,12 @@
 ---
 import GitHub from "@/assets/GitHub.astro";
 import MailIcon from "@/assets/MailIcon.astro";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import Badge from "./Badge.astro";
 import SocialBucket from "./SocialBucket.astro";
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const avatarAlt = "juan-miii avatar";
 ---
 
@@ -21,32 +24,29 @@ const avatarAlt = "juan-miii avatar";
       rel="noopener noreferrer"
       class="flex items-center transition md:justify-center md:hover:scale-105"
     >
-      <Badge>Available for work</Badge>
+      <Badge>{t("hero.badge")}</Badge>
     </a>
   </div>
 
   <h1
     class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
   >
-    Hey, I'm Juan Miguel
+    {t("hero.title")}
   </h1>
 
   <p
     class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-blue-300 [&>strong]:text-blue-500 [&>strong]:font-semibold dark:text-gray-200"
-  >
-    Experienced in consulting, cybersecurity, and microservices.
-    <strong>Computer Science Engineer</strong> based in Madrid, Spain. Passionate
-    about innovative projects and scalable, efficient technology solutions.
-  </p>
+    set:html={t("hero.bio")}
+  />
 
   <nav class="flex flex-wrap gap-4 mt-8">
     <SocialBucket href="mailto:94069179-juan-miii@proton.me">
       <MailIcon class="size-4" />
-      Email
+      {t("hero.mail")}
     </SocialBucket>
     <SocialBucket href="https://github.com/juan-miii">
       <GitHub class="size-4" />
-      GitHub
+      {t("social.github")}
     </SocialBucket>
   </nav>
 </div>

@@ -1,24 +1,30 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import LanguageToggle from "./LanguageToggle.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const { currentLocale } = Astro;
 
 const navItems = [
 	{
-		title: "Experience",
+		title: t("nav.experience"),
 		label: "experience",
-		url: "#experience",
+		url: `/juan-miii/${currentLocale === "en" ? "" : currentLocale}#experience`,
 	},
 	{
-		title: "Projects",
+		title: t("nav.projects"),
 		label: "projects",
-		url: "#projects",
+		url: `/juan-miii/${currentLocale === "en" ? "" : currentLocale}#projects`,
 	},
 	{
-		title: "About me",
+		title: t("nav.about"),
 		label: "about",
-		url: "#about",
+		url: `/juan-miii/${currentLocale === "en" ? "" : currentLocale}#about`,
 	},
 	{
-		title: "Contact",
+		title: t("nav.contact"),
 		label: "contact",
 		url: "mailto:94069179-juan-miii@proton.me",
 	},
@@ -34,7 +40,7 @@ const navItems = [
 		{
 			navItems.map((link) => (
 				<a
-					class="relative block px-2 py-2 transition hover:text-yellow-500 dark:hover:text-yellow-500"
+					class="relative block px-3 py-2 transition hover:text-yellow-500 dark:hover:text-yellow-500"
 					aria-label={link.label}
 					href={link.url}
 				>
@@ -46,6 +52,9 @@ const navItems = [
 			class="flex items-center divide-x divide-gray-300 dark:divide-gray-600"
 		>
 			<div class="px-1 h-5"></div>
+			<div class="px-3 h-5">
+				<LanguageToggle />
+			</div>
 			<div class="flex items-center px-3 h-5">
 				<ThemeToggle />
 			</div>
