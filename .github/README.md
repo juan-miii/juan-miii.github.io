@@ -9,11 +9,11 @@
 
 <!-- About me -->
 <ul align="left">
-  <li title="Ingeniero informático con experiencia en consultoría y tecnología aplicada a la seguridad, enfocado en ciberseguridad, agentes inteligentes y microservicios. Me apasiona liderar proyectos innovadores y contribuir a la transformación digital mediante tecnología eficiente y escalable.">
-  Computer engineer with experience in consulting and applied security technology, focused on cybersecurity, intelligent agents, and microservices. I’m passionate about leading innovative projects and contributing to digital transformation through efficient, scalable technology.
+  <li title="Ingeniero informático con experiencia en consultoría tecnológica y seguridad aplicada, trabajando con arquitecturas escalables, sistemas inteligentes y ciberseguridad. Me especializo en ofrecer soluciones personalizadas y de alta calidad que se adapten a las necesidades empresariales y técnicas en constante evolución. Apasionado porcerrar la brecha entre la tecnología y la estrategia empresarial, garantizando implementaciones seguras, eficientes y escalables.">
+  <b>Computer engineer</b> with experience in <b>technology consulting</b> and applied security, working with scalable architectures, intelligent systems, and cybersecurity. I focus on delivering tailored, high-quality solutions that adapt to evolving business and technical needs. Passionate about <b>bridging the gap between technology and business strategy</b>, ensuring secure, efficient, and scalable implementations.
   </li><p />
-  <li title="Con sólidos fundamentos en desarrollo de software y experiencia en todas las etapas del ciclo de vida de los proyectos, diseño y entrego soluciones adaptadas con un enfoque en la calidad, la adaptabilidad y el impacto real.">
-  With strong foundations in software development and experience across all stages of the project lifecycle, I design and deliver tailored solutions with a focus on quality, adaptability, and real-world impact.
+  <li title="Con una sólida formación en desarrollo de software y experiencia en todas las etapas del ciclo de vida de los proyectos, me especializo en diseñar e implementar soluciones que se alineen con los objetivos tanto técnicos como empresariales. Mi experiencia incluye prácticas de desarrollo seguro, automatización de flujos de trabajo y optimización de infraestructuras digitales para mejorar la eficiencia operativa.">
+  With strong foundations in software development and experience across all stages of the project lifecycle, I focus on <b>designing and implementing solutions</b> that align with both technical and business objectives. My expertise includes <b>secure development</b> practices, workflow <b>automation</b>, and <b>optimization</b> of digital infrastructures for enhanced operational efficiency.
   </li><p />
 </ul>
 
