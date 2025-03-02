@@ -3,11 +3,11 @@ import { defaultLang, ui } from './ui';
 export const showDefaultLang = false;
 
 /**
- * Obtiene el idioma actual desde la URL, teniendo en cuenta subpaths como GitHub Pages.
+ * Obtiene el idioma actual desde la URL.
  */
 export function getLangFromUrl(url: URL): keyof typeof ui {
   const pathParts = url.pathname.split('/').filter(Boolean);
-  const lang = pathParts[1]; // Consideramos el segundo segmento después del subpath
+  const lang = pathParts[0]; // Consideramos el primer segmento después del subpath
   return lang && lang in ui ? (lang as keyof typeof ui) : defaultLang;
 }
 
@@ -27,8 +27,8 @@ export function useTranslatedPath(lang: keyof typeof ui) {
   return (path: string, targetLang: string = lang) => {
     const normalizedPath = path.startsWith('/') ? path : `/${path}`;
     return !showDefaultLang && targetLang === defaultLang
-      ? `/juan-miii${normalizedPath}`
-      : `/juan-miii/${targetLang}${normalizedPath}`;
+      ? `${normalizedPath}`
+      : `/${targetLang}${normalizedPath}`;
   };
 }
 

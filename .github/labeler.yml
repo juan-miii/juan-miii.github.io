@@ -18,7 +18,6 @@ config:
 
 bump-patch:
   - changed-files:
-      - all-globs-to-all-files: ".github/readme.md"
       - any-glob-to-any-file: ".github/workflows/**"
       - any-glob-to-any-file: ".gitignore"
       - any-glob-to-any-file: "astro.config.mjs"

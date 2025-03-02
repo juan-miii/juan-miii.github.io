@@ -5,7 +5,7 @@ export const languages = {
 
 export const defaultLang = 'en';
 
-export const baseUrl = 'juan-miii';
+export const baseUrl = '';
 
 export const ui = {
   en: {
