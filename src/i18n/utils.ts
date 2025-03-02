@@ -27,8 +27,8 @@ export function useTranslatedPath(lang: keyof typeof ui) {
   return (path: string, targetLang: string = lang) => {
     const normalizedPath = path.startsWith('/') ? path : `/${path}`;
     return !showDefaultLang && targetLang === defaultLang
-      ? `/juan-miii${normalizedPath}`
-      : `/juan-miii/${targetLang}${normalizedPath}`;
+      ? `${normalizedPath}`
+      : `/${targetLang}${normalizedPath}`;
   };
 }
 

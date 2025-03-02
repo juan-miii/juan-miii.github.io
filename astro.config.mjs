@@ -2,16 +2,16 @@
 import tailwind from '@astrojs/tailwind';
 import { defineConfig } from 'astro/config';
 
-// https://juan-miii.github.io/juan-miii
+// https://juan-miii.github.io/
 export default defineConfig({
 	site: 'https://juan-miii.github.io',
-	base: 'juan-miii',
+	base: '',
 	integrations: [tailwind()],
 	i18n: {
 		defaultLocale: 'en',
 		locales: ['en', 'es'],
 		routing: {
-			prefixDefaultLocale: false
+			prefixDefaultLocale: true
 		},
 		fallback: {
 			es: 'en'
