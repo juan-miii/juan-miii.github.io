@@ -3,11 +3,11 @@ import { defaultLang, ui } from './ui';
 export const showDefaultLang = false;
 
 /**
- * Obtiene el idioma actual desde la URL, teniendo en cuenta subpaths como GitHub Pages.
+ * Obtiene el idioma actual desde la URL.
  */
 export function getLangFromUrl(url: URL): keyof typeof ui {
   const pathParts = url.pathname.split('/').filter(Boolean);
-  const lang = pathParts[1]; // Consideramos el segundo segmento después del subpath
+  const lang = pathParts[0]; // Consideramos el primer segmento después del subpath
   return lang && lang in ui ? (lang as keyof typeof ui) : defaultLang;
 }
 

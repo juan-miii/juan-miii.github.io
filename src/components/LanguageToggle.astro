@@ -25,7 +25,7 @@ const currentLang = getLangFromUrl(Astro.url);
             <li>
               <button
                 class="block w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700"
-                onclick={`window.location.href = "${langCode === "en" ? "/juan-miii" : "/juan-miii/" + langCode}"`}
+                onclick={`window.location.href = "${langCode === "en" ? "/" : "/" + langCode}"`}
               >
                 {label}
               </button>
