@@ -9,8 +9,8 @@ export const baseUrl = '';
 
 export const ui = {
   en: {
-    'layout.title': `Juan Miguel - Technology Consultant & Computer Science Engineer | Digital Transformation, Cybersecurity & Scalable Solutions`,
-    'layout.description': `Discover the portfolio of Juan Miguel, a Technology Consultant & Computer Science Engineer specializing in digital transformation, cybersecurity, and scalable technology solutions. Explore innovative projects and strategies that bridge the gap between business and technology.`,
+    'layout.title': `Juan Miguel - Technology Consultant & Computer Engineer | Digital Transformation, Cybersecurity & Scalable Solutions`,
+    'layout.description': `Discover the portfolio of Juan Miguel, a Technology Consultant & Computer Engineer specializing in digital transformation, cybersecurity, and scalable technology solutions. Explore innovative projects and strategies that bridge the gap between business and technology.`,
     'nav.experience': 'Experience',
     'nav.projects': 'Projects',
     'nav.about': 'About me',
@@ -18,14 +18,14 @@ export const ui = {
     'nav.theme': 'Pick the theme',
     'hero.badge': 'Available for work',
     'hero.title': `Hey, I'm Juan Miguel`,
-    'hero.bio': `Technology Consultant & <strong>Computer Science Engineer</strong> based in Madrid, Spain. Passionate about innovation, business-driven solutions, and digital transformation strategy.`,
+    'hero.bio': `Technology Consultant & <strong>Computer Engineer</strong> based in Madrid, Spain. Passionate about innovation, business-driven solutions, and digital transformation strategy.`,
     'hero.mail': 'Email',
     'social.github': 'GitHub',
     'social.linkedin': 'LinkedIn',
     'experience.title': 'Experience',
     'projects.title': 'Projects',
     'about.title': 'About me',
-    'about.bio': `<p>My name is Juan Miguel. I am a <strong>technology consultant and Computer Science Engineer</strong> with experience in <strong>cybersecurity, intelligent agents, and microservices</strong>. My journey in technology started with simple Python scripts, which sparked my passion for problem-solving and innovation. Today, I focus on designing and implementing scalable, efficient solutions that align with business and technical objectives.</p> <p>Throughout my career, I have contributed to <strong>critical infrastructure projects</strong>, ensuring secure software development practices and designing architectures that balance performance and security. Additionally, I have participated in initiatives focused on <strong>system optimization and workflow automation</strong>, helping organizations enhance efficiency and scalability.</p> <p>Beyond my professional experience, I actively engage in technology events to exchange insights and stay updated on industry advancements. My main goal is to <strong>bridge the gap between technology and business needs</strong>, helping organizations implement secure and scalable solutions that drive long-term success.</p>`,
+    'about.bio': `<p>My name is Juan Miguel. I am a <strong>technology consultant and Computer Engineer</strong> with experience in <strong>cybersecurity, intelligent agents, and microservices</strong>. My journey in technology started with simple Python scripts, which sparked my passion for problem-solving and innovation. Today, I focus on designing and implementing scalable, efficient solutions that align with business and technical objectives.</p> <p>Throughout my career, I have contributed to <strong>critical infrastructure projects</strong>, ensuring secure software development practices and designing architectures that balance performance and security. Additionally, I have participated in initiatives focused on <strong>system optimization and workflow automation</strong>, helping organizations enhance efficiency and scalability.</p> <p>Beyond my professional experience, I actively engage in technology events to exchange insights and stay updated on industry advancements. My main goal is to <strong>bridge the gap between technology and business needs</strong>, helping organizations implement secure and scalable solutions that drive long-term success.</p>`,
     'footer.rights': 'Most rights reserved',
     experience: [
       {
