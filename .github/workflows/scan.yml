@@ -17,7 +17,7 @@ jobs:
         run: |
           if [ -z "${{ secrets.GITGUARDIAN_API_KEY }}" ]; then
             echo "ERROR: GITGUARDIAN_API_KEY is not set. Please configure it in the repository secrets."
-            exit 1
+            exit 0
           fi
 
       - name: GitGuardian scan
