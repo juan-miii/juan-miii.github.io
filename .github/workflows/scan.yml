@@ -13,12 +13,6 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0 # fetch all history so multiple commits can be scanned
-      - name: Check if GitGuardian API Key is set
-        run: |
-          if [ -z "${{ secrets.GITGUARDIAN_API_KEY }}" ]; then
-            echo "ERROR: GITGUARDIAN_API_KEY is not set. Please configure it in the repository secrets."
-            exit 0
-          fi
 
       - name: GitGuardian scan
         uses: GitGuardian/ggshield-action@455483042671cc73b40d0e753baddffef7309a1f
