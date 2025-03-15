@@ -66,8 +66,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  '@babel/runtime@7.26.7':
-    resolution: {integrity: sha512-AOPI3D+a8dXnja+iwsUqGRjr1BbZIe771sXdapOtYI531gSqpi92vXivKcq2asu/DFpdl1ceFAKZyRzK2PCVcQ==}
+  '@babel/runtime@7.26.10':
+    resolution: {integrity: sha512-2WJMeRQPHKSPemqk/awGrAiuFfzBmOIPXKizAsVhWH9YJqLZ0H+HS4c8loHGgW6utJ3E/ejXQUsiGaQy2NZ9Fw==}
     engines: {node: '>=6.9.0'}
 
   '@babel/types@7.26.10':
@@ -2040,7 +2040,7 @@ snapshots:
     dependencies:
       '@babel/types': 7.26.10
 
-  '@babel/runtime@7.26.7':
+  '@babel/runtime@7.26.10':
     dependencies:
       regenerator-runtime: 0.14.1
 
@@ -3009,7 +3009,7 @@ snapshots:
 
   i18next-browser-languagedetector@7.2.2:
     dependencies:
-      '@babel/runtime': 7.26.7
+      '@babel/runtime': 7.26.10
 
   i18next-fs-backend@2.6.0: {}
 
@@ -3021,7 +3021,7 @@ snapshots:
 
   i18next@22.5.1:
     dependencies:
-      '@babel/runtime': 7.26.7
+      '@babel/runtime': 7.26.10
 
   import-meta-resolve@4.1.0: {}
 
