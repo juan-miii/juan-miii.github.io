@@ -12,8 +12,8 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2(astro@5.13.4(@types/node@24.3.0)(jiti@2.4.2)(rollup@4.49.0)(typescript@5.7.2)(yaml@2.7.0))(tailwindcss@3.4.17)
       '@fontsource/albert-sans':
-        specifier: ^5.2.6
-        version: 5.2.6
+        specifier: ^5.2.8
+        version: 5.2.8
       astro:
         specifier: ^5.13.4
         version: 5.13.4(@types/node@24.3.0)(jiti@2.4.2)(rollup@4.49.0)(typescript@5.7.2)(yaml@2.7.0)
@@ -248,8 +248,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@fontsource/albert-sans@5.2.6':
-    resolution: {integrity: sha512-Cb4NdQL4biLuRmTXHoz/3EuWvaUsQPUGKimxFNZaqNGdRB4J0H7VnJ9z0m/HiilfQ5mCp2dU5xV0qN34N5aROQ==}
+  '@fontsource/albert-sans@5.2.8':
+    resolution: {integrity: sha512-DCBojiRL/lxTC+fQPwg2eoszTo4dX3uH6iWmpsZ0ytn8rGfhUNl5QJjZNEVQmbZgeRRDZqc5iaPTl1+9AxU2Lg==}
 
   '@img/sharp-darwin-arm64@0.33.5':
     resolution: {integrity: sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==}
@@ -2229,7 +2229,7 @@ snapshots:
   '@esbuild/win32-x64@0.25.9':
     optional: true
 
-  '@fontsource/albert-sans@5.2.6': {}
+  '@fontsource/albert-sans@5.2.8': {}
 
   '@img/sharp-darwin-arm64@0.33.5':
     optionalDependencies:
