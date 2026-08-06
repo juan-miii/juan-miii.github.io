@@ -1,5 +1,7 @@
 # Personal Portfolio 🚀
 
+[![GitHub Pages](https://github.com/juan-miii/juan-miii.github.io/actions/workflows/page.yml/badge.svg)](https://github.com/juan-miii/juan-miii.github.io/actions/workflows/page.yml)
+
 Welcome to my **personal portfolio**, built with modern web technologies to showcase my work and projects.
 
 ## Tech Stack
