@@ -24,9 +24,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/tailwind": "^6.0.2",
     "@fontsource/albert-sans": "^5.3.0",
-    "astro": "^7.1.6",
-    "tailwindcss": "^3.4.17"
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.2.9",
+    "tailwindcss": "^4.3.3"
   }
 }
