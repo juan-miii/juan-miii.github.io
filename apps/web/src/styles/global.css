@@ -1,0 +1,5 @@
+/* apps/web/src/styles/globals.css */
+
+@import "@portfolio/brand/styles/tokens.css";
+@import "@portfolio/brand/styles/base.css";
+@import "@portfolio/brand/styles/icons.css";

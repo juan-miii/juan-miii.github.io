@@ -1,0 +1,63 @@
+{
+	"id": "home",
+	"locale": "es",
+	"title": "Ciberseguridad, tecnología e ingeniería.",
+	"description": "Portfolio profesional en construcción.",
+	"action": {
+		"label": "Siguiente sección",
+		"href": "#siguiente"
+	},
+	"notFound": {
+		"title": "Esta página no existe.",
+		"description": "Puedes volver al inicio para continuar.",
+		"backLabel": "Volver al inicio"
+	},
+	"navigation": [
+		{
+			"label": "Experiencia",
+			"href": "#experience"
+		},
+		{
+			"label": "Proyectos",
+			"href": "#projects"
+		},
+		{
+			"label": "Sobre mí",
+			"href": "#about"
+		},
+		{
+			"label": "Contacto",
+			"href": "mailto:tu-correo@ejemplo.com"
+		}
+	],
+	"hero": {
+		"badge": "Disponible para colaborar",
+		"title": "Ciberseguridad, tecnología e ingeniería.",
+		"bio": "Texto provisional de presentación profesional.",
+		"links": [
+			{
+				"label": "Correo",
+				"href": "mailto:tu-correo@ejemplo.com"
+			},
+			{
+				"label": "GitHub",
+				"href": "https://github.com/juan-miii"
+			}
+		]
+	},
+	"footer": {
+		"owner": "juan-miii",
+		"ownerUrl": "https://github.com/juan-miii",
+		"rights": "Todos los derechos reservados.",
+		"links": [
+			{
+				"label": "Sobre mí",
+				"href": "#about"
+			},
+			{
+				"label": "Contacto",
+				"href": "mailto:tu-correo@ejemplo.com"
+			}
+		]
+	}
+}

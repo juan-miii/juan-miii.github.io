@@ -1,0 +1,28 @@
+{
+	"name": "portfolio-env",
+	"features": {
+		"ghcr.io/devcontainers-extra/features/mise:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": []
+		}
+	},
+	"mounts": [
+		{
+			"source": "mise-data-volume",
+			"target": "/mnt/mise-data",
+			"type": "volume"
+		}
+	],
+	"containerEnv": {
+		"MISE_DATA_DIR": "/mnt/mise-data"
+	},
+	"remoteEnv": {
+		"PATH": "/mnt/mise-data/shims:${containerEnv:PATH}"
+	},
+	"remoteUser": "vscode",
+	"containerUser": "vscode",
+	"postCreateCommand": ".devcontainer/scripts/postCreate.sh",
+	"postStartCommand": ".devcontainer/scripts/postStart.sh"
+}

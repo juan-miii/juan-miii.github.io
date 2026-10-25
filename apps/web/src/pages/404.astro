@@ -1,0 +1,23 @@
+---
+import ActionLink from "@portfolio/ui/action-link";
+import { getEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const entry = await getEntry("pages", "home");
+
+if (!entry) {
+	throw new Error("No existe el contenido de la página 404.");
+}
+
+const { notFound } = entry.data;
+---
+
+<BaseLayout title={notFound.title} description={notFound.description}>
+  <h1>{notFound.title}</h1>
+  <p>{notFound.description}</p>
+
+  <ActionLink
+    href={import.meta.env.BASE_URL}
+    label={notFound.backLabel}
+  />
+</BaseLayout>

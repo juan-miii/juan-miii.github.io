@@ -1,0 +1,36 @@
+/* packages/brand/src/styles/tokens.css */
+
+:root {
+	color-scheme: light dark;
+
+	/* Superficies */
+	--color-bg: light-dark(#f6f5f1, #161715);
+	--color-surface: light-dark(#fbfaf7, #1c1d1a);
+	--color-border: light-dark(#d8d5cd, #33352f);
+
+	/* Texto */
+	--color-text: light-dark(#22261f, #f0f2ea);
+	--color-text-muted: light-dark(#6d7168, #a2a69c);
+
+	/* Acento */
+	--color-accent: light-dark(#285b3c, #a0d3ac);
+
+	/* Tipografía */
+	--font-body: system-ui, sans-serif;
+	--font-display: system-ui, sans-serif;
+
+	/* Escala */
+	--text-body: 1.125rem;
+	--text-display: clamp(2.5rem, 7vw, 6rem);
+
+	/* Espacio */
+	--space-2: 0.5rem;
+	--space-4: 1rem;
+	--space-6: 1.5rem;
+	--space-12: 3rem;
+
+	/* Movimiento */
+	--motion-fast: 180ms;
+	--motion-scene: 420ms;
+	--motion-easing: cubic-bezier(0.16, 1, 0.3, 1);
+}

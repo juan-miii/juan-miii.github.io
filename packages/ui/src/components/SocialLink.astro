@@ -1,0 +1,59 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = Omit<HTMLAttributes<"a">, "href"> & {
+  href: string;
+};
+
+const { href, class: className, ...attributes } = Astro.props;
+---
+
+<a
+  {...attributes}
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={["social-link", className]}
+>
+  <slot />
+</a>
+
+<style>
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+
+    max-width: fit-content;
+    padding: var(--space-2) var(--space-4);
+
+    color: var(--color-text);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+
+    font-size: var(--text-sm);
+    text-decoration: none;
+
+    transition:
+      color var(--motion-fast) var(--motion-easing),
+      background-color var(--motion-fast) var(--motion-easing),
+      border-color var(--motion-fast) var(--motion-easing);
+  }
+
+  .social-link:hover {
+    color: var(--color-text-inverse);
+    background-color: var(--color-surface-inverse);
+    border-color: var(--color-surface-inverse);
+  }
+
+  .social-link:active {
+    background-color: var(--color-surface-active);
+  }
+
+  .social-link:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+</style>

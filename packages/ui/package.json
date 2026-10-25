@@ -1,0 +1,22 @@
+{
+	"name": "@portfolio/ui",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+  "exports": {
+  },
+	"scripts": {
+		"check": "astro check"
+	},
+	"dependencies": {
+		"@portfolio/brand": "workspace:*"
+	},
+	"peerDependencies": {
+		"astro": "catalog:"
+	},
+	"devDependencies": {
+		"@astrojs/check": "catalog:",
+		"astro": "catalog:",
+		"typescript": "catalog:"
+	}
+}

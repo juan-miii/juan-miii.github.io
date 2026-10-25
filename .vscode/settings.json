@@ -9,8 +9,15 @@
 	"editor.tabSize": 2,
 	"workbench.editor.customLabels.patterns": {
 		"**/types/**": "${filename}.${extname} - Types",
-		"**/pages/**": "${filename}.${extname} - Pages",
+		"**/pages/**": "${filename}.${extname} - Pages"
 	},
 	"editor.foldingImportsByDefault": true,
-	"editor.wordWrap": "on"
+	"editor.wordWrap": "on",
+	"json.schemaDownload.trustedDomains": {
+		"https://turborepo.dev/schema.json": true,
+		"https://biomejs.dev/": true
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	}
 }

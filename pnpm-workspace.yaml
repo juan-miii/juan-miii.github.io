@@ -1,3 +1,27 @@
-allowBuilds:
-  esbuild: false
-  sharp: false
+packages:
+  - apps/*
+  - packages/*
+
+saveExact: true
+pmOnFail: error
+strictDepBuilds: true
+
+catalog:
+  astro: 7.4.2
+  typescript: 6.0.3
+  turbo: 2.11.10
+  "@astrojs/check": 0.9.12
+  zod: 4.6.7
+  "@biomejs/biome": 2.6.3
+minimumReleaseAgeExclude:
+  - "@biomejs/biome@2.6.3"
+  - "@biomejs/cli-android-arm64@2.6.3"
+  - "@biomejs/cli-android-x64@2.6.3"
+  - "@biomejs/cli-darwin-arm64@2.6.3"
+  - "@biomejs/cli-darwin-x64@2.6.3"
+  - "@biomejs/cli-linux-arm64-musl@2.6.3"
+  - "@biomejs/cli-linux-arm64@2.6.3"
+  - "@biomejs/cli-linux-x64-musl@2.6.3"
+  - "@biomejs/cli-linux-x64@2.6.3"
+  - "@biomejs/cli-win32-arm64@2.6.3"
+  - "@biomejs/cli-win32-x64@2.6.3"

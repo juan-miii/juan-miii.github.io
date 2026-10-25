@@ -1,0 +1,22 @@
+{
+	"name": "@portfolio/web",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"check": "astro check"
+	},
+	"dependencies": {
+		"@portfolio/brand": "workspace:*",
+		"@portfolio/ui": "workspace:*",
+		"astro": "catalog:",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@astrojs/check": "catalog:",
+		"typescript": "catalog:"
+	}
+}
