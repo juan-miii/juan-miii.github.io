@@ -1,0 +1,11 @@
+{
+	"name": "@portfolio/brand",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		"./styles/base.css": "./src/styles/base.css",
+		"./styles/tokens.css": "./src/styles/tokens.css",
+		"./styles/icons.css": "./src/styles/icons.css"
+	}
+}

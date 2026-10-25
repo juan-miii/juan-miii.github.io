@@ -1,0 +1,63 @@
+#
+# https://help.github.com/articles/dealing-with-line-endings/
+#
+
+# Default behavior
+*               	text=auto eol=lf
+
+# Shell and Unix scripts shuold use lf
+*.sh              text eol=lf
+
+# Web source
+*.astro           text
+*.html            text diff=html
+*.css             text diff=css
+*.scss            text diff=css
+*.js              text
+*.mjs             text
+*.cjs             text
+*.ts              text
+*.tsx             text
+*.jsx             text
+
+# Data and configuration
+*.json          	text
+*.jsonc           text
+*.toml            text
+*.yaml            text
+*.yml             text
+*.md              text diff=markdown
+*.mdx             text diff=markdown
+*.txt             text
+
+# SVG treated as components
+*.svg             text
+
+# Binary assets
+*.png             binary
+*.jpg             binary
+*.jpeg            binary
+*.gif             binary
+*.webp            binary
+*.avif            binary
+*.ico             binary
+*.pdf             binary
+*.woff            binary
+*.woff2           binary
+*.ttf             binary
+*.otf             binary
+*.eot             binary
+
+# Git and editor configuration
+.gitattributes    text
+.gitignore        text
+.editorconfig     text
+
+# Fix syntax highlighting on GitHub to allow comments
+.vscode/*.json		linguist-language=JSON-with-Comments
+devcontainer.json	linguist-language=JSON-with-Comments
+
+# Exclude from GitHub statistics
+.devcontainer/**  linguist-generated
+pnpm-lock.yaml    linguist-generated
+.config/mise.lock linguist-generated

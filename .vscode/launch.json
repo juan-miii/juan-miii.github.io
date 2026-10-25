@@ -1,11 +1,47 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "command": "./node_modules/.bin/astro dev",
-      "name": "Development server",
-      "request": "launch",
-      "type": "node-terminal"
-    }
-  ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Web: dev",
+			"type": "node-terminal",
+			"request": "launch",
+			"command": "pnpm --filter @portfolio/web dev",
+			"cwd": "${workspaceFolder}"
+		},
+		{
+			"name": "Web: preview",
+			"type": "node-terminal",
+			"request": "launch",
+			"command": "pnpm --filter @portfolio/web preview",
+			"cwd": "${workspaceFolder}"
+		},
+		{
+			"name": "Web: build",
+			"type": "node-terminal",
+			"request": "launch",
+			"command": "pnpm --filter @portfolio/web build",
+			"cwd": "${workspaceFolder}"
+		},
+		{
+			"name": "Monorepo: dev",
+			"type": "node-terminal",
+			"request": "launch",
+			"command": "pnpm dev",
+			"cwd": "${workspaceFolder}"
+		},
+		{
+			"name": "Monorepo: build",
+			"type": "node-terminal",
+			"request": "launch",
+			"command": "pnpm build",
+			"cwd": "${workspaceFolder}"
+		},
+		{
+			"name": "Monorepo: check",
+			"type": "node-terminal",
+			"request": "launch",
+			"command": "pnpm check",
+			"cwd": "${workspaceFolder}"
+		}
+	]
 }

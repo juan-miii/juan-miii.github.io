@@ -1,0 +1,20 @@
+{
+	"$schema": "https://turborepo.dev/schema.json",
+	"globalDependencies": ["mise.toml", "mise.lock"],
+	"tasks": {
+		"transit": {
+			"dependsOn": ["^transit"]
+		},
+		"dev": {
+			"cache": false,
+			"persistent": true
+		},
+		"check": {
+			"dependsOn": ["transit"]
+		},
+		"build": {
+			"dependsOn": ["^build", "transit"],
+			"outputs": ["dist/**"]
+		}
+	}
+}

@@ -1,0 +1,28 @@
+/* packages/brand/src/styles/icons.css */
+
+:root {
+  --icon-size-sm: 1rem;
+  --icon-size-md: 1.25rem;
+  --icon-size-lg: 1.5rem;
+}
+
+.icon[data-size="sm"] {
+  inline-size: var(--icon-size-sm);
+  block-size: var(--icon-size-sm);
+}
+
+.icon[data-size="md"] {
+  inline-size: var(--icon-size-md);
+  block-size: var(--icon-size-md);
+}
+
+.icon[data-size="lg"] {
+  inline-size: var(--icon-size-lg);
+  block-size: var(--icon-size-lg);
+}
+
+.icon {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
