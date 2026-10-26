@@ -2,21 +2,21 @@
 // The Astro adapter calls boot() once; there are no client-side page swaps.
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { initScroll, startScroll, stopScroll } from "./scroll";
-import { initReveals } from "./reveal";
-import { initCursor, initMagnetic } from "./interactions";
-import { runLoader } from "./loader";
 import { prefersReducedMotion } from "./env";
+import { initMagnetic } from "./interactions";
+import { runLoader } from "./loader";
+import { initReveals } from "./reveal";
+import { initScroll, startScroll, stopScroll } from "./scroll";
 
+export { ease, isMobile, isTouch, prefersReducedMotion } from "./env";
+export { setLoaderExit, setLoaderFormat } from "./loader";
 export {
 	onScroll,
 	scrollState,
 	scrollToTarget,
-	stopScroll,
 	startScroll,
+	stopScroll
 } from "./scroll";
-export { setLoaderFormat, setLoaderExit } from "./loader";
-export { ease, isTouch, isMobile, prefersReducedMotion } from "./env";
 
 export type PageFn = (page: {
 	intro: gsap.core.Timeline;
