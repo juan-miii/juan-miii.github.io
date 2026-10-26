@@ -16,6 +16,7 @@ interface Props {
 	github: string;
 	location: { city: string; country: string };
 	footer: { note: string; colophon: string; rights: string };
+	homeHref: string;
 }
 
 const {
@@ -27,6 +28,7 @@ const {
 	github,
 	location,
 	footer,
+	homeHref,
 } = Astro.props;
 const year = new Date().getFullYear();
 ---
@@ -35,7 +37,7 @@ const year = new Date().getFullYear();
 	<div class="shell">
 		<div class="footer__top">
 			<span class="mono">Fin de la señal / {year}</span>
-			<a class="footer__back" href="/">
+			<a class="footer__back" href={homeHref}>
 				<span>Volver al inicio</span>
 				<Icon name="tabler:arrow-up-right" aria-hidden="true" />
 			</a>
@@ -52,7 +54,7 @@ const year = new Date().getFullYear();
 				<p class="footer__colophon">{footer.colophon}</p>
 			</div>
 
-			<nav class="footer__nav" aria-label="Navegación del pie">
+			<nav class="footer__nav" aria-label="Navegación del pie" data-section-nav>
 				<span class="mono footer__label">Mapa</span>
 				<ul>
 					{
@@ -186,8 +188,13 @@ const year = new Date().getFullYear();
 	}
 
 	.footer__nav a:hover,
-	.footer__nav a:focus-visible {
+	.footer__nav a:focus-visible,
+	.footer__nav a.is-active {
 		background-size: 100% 1px;
+	}
+
+	.footer__nav a.is-active {
+		color: var(--c-accent-dark);
 	}
 
 	.footer__index {

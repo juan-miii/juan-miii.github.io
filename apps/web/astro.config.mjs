@@ -7,10 +7,6 @@ export default defineConfig({
 	base: "",
 	output: "static",
 	trailingSlash: "always",
-	prefetch: {
-		prefetchAll: true,
-		defaultStrategy: "hover",
-	},
 	build: {
 		inlineStylesheets: "auto",
 	},
@@ -22,6 +18,7 @@ export default defineConfig({
 					"arrow-up-right",
 					"arrow-right",
 					"x",
+					"plus",
 					"mail",
 					"shield-check",
 					"terminal-2",

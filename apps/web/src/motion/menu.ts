@@ -1,5 +1,5 @@
-// Accessible mobile menu. One delegated listener survives Astro page swaps; the
-// overlay markup is looked up at open time.
+// Accessible mobile menu. One delegated listener is wired once against the
+// static document; the overlay markup is looked up at open time.
 import { gsap } from "gsap";
 import { ease, prefersReducedMotion, startScroll, stopScroll } from "../engine";
 
@@ -122,10 +122,6 @@ function closeMenu({ instant = false } = {}) {
 		.to(sheet, { yPercent: 100, duration: 0.6, ease: ease.inOut }, 0.1);
 }
 
-function reset() {
-	if (open) closeMenu({ instant: true });
-}
-
 export function initMenu() {
 	if (wired) return;
 	wired = true;
@@ -181,6 +177,4 @@ export function initMenu() {
 	window.addEventListener("resize", () => {
 		if (open && window.innerWidth >= 1024) closeMenu({ instant: true });
 	});
-
-	document.addEventListener("astro:page-load", reset);
 }

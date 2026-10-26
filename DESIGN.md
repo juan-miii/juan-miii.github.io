@@ -12,20 +12,22 @@ owner wrote the request in English. Every visible string stays in Spanish.
 **Assets:** `apps/web/src/assets/profile.webp` (owner supplied), the repository itself.
 **Constraints:** Keep the Astro + pnpm + Turborepo + TypeScript monorepo, the content
 collections, the component package split and the deployment workflow already in the repo.
-Use Tabler for interface icons and Simple Icons for technology marks.
+Keep everything on one page: profile, approach, work, capabilities, experience and contact.
+Project detail opens as a sheet, not as a separate route. Use Tabler for interface icons and
+Simple Icons for technology marks.
 
 ### Assumptions (replace with real facts when available)
 
 - Madrid is the working location (carried over from the previous `home.json` metadata).
 - The email and GitHub profile in the previous content are the public contact details.
-- Accenture consulting internship began in 2024 and is current (previous content says
-  "Actualmente").
+- Accenture consulting internship began in 2024 to 2025.
+- PwC consulting associate since 2025 (Business Security Solutions division)
 - The independent practice ran 2024 to 2025 (previous content).
 - The two projects are the two real engineering outcomes visible in this repository: the
   content-driven site and the verifiable delivery chain. No client names, awards, metrics or
   testimonials are invented.
 - "Available for new projects" is inferred from the existing badge. Remove it if it is not true.
-- The supplied portrait is Juan Miguel. Replace it if it is not the intended image.
+- The supplied portrait is Juan Miguel.
 
 ## Concept
 
@@ -44,8 +46,8 @@ Screenshot:  Giant stepped name, a red node beside it, a hairline trace entering
 ```
 
 The concept survives the whole site: section labels are nodes, project rows are ports, the
-case-study sections are branches, the page transition is a signal sweep and the 404 is a
-disconnected endpoint.
+project sheets are branches that open from a port, the dark contact field is the endpoint and
+the 404 is a disconnected endpoint. Everything runs on one page, so the trace never restarts.
 
 ### Three concepts considered
 
@@ -72,7 +74,7 @@ restraint is kept as a detail: indices, coordinates, rules and tabular figures.
 | Muted | `#62615B` | Secondary text. 5.49:1 on ground. |
 | Line | `rgb(20 20 19 / 14%)` | Hairlines, grid, inactive trace. |
 | Accent | `#D93A2B` | The signal: nodes, live trace, large type, focus. |
-| Curtain | `#141413` | Page transition and the closing field. |
+| Field | `#141413` | The closing contact/footer field and the sheet scrim. |
 
 Small accent text uses `#B72C20` on paper (5.47:1); on ink it uses `#FF7A6B` (7.24:1).
 `#D93A2B` is reserved for graphics and large text where the 3:1 large-text threshold applies.
@@ -111,15 +113,15 @@ HOME
 │                                                      │
 │ availability                         scroll cue      │
 ├──────────────────────────────────────────────────────┤
-│ 01 Enfoque  │ statement across 7 columns             │
+│ 01 Enfoque  │ statement + three notes + four steps    │
 ├──────────────────────────────────────────────────────┤
-│ 02 Trabajo  │ title + 01/02 index rows, full width    │
+│ 02 Trabajo  │ title + note + 01/02 project ports      │
 ├──────────────────────────────────────────────────────┤
-│ 03 Capacidades │ 2x2 rule table + stack strip         │
+│ 03 Capacidades │ 2x2 rule table + toolbox stack       │
 ├──────────────────────────────────────────────────────┤
-│ 04 Trayectoria │ 2-row timeline + link                │
+│ 04 Trayectoria │ ruled roles timeline                 │
 ├──────────────────────────────────────────────────────┤
-│ 05 Perfil   │ paragraph + portrait + link            │
+│ 05 Perfil   │ long bio + details + portrait + rules   │
 ├──────────────────────────────────────────────────────┤
 │ 06 Contacto │ dark field, huge invitation, email     │
 │ footer      │ giant name, links, colophon             │
@@ -127,31 +129,30 @@ HOME
 ```
 
 ```
-PROJECT CASE
-┌ page hero: index / title / summary / meta grid ──────┐
+PROJECT SHEET (native <dialog>, no page change)
+┌ bar: ficha 01/02 / title / close ────────────────────┐
+│ hero: kicker / title / summary / links / meta grid    │
 │ schematic plate (procedural, not a fake screenshot)   │
 ├──────────────────────────────────────────────────────┤
-│ left index        │ case prose, h2 branches          │
+│ left index        │ case prose, h3 chapters         │
 │ (sticky)          │ context, decision, build, verify │
-│                   │ outcome, next project            │
+│                   │ outcome, next sheet              │
 └──────────────────────────────────────────────────────┘
 ```
 
 ```
-EXPERIENCE / ABOUT / CONTACT
-- Page hero with the same node label and 12-column start.
-- Experience: ruled table of roles, then four-step process diagram and stack marks.
-- About: portrait plate opposite a long bio, principles as a ruled list.
-- Contact: one large email action, what to include, real links.
-- 404: a trace ending in an open port, label "señal perdida".
+404 ONLY
+- A trace ending in an open port, label "señal perdida".
+- Hash links resolve back to the home instead of a missing section.
 ```
 
 ### Motion language
 
 - One clock: GSAP ticker drives Lenis, ScrollTrigger and the trace. No independent rAF loops.
-- `expo.out` for entrances, `expo.inOut` for transitions, `power3.out` for hover feedback.
+- `expo.out` for entrances, `expo.inOut` for sheets, `power3.out` for hover feedback.
 - Hover feedback 250 to 350 ms. Text reveals 0.9 to 1.2 s, stagger 0.04 to 0.08.
-- Page transition: a dark panel with a red leading edge sweeps up, 0.7 s out and 0.7 s in.
+- Project sheets rise from the bottom edge in 0.72 s and leave in 0.5 s. The native dialog owns
+  focus containment, Escape and the top layer; the page behind is locked, never swapped.
 - Loader: 0.6 s floor on touch and 0.8 s on desktop, capped at 1.5 s, about 2.4 s including the
   exit. Counter plus a red bus line; exits into the hero.
 - Primary targets answer in the motion verb: project rows invert and a branch reaches them;
@@ -159,8 +160,9 @@ EXPERIENCE / ABOUT / CONTACT
   only change colour.
 - The trace has an idle state: the pulse at the current scroll position breathes slowly. It
   pauses off screen and is static under reduced motion.
-- Under reduced motion: no Lenis, no reveals, no loader theatrics, no pulse. The trace is
-  drawn complete and all content is visible.
+- Under reduced motion: no Lenis, no reveals, no loader theatrics, no pulse, and sheets open
+  and close immediately without the rise. The trace is drawn complete and all content is
+  visible.
 
 ### The genericness test
 
@@ -176,14 +178,19 @@ orientation. The project visuals are diagrams, not invented screenshots.
 - Spanish, sentence case, no em or en dashes in visible text.
 - Specific verbs and nouns. No "elevate", "seamless", "passionate", "cutting-edge".
 - No invented clients, logos, awards or metrics.
-- Every page has a unique title and description. The 404 is written in the same voice.
+- The home and the 404 have unique titles and descriptions. Both are written in the same voice.
 
 ## Technical decisions
 
 - Keep the monorepo: `apps/web`, `packages/brand`, `packages/ui`, shared TypeScript config.
 - Keep Astro content collections and Zod validation. Add page fields and project metadata to
   the existing schemas instead of moving content into components.
-- Add GSAP and Lenis, the engine lifecycle in `apps/web/src/engine`, and a small Astro adapter.
+- Add GSAP and Lenis, the engine lifecycle in `apps/web/src/engine`, and a small Astro adapter
+  that boots once. There is no ClientRouter and no client-side page swap to keep in sync.
+- One page carries profile, approach, work, capabilities, experience and contact. The two
+  project sheets are native `<dialog>` elements mounted at body level, outside `main`, so no
+  stacking context can trap the overlay; `#proyecto-slug` is the no-JS target fallback. The
+  404 is the only other route.
 - Add `astro-icon` with Tabler (interface) and Simple Icons (technology marks). Only used icons
   ship.
 - Self-host Switzer and JetBrains Mono. Preload only the two fonts used above the fold.

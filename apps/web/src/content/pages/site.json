@@ -17,18 +17,20 @@
 		"note": "Respuesta en 48 horas laborables."
 	},
 	"navigation": [
-		{ "index": "02", "label": "Trabajo", "href": "/proyectos/" },
-		{ "index": "04", "label": "Trayectoria", "href": "/experiencia/" },
-		{ "index": "05", "label": "Perfil", "href": "/sobre-mi/" },
-		{ "index": "06", "label": "Contacto", "href": "/contacto/" }
+		{ "index": "01", "label": "Enfoque", "href": "#enfoque" },
+		{ "index": "02", "label": "Trabajo", "href": "#trabajo" },
+		{ "index": "03", "label": "Capacidades", "href": "#capacidades" },
+		{ "index": "04", "label": "Trayectoria", "href": "#trayectoria" },
+		{ "index": "05", "label": "Perfil", "href": "#perfil" },
+		{ "index": "06", "label": "Contacto", "href": "#contacto" }
 	],
 	"hero": {
 		"kicker": "Portafolio / 2026",
 		"firstName": "Juan",
 		"lastName": "Miguel",
 		"intro": "Diseño y construyo sistemas que se pueden explicar, operar y verificar. Trabajo entre la arquitectura, la seguridad y la entrega.",
-		"primaryAction": { "label": "Ver trabajo", "href": "/proyectos/" },
-		"secondaryAction": { "label": "Hablemos", "href": "/contacto/" },
+		"primaryAction": { "label": "Ver trabajo", "href": "#trabajo" },
+		"secondaryAction": { "label": "Hablemos", "href": "#contacto" },
 		"portraitCaption": "Madrid, ES",
 		"scrollCue": "Desplaza para recorrer la señal"
 	},
@@ -53,7 +55,8 @@
 		"index": "02",
 		"label": "Trabajo",
 		"title": "Dos sistemas. Una misma idea: que la entrega se pueda comprobar.",
-		"body": "No presento capturas de productos ajenos. Presento lo que he construido y las decisiones que sostienen cada pieza, incluidos sus límites."
+		"body": "No presento capturas de productos ajenos. Presento lo que he construido y las decisiones que sostienen cada pieza, incluidos sus límites. Cada ficha se abre aquí mismo, sin salir de la página.",
+		"note": "Solo aparece lo que puedo defender con el código, la cadena de entrega o la documentación. Sin clientes inventados, sin métricas de escaparate y sin capturas que no correspondan a un sistema real."
 	},
 	"capabilities": {
 		"index": "03",
@@ -101,23 +104,19 @@
 		"index": "04",
 		"label": "Trayectoria",
 		"title": "Consultoría, criterio y ejecución.",
-		"body": "Mi recorrido combina la consultoría tecnológica con la práctica independiente. En ambos contextos el trabajo empieza por entender el problema y termina con algo que se puede usar.",
-		"link": { "label": "Ver trayectoria completa", "href": "/experiencia/" }
+		"body": "Mi recorrido combina la consultoría tecnológica con la práctica independiente. En ambos contextos el trabajo empieza por entender el problema y termina con algo que se puede usar."
 	},
 	"method": {
-		"index": "02",
 		"label": "Método",
 		"title": "Cuatro pasos, ninguna caja negra.",
 		"body": "El proceso se adapta al tamaño del encargo, pero el orden no cambia. Primero se entiende el sistema, después se decide, se construye por incrementos y se verifica. La documentación acompaña cada paso."
 	},
 	"toolbox": {
-		"index": "03",
 		"label": "Herramientas",
 		"title": "Piezas que uso a diario.",
 		"body": "No elijo herramientas por novedad. Elijo las que puedo explicar, operar y sustituir sin dejar el sistema atado."
 	},
 	"principlesSection": {
-		"index": "02",
 		"label": "Criterios",
 		"title": "Tres reglas que no negocio.",
 		"body": "No son valores de una página corporativa. Son filtros que aplico cuando hay que elegir entre dos soluciones razonables."
@@ -126,7 +125,7 @@
 		"index": "05",
 		"label": "Perfil",
 		"title": "Pienso en sistemas. Trabajo con personas.",
-		"body": "Soy ingeniero informático y consultor de tecnología. Me interesa el momento en el que una idea deja de ser una presentación y se convierte en algo que funciona, se mantiene y se puede auditar. Mi trabajo se mueve entre la arquitectura, la seguridad aplicada y la automatización, con especial atención a la entrega.",
+		"body": "Me interesa el momento en el que una idea deja de ser una presentación y se convierte en algo que funciona, se mantiene y se puede auditar.",
 		"long": [
 			"Me formé como ingeniero informático y empecé a trabajar en consultoría tecnológica, donde aprendí a leer un problema antes de proponer una solución. Esa práctica sigue presente: la primera parte de cualquier encargo es entender el contexto, las restricciones y quién va a mantener lo que se construya.",
 			"Con el tiempo concentré el trabajo en tres territorios que se cruzan: la arquitectura de sistemas, la seguridad aplicada y la automatización de la entrega. No los trato como especialidades separadas. Un sistema que no se puede operar no es seguro, y una cadena de entrega que no se puede auditar no resuelve el problema de confianza.",
@@ -151,8 +150,7 @@
 				"title": "Entrega comprobable",
 				"description": "Pruebas, procedencia y documentación forman parte del producto, no del envoltorio."
 			}
-		],
-		"link": { "label": "Más sobre mí", "href": "/sobre-mi/" }
+		]
 	},
 	"contact": {
 		"index": "06",
@@ -194,36 +192,6 @@
 		"description": "La ruta que buscabas no forma parte del circuito. El resto sigue conectado.",
 		"backLabel": "Volver al inicio",
 		"backHref": "/"
-	},
-	"pages": {
-		"projects": {
-			"index": "02",
-			"label": "Trabajo",
-			"title": "Sistemas que se pueden revisar.",
-			"description": "Dos proyectos propios, sus decisiones y sus límites. Sin métricas inventadas ni clientes de escaparate.",
-			"meta": "02 proyectos / 2024-2026"
-		},
-		"experience": {
-			"index": "04",
-			"label": "Trayectoria",
-			"title": "Dónde he trabajado y qué he aprendido.",
-			"description": "Consultoría tecnológica y práctica independiente. Roles, contribuciones y la forma en que abordo un encargo.",
-			"meta": "Madrid / 2024-2026"
-		},
-		"about": {
-			"index": "05",
-			"label": "Perfil",
-			"title": "Ingeniero informático. Consultor. Artesano de sistemas.",
-			"description": "Quién soy, cómo trabajo y qué criterios sostienen las decisiones que tomo.",
-			"meta": "Madrid, España"
-		},
-		"contact": {
-			"index": "06",
-			"label": "Contacto",
-			"title": "Una conversación directa.",
-			"description": "Escríbeme con el contexto y el problema. Si puedo ayudar, te diré cómo. Si no, te diré hacia dónde mirar.",
-			"meta": "Respuesta en 48 h laborables"
-		}
 	},
 	"process": [
 		{

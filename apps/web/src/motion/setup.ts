@@ -4,6 +4,8 @@ import { gsap } from "gsap";
 import { onPage, setLoaderExit, setLoaderFormat } from "../engine";
 import { ease } from "../engine/env";
 import { initMenu } from "./menu";
+import { initProjectSheets } from "./projects";
+import { initSectionNav } from "./scrollspy";
 import { initSignal } from "./signal";
 
 export function setupMotion() {
@@ -23,8 +25,9 @@ export function setupMotion() {
 	});
 
 	initMenu();
+	initProjectSheets();
+	initSectionNav();
 
-	// The trace has to rebuild after every page swap.
 	onPage(() => initSignal());
 	onPage(() => initClock());
 }
