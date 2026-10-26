@@ -18,7 +18,8 @@ interface Props {
 	availability: { label: string; note: string };
 }
 
-const { contact, email, github, location, availability } = Astro.props;
+//const { contact, email, github, location, availability } = Astro.props;
+const { contact, email } = Astro.props;
 ---
 
 <section id="contacto" class="contact dark-field" aria-labelledby="contact-title">
@@ -33,6 +34,7 @@ const { contact, email, github, location, availability } = Astro.props;
 
 		<div class="contact__main">
 			<h2 id="contact-title" class="contact__title" data-split="lines">
+				<!--TODO: seguramente lo cambie por Contacto, más corto que Hablemos -->
 				{contact.title}
 			</h2>
 
@@ -50,7 +52,7 @@ const { contact, email, github, location, availability } = Astro.props;
 					<span class="contact__note">{contact.note}</span>
 				</div>
 
-				<div class="contact__guide">
+				<!-- <div class="contact__guide">
 					<span class="mono">Qué incluir</span>
 					<ol>
 						{
@@ -64,11 +66,11 @@ const { contact, email, github, location, availability } = Astro.props;
 							))
 						}
 					</ol>
-				</div>
+				</div> -->
 			</div>
 		</div>
 
-		<ul class="contact__topics">
+		<!-- <ul class="contact__topics">
 			{
 				contact.topics.map((topic, index) => (
 					<li>
@@ -77,9 +79,9 @@ const { contact, email, github, location, availability } = Astro.props;
 					</li>
 				))
 			}
-		</ul>
+		</ul> -->
 
-		<div class="contact__channels">
+		<!-- <div class="contact__channels">
 			<a href={github} rel="me noopener" target="_blank">
 				GitHub
 				<Icon name="tabler:arrow-up-right" aria-hidden="true" />
@@ -87,7 +89,7 @@ const { contact, email, github, location, availability } = Astro.props;
 			<span class="mono">{location.city}, {location.country}</span>
 			<span class="mono">{availability.label}</span>
 			<span class="mono">{availability.note}</span>
-		</div>
+		</div> -->
 	</div>
 </section>
 
@@ -128,6 +130,7 @@ const { contact, email, github, location, availability } = Astro.props;
 		padding-block: clamp(2.5rem, 6vw, 5rem);
 	}
 
+	/* TODO: hacer más pequeño */
 	.contact__title {
 		max-inline-size: 12ch;
 		font-size: clamp(4.2rem, 15vw, 14rem);

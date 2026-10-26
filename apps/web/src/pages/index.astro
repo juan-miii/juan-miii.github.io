@@ -1,6 +1,6 @@
 ---
-import { getCollection, getEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
+import { getCollection, getEntry } from "astro:content";
 
 import ContactSection from "../components/ContactSection.astro";
 import ExperienceList from "../components/ExperienceList.astro";
@@ -207,7 +207,7 @@ const capabilityIcons = [
 						{site.profile.long.map((paragraph) => <p>{paragraph}</p>)}
 					</div>
 
-					<dl class="profile__details" data-reveal="up">
+					<!-- <dl class="profile__details" data-reveal="up">
 						{
 							site.profile.details.map((detail) => (
 								<div>
@@ -216,9 +216,9 @@ const capabilityIcons = [
 								</div>
 							))
 						}
-					</dl>
+					</dl> -->
 
-					<div class="profile__principles-head">
+					<!-- <div class="profile__principles-head">
 						<span class="mono">{site.principlesSection.label}</span>
 						<h3>{site.principlesSection.title}</h3>
 						<p>{site.principlesSection.body}</p>
@@ -233,7 +233,7 @@ const capabilityIcons = [
 								</article>
 							))
 						}
-					</div>
+					</div> -->
 				</div>
 
 				<PortraitPlate
