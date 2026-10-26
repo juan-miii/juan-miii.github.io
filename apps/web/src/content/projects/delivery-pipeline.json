@@ -1,0 +1,28 @@
+{
+	"id": "delivery-pipeline",
+	"locale": "es",
+	"slug": "cadena-verificable",
+	"title": "Cadena de entrega verificable",
+	"summary": "Una cadena de integración y despliegue que produce artefactos con digest, los verifica antes de publicar y deja rastro de cada paso.",
+	"kind": "personal",
+	"sourceAvailability": "public",
+	"lifecycle": "active",
+	"publicationStatus": "published",
+	"featuredOrder": 2,
+	"year": "2026",
+	"period": "2025-2026",
+	"client": "Proyecto propio",
+	"role": "Arquitectura y automatización",
+	"statusLabel": "Operativa",
+	"technologies": ["GitHub Actions", "Node.js", "SHA-256", "Astro"],
+	"plate": "pipeline",
+	"links": [
+		{
+			"kind": "repository",
+			"label": "Código fuente",
+			"url": "https://github.com/juan-miii/juan-miii.github.io"
+		}
+	],
+	"cover": "/images/delivery-pipeline.svg",
+	"coverAlt": "Esquema de la cadena de verificación desde el commit hasta el despliegue."
+}

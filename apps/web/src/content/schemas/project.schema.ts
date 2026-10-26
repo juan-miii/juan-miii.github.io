@@ -11,9 +11,15 @@ export const projectSchema = z.object({
 	lifecycle: z.enum(["active", "completed", "archived"]),
 	publicationStatus: z.enum(["draft", "published"]),
 	featuredOrder: z.number().int().min(1).optional(),
+	year: z.string().min(1),
+	period: z.string().min(1),
+	client: z.string().min(1),
+	role: z.string().min(1),
+	statusLabel: z.string().min(1),
 	technologies: z.array(z.string().min(1)),
 	cover: z.string().optional(),
 	coverAlt: z.string().min(1).optional(),
+	plate: z.enum(["content", "pipeline"]),
 	links: z.array(
 		z.object({
 			kind: z.enum(["repository", "demo", "documentation", "other"]),

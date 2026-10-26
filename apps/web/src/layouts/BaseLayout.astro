@@ -1,105 +1,207 @@
 ---
+import { getEntry } from "astro:content";
+import { ClientRouter } from "astro:transitions";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Menu from "../components/Menu.astro";
+import SignalTrace from "../components/SignalTrace.astro";
 import "../styles/global.css";
 
 interface Props {
-	title: string;
+	title?: string;
 	description?: string;
 	canonical?: string;
 	ogImage?: string;
 	ogType?: string;
+	noindex?: boolean;
+	bodyClass?: string;
 }
 
-const { title, description, canonical, ogImage = "/images/og-default.svg", ogType = "website" } = Astro.props;
-const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site ?? "https://juan-miii.github.io").href;
+const entry = await getEntry("pages", "site");
+if (!entry) throw new Error("No existe el contenido del sitio.");
+const site = entry.data;
+
+const {
+	title = site.title,
+	description = site.description,
+	canonical,
+	ogImage = "/og.png",
+	ogType = "website",
+	noindex = false,
+	bodyClass,
+} = Astro.props;
+
+const origin = Astro.site ?? new URL("https://juan-miii.github.io");
+const canonicalUrl = canonical
+	? new URL(canonical, origin).href
+	: new URL(Astro.url.pathname, origin).href;
+const ogUrl = new URL(ogImage, origin).href;
+
+const person = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	name: site.name,
+	url: origin.href,
+	email: `mailto:${site.email}`,
+	jobTitle: site.role,
+	description: site.description,
+	sameAs: [site.github],
+	address: {
+		"@type": "PostalAddress",
+		addressLocality: site.location.city,
+		addressCountry: "ES",
+	},
+	knowsAbout: [
+		"Arquitectura de software",
+		"Seguridad aplicada",
+		"Automatización",
+		"Entrega continua",
+	],
+};
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
-		<script is:inline>
-			try {
-				const theme = localStorage.getItem("theme") || "system";
-				const dark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-				document.documentElement.style.colorScheme = dark ? "dark" : "light";
-				document.documentElement.classList.toggle("dark", dark);
-			} catch {}
-		</script>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		{description && <meta name="description" content={description} />}
-		<link rel="canonical" href={canonicalUrl} />
-		<meta property="og:title" content={title} />
-		{description && <meta property="og:description" content={description} />}
-		<meta property="og:url" content={canonicalUrl} />
-		<meta property="og:type" content={ogType} />
-		<meta property="og:image" content={new URL(ogImage, Astro.site ?? "https://juan-miii.github.io").href} />
-		<meta name="twitter:card" content="summary_large_image" />
+		<script is:inline>
+			document.documentElement.classList.add("js");
+			// Failsafe: if the engine never finishes booting, reveal the static page.
+			window.setTimeout(() => {
+				if (!document.documentElement.classList.contains("is-loaded")) {
+					document.documentElement.classList.remove("js");
+				}
+			}, 6000);
+		</script>
 		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="author" content={site.name} />
+		<meta name="color-scheme" content="light" />
+		<meta name="theme-color" content="#F2F1EC" />
+		<meta name="generator" content={Astro.generator} />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link
+			rel="preload"
+			href="/fonts/switzer-400-normal.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+		<link
+			rel="preload"
+			href="/fonts/switzer-500-normal.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+
+		<meta property="og:locale" content="es_ES" />
+		<meta property="og:site_name" content={site.name} />
+		<meta property="og:type" content={ogType} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={ogUrl} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={`${site.name}, ${site.role}`} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogUrl} />
+
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify(person)}
+		/>
+		<ClientRouter />
+		<noscript>
+			<style>
+				#loader,
+				#curtain,
+				#cursor {
+					display: none !important;
+				}
+				.js [data-reveal],
+				.js [data-split] {
+					visibility: visible !important;
+				}
+			</style>
+		</noscript>
 	</head>
-	<body>
+	<body class:list={["page", bodyClass]}>
 		<a class="skip-link" href="#main">Saltar al contenido</a>
-		<main id="main">
+
+		<div id="loader" class="loader" aria-hidden="true">
+			<div class="loader__top shell" data-loader-out>
+				<span class="mono">{site.name} / Portafolio</span>
+				<span class="mono">{site.location.city}, {site.location.country}</span>
+			</div>
+			<div class="loader__center shell" data-loader-out>
+				<p class="loader__mark" data-loader-mark>JM<span>.</span></p>
+				<div class="loader__row">
+					<span class="mono">Preparando la señal</span>
+					<span class="loader__count">
+						<span data-loader-count>000</span><span class="loader__of">/100</span>
+					</span>
+				</div>
+				<div class="loader__track" data-loader-rule>
+					<span data-loader-bar></span>
+				</div>
+			</div>
+			<div class="loader__foot shell" data-loader-out>
+				<span class="mono">Ingeniería / Seguridad / Entrega</span>
+				<span class="mono">{site.location.coordinates}</span>
+			</div>
+		</div>
+
+		<Header
+			name={site.name}
+			role={site.role}
+			navigation={site.navigation}
+			availability={site.availability}
+		/>
+
+		<main id="main" data-trace-scope tabindex="-1" data-inert-when-menu>
+			<SignalTrace />
 			<slot />
 		</main>
+
+		<Footer
+			name={site.name}
+			firstName={site.hero.firstName}
+			lastName={site.hero.lastName}
+			navigation={site.navigation}
+			email={site.email}
+			github={site.github}
+			location={site.location}
+			footer={site.footer}
+		/>
+
+		<Menu
+			name={site.name}
+			navigation={site.navigation}
+			email={site.email}
+			github={site.github}
+			location={site.location.city}
+		/>
+
+		<div id="curtain" class="curtain" aria-hidden="true">
+			<div class="curtain__panel"></div>
+		</div>
+
+		<div id="cursor" class="cursor" aria-hidden="true">
+			<span class="cursor__inner" data-cursor-label></span>
+		</div>
+
+		<script>
+			import { start } from "../engine/astro";
+			import { setupMotion } from "../motion/setup";
+
+			start(setupMotion);
+		</script>
 	</body>
 </html>
-
-<style is:global>
-	* {
-		box-sizing: border-box;
-	}
-
-	body {
-		margin: 0;
-		background: var(--color-bg);
-		color: var(--color-text);
-		font-family: var(--font-body);
-		font-size: var(--text-body);
-		line-height: 1.6;
-	}
-
-	@media (prefers-reduced-motion: no-preference) {
-		html {
-			scroll-behavior: smooth;
-		}
-	}
-
-	.skip-link {
-		position: absolute;
-		left: -9999px;
-	}
-
-	.skip-link:focus-visible {
-		position: fixed;
-		inset-block-start: var(--space-4);
-		inset-inline-start: var(--space-4);
-		z-index: 10;
-		padding: var(--space-2) var(--space-4);
-		background: var(--color-surface);
-		color: var(--color-text);
-		border: 1px solid var(--color-border);
-		border-radius: 999px;
-	}
-
-	main {
-		width: min(72rem, 100%);
-		margin-inline: auto;
-		padding: 0 clamp(var(--space-4), 4vw, var(--space-6)) var(--space-12);
-	}
-
-	h1 {
-		margin-block: 0 var(--space-3);
-		font-family: var(--font-display);
-		font-size: var(--text-display);
-		line-height: 1.05;
-		text-wrap: balance;
-	}
-
-	p {
-		max-width: 65ch;
-	}
-
-	section {
-		margin-block: var(--space-6);
-	}
-</style>

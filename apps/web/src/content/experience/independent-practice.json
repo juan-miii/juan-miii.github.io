@@ -1,0 +1,16 @@
+{
+	"id": "independent-practice",
+	"locale": "es",
+	"role": "Práctica independiente",
+	"organizationId": "independent",
+	"startDate": "2024",
+	"endDate": "2025",
+	"current": false,
+	"location": "Madrid",
+	"summary": "Diseño y construcción de sitios, automatizaciones y herramientas internas para proyectos propios y encargos puntuales.",
+	"contributions": [
+		"Arquitectura de aplicaciones web estáticas y monorepos",
+		"Automatización de flujos de construcción y publicación",
+		"Revisión de seguridad y documentación de decisiones"
+	]
+}

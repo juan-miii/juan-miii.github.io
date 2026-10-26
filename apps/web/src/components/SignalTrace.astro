@@ -1,0 +1,101 @@
+---
+// The signature trace. Markup only; src/motion/signal.ts draws it from real node
+// positions and the scroll clock.
+---
+
+<div id="signal-trace" aria-hidden="true">
+	<svg class="trace__svg" xmlns="http://www.w3.org/2000/svg">
+		<path class="trace__bus" data-trace-bus />
+		<g data-trace-branches></g>
+		<circle class="trace__pulse" data-trace-pulse cx="0" cy="0" r="3" />
+	</svg>
+</div>
+
+<style is:global>
+	#signal-trace {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		overflow: hidden;
+		pointer-events: none;
+	}
+
+	.trace__svg {
+		display: block;
+		overflow: visible;
+	}
+
+	.trace__bus {
+		fill: none;
+		stroke: var(--c-line-strong);
+		stroke-width: 1;
+		vector-effect: non-scaling-stroke;
+	}
+
+	.trace__branch {
+		fill: none;
+		stroke: var(--c-line-strong);
+		stroke-width: 1;
+		transition:
+			stroke-dashoffset 600ms var(--motion-easing),
+			stroke 300ms var(--motion-easing);
+	}
+
+	.trace__branch.is-live {
+		stroke: var(--c-accent);
+	}
+
+	.trace__port {
+		fill: var(--c-ground);
+		stroke: var(--c-line-strong);
+		stroke-width: 1;
+		transition:
+			fill 300ms var(--motion-easing),
+			stroke 300ms var(--motion-easing);
+	}
+
+	.trace__port.is-live {
+		fill: var(--c-accent);
+		stroke: var(--c-accent);
+	}
+
+	.trace__pulse {
+		fill: var(--c-accent);
+		opacity: 0;
+		transform-box: fill-box;
+		transform-origin: center;
+	}
+
+	.trace__pulse.is-live {
+		opacity: 1;
+		animation: trace-breathe 3.6s var(--motion-easing) infinite;
+	}
+
+	@keyframes trace-breathe {
+		0%,
+		100% {
+			opacity: 0.85;
+			transform: scale(1);
+		}
+		50% {
+			opacity: 0.3;
+			transform: scale(2.1);
+		}
+	}
+
+	@media (max-width: 899px) {
+		#signal-trace {
+			display: none;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.trace__pulse {
+			display: none;
+		}
+
+		.trace__branch {
+			transition: none;
+		}
+	}
+</style>

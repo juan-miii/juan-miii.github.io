@@ -1,123 +1,256 @@
 ---
-interface FooterLink {
+import { Icon } from "astro-icon/components";
+
+interface NavigationItem {
+	index: string;
 	label: string;
 	href: string;
 }
 
 interface Props {
-	owner: string;
-	ownerUrl?: string;
-	rights: string;
-	links: FooterLink[];
+	name: string;
+	firstName: string;
+	lastName: string;
+	navigation: NavigationItem[];
+	email: string;
+	github: string;
+	location: { city: string; country: string };
+	footer: { note: string; colophon: string; rights: string };
 }
 
-const { owner, rights, links } = Astro.props;
+const {
+	name,
+	firstName,
+	lastName,
+	navigation,
+	email,
+	github,
+	location,
+	footer,
+} = Astro.props;
 const year = new Date().getFullYear();
 ---
 
-<footer class="site-footer">
-	<div class="footer-inner">
-		<div class="footer-brand">
-			<a class="footer-logo" href="#hero">
-				<span class="footer-mark">JM</span>
-				<span class="footer-name">{owner}</span>
+<footer class="footer dark-field" data-inert-when-menu>
+	<div class="shell">
+		<div class="footer__top">
+			<span class="mono">Fin de la señal / {year}</span>
+			<a class="footer__back" href="/">
+				<span>Volver al inicio</span>
+				<Icon name="tabler:arrow-up-right" aria-hidden="true" />
 			</a>
-			<p class="footer-copy">© {year} {owner}. {rights}</p>
 		</div>
-		<nav class="footer-nav" aria-label="Enlaces del pie">
-			<ul class="footer-links">
-				{
-					links.map((link) => (
-						<li>
-							<a class="footer-link" href={link.href}>
-								{link.label}
-							</a>
-						</li>
-					))
-				}
-			</ul>
-		</nav>
+
+		<p class="footer__name" aria-hidden="true">
+			<span>{firstName}</span>
+			<span class="footer__name-second">{lastName}<span class="footer__dot">.</span></span>
+		</p>
+
+		<div class="footer__grid">
+			<div class="footer__about">
+				<p class="footer__note">{footer.note}</p>
+				<p class="footer__colophon">{footer.colophon}</p>
+			</div>
+
+			<nav class="footer__nav" aria-label="Navegación del pie">
+				<span class="mono footer__label">Mapa</span>
+				<ul>
+					{
+						navigation.map((item) => (
+							<li>
+								<a href={item.href}>
+									<span class="footer__index">{item.index}</span>
+									{item.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+
+			<div class="footer__contact">
+				<span class="mono footer__label">Contacto</span>
+				<ul>
+					<li><a href={`mailto:${email}`}>{email}</a></li>
+					<li>
+						<a href={github} rel="me noopener" target="_blank">GitHub</a>
+					</li>
+				</ul>
+				<p class="mono footer__place">
+					{location.city}, {location.country}
+				</p>
+			</div>
+		</div>
+
+		<div class="footer__bottom">
+			<span>© {year} {name}</span>
+			<span>{footer.rights}</span>
+			<span class="footer__built">Diseño y código propios</span>
+		</div>
 	</div>
 </footer>
 
 <style>
-	.site-footer {
-		border-top: 1px solid var(--color-border-subtle);
-		margin-top: var(--space-20);
+	.footer {
+		position: relative;
+		padding-block: clamp(3rem, 7vw, 6rem) 1.5rem;
+		overflow: hidden;
 	}
 
-	.footer-inner {
-		width: min(64rem, 100%);
-		margin-inline: auto;
+	.footer__top {
 		display: flex;
-		flex-direction: column;
-		gap: var(--space-6);
-		padding: var(--space-10) clamp(var(--space-4), 5vw, var(--space-6));
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding-block-end: 1rem;
+		border-block-end: 1px solid var(--c-line);
+		color: var(--c-muted);
 	}
 
-	@media (min-width: 640px) {
-		.footer-inner {
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-between;
+	.footer__back {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		min-block-size: 1.5rem;
+		padding-block: 0.15rem;
+		font-size: var(--t-s);
+		color: var(--c-paper);
+	}
+
+	.footer__back :global(svg) {
+		transition: transform var(--motion-base) var(--motion-easing);
+	}
+
+	.footer__back:hover :global(svg),
+	.footer__back:focus-visible :global(svg) {
+		transform: translate(2px, -2px);
+	}
+
+	.footer__name {
+		display: grid;
+		margin-block: clamp(1.8rem, 5vw, 4rem) clamp(2.5rem, 6vw, 5rem);
+		font-size: var(--t-mega);
+		font-weight: 500;
+		line-height: 0.8;
+		letter-spacing: -0.06em;
+		color: var(--c-paper);
+	}
+
+	.footer__name-second {
+		padding-inline-start: 0.32em;
+	}
+
+	.footer__dot {
+		color: var(--c-accent-dark);
+	}
+
+	.footer__grid {
+		display: grid;
+		gap: 2rem;
+		padding-block-end: clamp(2.5rem, 5vw, 4rem);
+	}
+
+	.footer__note {
+		max-inline-size: 22ch;
+		font-size: clamp(1.05rem, 1.45vw, 1.35rem);
+		color: var(--c-paper);
+	}
+
+	.footer__colophon {
+		max-inline-size: 34ch;
+		margin-block-start: 0.6rem;
+		color: var(--c-muted);
+		font-size: var(--t-s);
+	}
+
+	.footer__label {
+		display: block;
+		margin-block-end: 0.8rem;
+		color: var(--c-muted);
+	}
+
+	.footer__nav ul,
+	.footer__contact ul {
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	.footer__nav a {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0.5rem;
+		font-size: 1rem;
+		color: var(--c-paper);
+		background: linear-gradient(currentColor 0 0) left bottom / 0 1px no-repeat;
+		transition: background-size var(--motion-base) var(--motion-easing);
+	}
+
+	.footer__nav a:hover,
+	.footer__nav a:focus-visible {
+		background-size: 100% 1px;
+	}
+
+	.footer__index {
+		font-family: var(--f-mono);
+		font-size: 0.58rem;
+		color: var(--c-accent-dark);
+	}
+
+	.footer__contact a {
+		display: inline-flex;
+		align-items: center;
+		min-block-size: 1.5rem;
+		padding-block: 0.15rem;
+		font-size: var(--t-s);
+		color: var(--c-paper);
+		text-decoration: underline;
+		text-decoration-color: var(--c-line-strong);
+		text-underline-offset: 0.25em;
+		transition: text-decoration-color var(--motion-base) var(--motion-easing);
+	}
+
+	.footer__contact a:hover,
+	.footer__contact a:focus-visible {
+		text-decoration-color: var(--c-accent-dark);
+	}
+
+	.footer__place {
+		margin-block-start: 1rem;
+		color: var(--c-muted);
+	}
+
+	.footer__bottom {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1.5rem;
+		justify-content: space-between;
+		padding-block-start: 1.1rem;
+		border-block-start: 1px solid var(--c-line);
+		font-family: var(--f-mono);
+		font-size: 0.6rem;
+		letter-spacing: 0.045em;
+		text-transform: uppercase;
+		color: var(--c-muted);
+	}
+
+	.footer__built {
+		color: var(--c-paper);
+	}
+
+	@media (min-width: 720px) {
+		.footer__grid {
+			grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.7fr) minmax(0, 1fr);
+			gap: 2rem;
 		}
 	}
 
-	.footer-brand {
-		display: grid;
-		gap: var(--space-2);
-	}
+	@media (max-width: 479px) {
+		.footer__name {
+			font-size: clamp(4rem, 24vw, 8rem);
+		}
 
-	.footer-logo {
-		display: flex;
-		align-items: center;
-		gap: var(--space-2);
-		text-decoration: none;
-		color: var(--color-text);
-		font-weight: 600;
-	}
-
-	.footer-mark {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 1.75rem;
-		height: 1.75rem;
-		border-radius: var(--radius-lg);
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		font-size: var(--text-xs);
-	}
-
-	.footer-copy {
-		margin: 0;
-		color: var(--color-text-muted);
-		font-size: var(--text-sm);
-	}
-
-	.footer-links {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-2);
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
-
-	.footer-link {
-		display: inline-flex;
-		align-items: center;
-		padding: 0.375rem 0.75rem;
-		border-radius: var(--radius-full);
-		text-decoration: none;
-		color: var(--color-text-muted);
-		font-size: var(--text-sm);
-		transition: all var(--motion-fast) var(--motion-easing);
-	}
-
-	.footer-link:hover,
-	.footer-link:focus-visible {
-		color: var(--color-text);
-		background: color-mix(in srgb, var(--color-text) 4%, transparent);
+		.footer__bottom {
+			justify-content: flex-start;
+		}
 	}
 </style>

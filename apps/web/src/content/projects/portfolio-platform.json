@@ -2,21 +2,32 @@
 	"id": "portfolio-platform",
 	"locale": "es",
 	"slug": "plataforma-portfolio",
-	"title": "Plataforma personal de portfolio",
-	"summary": "Portfolio modular centrado en contenido, dise\u00f1o y entrega verificable.",
+	"title": "Plataforma de portfolio",
+	"summary": "Un sitio estático dirigido por contenido, con validación, pruebas de entrega y una cadena de publicación que se puede rastrear.",
 	"kind": "personal",
 	"sourceAvailability": "public",
 	"lifecycle": "active",
 	"publicationStatus": "published",
 	"featuredOrder": 1,
-	"technologies": ["astro", "typescript", "turborepo", "zod"],
+	"year": "2026",
+	"period": "2025-2026",
+	"client": "Proyecto propio",
+	"role": "Diseño y desarrollo",
+	"statusLabel": "En producción",
+	"technologies": ["Astro", "TypeScript", "pnpm", "Turborepo", "Zod"],
+	"plate": "content",
 	"links": [
 		{
 			"kind": "repository",
-			"label": "C\u00f3digo fuente",
+			"label": "Código fuente",
 			"url": "https://github.com/juan-miii/juan-miii.github.io"
+		},
+		{
+			"kind": "demo",
+			"label": "Sitio en vivo",
+			"url": "https://juan-miii.github.io"
 		}
 	],
 	"cover": "/images/portfolio-platform.svg",
-	"coverAlt": "Representaci\u00f3n visual del proyecto de portfolio."
+	"coverAlt": "Esquema del flujo de contenido, construcción y salida estática del portfolio."
 }

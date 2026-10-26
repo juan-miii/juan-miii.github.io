@@ -1,0 +1,70 @@
+---
+import { Image } from "astro:assets";
+import profile from "../assets/profile.webp";
+
+interface Props {
+	alt: string;
+	caption: string;
+	meta?: string;
+	eager?: boolean;
+}
+
+const { alt, caption, meta = "Retrato / 2026", eager = false } = Astro.props;
+---
+
+<figure class="portrait">
+	<div class="portrait__frame">
+		<Image
+			src={profile}
+			alt={alt}
+			width={720}
+			height={720}
+			format="webp"
+			quality={84}
+			loading={eager ? "eager" : "lazy"}
+			sizes="(min-width: 900px) 28rem, 100vw"
+		/>
+	</div>
+	<figcaption>
+		<span class="mono">{caption}</span>
+		<span class="mono">{meta}</span>
+	</figcaption>
+</figure>
+
+<style>
+	.portrait {
+		display: grid;
+		gap: 0.6rem;
+	}
+
+	.portrait__frame {
+		position: relative;
+		border: 1px solid var(--c-line);
+		padding: 0.5rem;
+		background: var(--c-surface, #e9e8e2);
+	}
+
+	.portrait__frame::after {
+		content: "";
+		position: absolute;
+		inset-block-end: 0.5rem;
+		inset-inline-end: 0.5rem;
+		inline-size: 0.55rem;
+		block-size: 0.55rem;
+		background: var(--c-accent);
+	}
+
+	.portrait :global(img) {
+		inline-size: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+		filter: grayscale(1) contrast(1.04);
+	}
+
+	.portrait figcaption {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		color: var(--c-muted);
+	}
+</style>

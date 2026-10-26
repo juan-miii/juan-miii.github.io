@@ -1,0 +1,378 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+import { Icon } from "astro-icon/components";
+
+import ProjectPlate from "../../components/ProjectPlate.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+	const projects = await getCollection("projects");
+	return projects
+		.filter((project) => project.data.publicationStatus === "published")
+		.sort(
+			(a, b) =>
+				(a.data.featuredOrder ?? 999) - (b.data.featuredOrder ?? 999),
+		)
+		.map((project) => ({
+			params: { slug: project.data.slug },
+			props: { project },
+		}));
+}
+
+const { project } = Astro.props;
+
+const entry = await getEntry("pages", "site");
+if (!entry) throw new Error("No existe el contenido del sitio.");
+const site = entry.data;
+
+const cases = await getCollection("cases");
+const caseEntry = cases.find(
+	(item) =>
+		item.data.projectId === project.data.id &&
+		item.data.publicationStatus === "published",
+);
+if (!caseEntry) throw new Error(`No existe el caso de ${project.data.id}.`);
+
+const { Content, headings } = await render(caseEntry);
+const chapters = headings.filter((heading) => heading.depth === 2);
+
+const projects = (await getCollection("projects"))
+	.filter((item) => item.data.publicationStatus === "published")
+	.sort(
+		(a, b) =>
+			(a.data.featuredOrder ?? 999) - (b.data.featuredOrder ?? 999),
+	);
+const current = projects.findIndex((item) => item.id === project.id);
+const next = projects[(current + 1) % projects.length];
+if (!next) throw new Error("No existe un proyecto siguiente.");
+
+const repository = project.data.links.find(
+	(link) => link.kind === "repository",
+);
+const demo = project.data.links.find((link) => link.kind === "demo");
+---
+
+<BaseLayout
+	title={`${project.data.title} / ${site.name}`}
+	description={project.data.summary}
+	ogType="article"
+>
+	<header class="case-hero">
+		<div class="shell">
+			<div class="case-hero__top">
+				<a class="case-hero__back" href="/proyectos/">
+					<Icon name="tabler:arrow-right" aria-hidden="true" />
+					<span class="mono">02 / Trabajo</span>
+				</a>
+				<span class="mono case-hero__status">{project.data.period} / {project.data.statusLabel}</span>
+			</div>
+
+			<div class="case-hero__main">
+				<div class="case-hero__intro">
+					<span class="mono case-hero__client">{project.data.client}</span>
+					<h1 class="case-hero__title" data-split="lines">{project.data.title}</h1>
+					<p class="case-hero__summary" data-reveal="up" data-delay="0.2">
+						{project.data.summary}
+					</p>
+				</div>
+
+				<dl class="case-hero__meta" data-reveal="fade" data-delay="0.3">
+					<div>
+						<dt class="mono">Rol</dt>
+						<dd>{project.data.role}</dd>
+					</div>
+					<div>
+						<dt class="mono">Periodo</dt>
+						<dd>{project.data.period}</dd>
+					</div>
+					<div>
+						<dt class="mono">Estado</dt>
+						<dd>{project.data.statusLabel}</dd>
+					</div>
+					<div>
+						<dt class="mono">Tecnologías</dt>
+						<dd>{project.data.technologies.join(", ")}</dd>
+					</div>
+				</dl>
+			</div>
+
+			<div class="case-hero__plate" data-reveal="clip">
+				<ProjectPlate
+					variant={project.data.plate}
+					title={project.data.coverAlt ?? project.data.title}
+					caption={`${project.data.title} / esquema`}
+					figure="01"
+				/>
+			</div>
+		</div>
+	</header>
+
+	<section class="case-body section" aria-label={`Caso de estudio: ${project.data.title}`}>
+		<div class="shell">
+			<div class="case-body__grid">
+				<aside class="case-index">
+					<div class="case-index__sticky">
+						<span class="node-label" data-trace-anchor>
+							<span class="node-label__index">03</span>
+							Lectura
+						</span>
+
+						<nav aria-label="Secciones del caso">
+							<ol>
+								{
+									chapters.map((chapter, index) => (
+										<li>
+											<a href={`#${chapter.slug}`}>
+												<span class="mono">{String(index + 1).padStart(2, "0")}</span>
+												{chapter.text}
+											</a>
+										</li>
+									))
+								}
+							</ol>
+						</nav>
+
+						<div class="case-index__links">
+							{repository && (
+								<a class="link-arrow" href={repository.url} target="_blank" rel="noopener">
+									{repository.label}
+									<Icon name="tabler:arrow-up-right" aria-hidden="true" />
+								</a>
+							)}
+							{demo && (
+								<a class="link-arrow" href={demo.url} target="_blank" rel="noopener">
+									{demo.label}
+									<Icon name="tabler:arrow-up-right" aria-hidden="true" />
+								</a>
+							)}
+						</div>
+
+						<p class="mono case-index__disclosure">
+							Divulgación / {caseEntry.data.disclosure}
+						</p>
+					</div>
+				</aside>
+
+				<div class="prose case-body__prose">
+					<Content />
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="next-case" aria-label="Siguiente proyecto">
+		<div class="shell">
+			<span class="mono next-case__label">Siguiente nodo</span>
+			<a class="next-case__link" href={`/proyectos/${next.data.slug}/`}>
+				<span>{next.data.title}</span>
+				<Icon name="tabler:arrow-up-right" aria-hidden="true" />
+			</a>
+			<span class="mono next-case__meta">{next.data.year} / {next.data.role}</span>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.case-hero {
+		padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(2.5rem, 5vw, 4rem);
+	}
+
+	.case-hero__top {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.6rem 1.5rem;
+		padding-block-end: 0.85rem;
+		border-block-end: 1px solid var(--c-line);
+		color: var(--c-muted);
+	}
+
+	.case-hero__back {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		min-block-size: 1.5rem;
+		padding-block: 0.25rem;
+		margin-block: -0.25rem;
+	}
+
+	.case-hero__back :global(svg) {
+		transform: rotate(180deg);
+		transition: transform var(--motion-base) var(--motion-easing);
+	}
+
+	.case-hero__back:hover :global(svg),
+	.case-hero__back:focus-visible :global(svg) {
+		transform: rotate(180deg) translateX(3px);
+	}
+
+	.case-hero__main {
+		display: grid;
+		gap: clamp(2rem, 5vw, 4rem);
+		padding-block: clamp(2.5rem, 6vw, 5rem);
+	}
+
+	.case-hero__intro {
+		display: grid;
+		gap: 1rem;
+		align-content: start;
+	}
+
+	.case-hero__client {
+		color: var(--c-accent-ink);
+	}
+
+	.case-hero__title {
+		font-size: var(--t-display);
+		font-weight: 500;
+		line-height: 0.9;
+		letter-spacing: -0.05em;
+		max-inline-size: 14ch;
+	}
+
+	.case-hero__summary {
+		max-inline-size: 48ch;
+		font-size: var(--t-m);
+		line-height: 1.45;
+		color: var(--c-muted);
+	}
+
+	.case-hero__meta {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1.2rem;
+		align-content: end;
+		padding-block-start: 1.2rem;
+		border-block-start: 1px solid var(--c-line);
+	}
+
+	.case-hero__meta dt {
+		margin-block-end: 0.3rem;
+		color: var(--c-muted);
+	}
+
+	.case-hero__meta dd {
+		font-size: var(--t-s);
+		line-height: 1.4;
+	}
+
+	.case-hero__plate {
+		padding-block-start: clamp(0.5rem, 2vw, 1.5rem);
+	}
+
+	.case-body__grid {
+		display: grid;
+		gap: clamp(2.5rem, 6vw, 5rem);
+	}
+
+	.case-index {
+		align-self: start;
+	}
+
+	.case-index__sticky {
+		display: grid;
+		gap: 1.2rem;
+	}
+
+	.case-index nav ol {
+		display: grid;
+		border-block-start: 1px solid var(--c-line);
+	}
+
+	.case-index nav li {
+		border-block-end: 1px solid var(--c-line);
+	}
+
+	.case-index nav a {
+		display: flex;
+		align-items: baseline;
+		gap: 0.6rem;
+		padding-block: 0.55rem;
+		font-size: var(--t-s);
+		color: var(--c-muted);
+		transition: color var(--motion-base) var(--motion-easing);
+	}
+
+	.case-index nav a:hover,
+	.case-index nav a:focus-visible {
+		color: var(--c-ink);
+	}
+
+	.case-index nav .mono {
+		color: var(--c-accent-ink);
+	}
+
+	.case-index__links {
+		display: grid;
+		gap: 0.5rem;
+		justify-items: start;
+	}
+
+	.case-index__disclosure {
+		color: var(--c-muted);
+	}
+
+	.next-case {
+		border-block-start: 1px solid var(--c-line);
+	}
+
+	.next-case .shell {
+		display: grid;
+		gap: 0.6rem;
+		padding-block: clamp(2rem, 4vw, 3.5rem);
+	}
+
+	.next-case__label {
+		color: var(--c-muted);
+	}
+
+	.next-case__link {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		font-size: clamp(1.8rem, 4.5vw, 4rem);
+		font-weight: 500;
+		line-height: 1;
+		letter-spacing: -0.045em;
+	}
+
+	.next-case__link :global(svg) {
+		flex-shrink: 0;
+		inline-size: clamp(1.5rem, 3vw, 2.5rem);
+		block-size: auto;
+		color: var(--c-accent);
+		transition: transform var(--motion-base) var(--motion-easing);
+	}
+
+	.next-case__link:hover :global(svg),
+	.next-case__link:focus-visible :global(svg) {
+		transform: translate(4px, -4px);
+	}
+
+	.next-case__meta {
+		color: var(--c-muted);
+	}
+
+	@media (min-width: 900px) {
+		.case-hero__main {
+			grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.7fr);
+			align-items: end;
+		}
+
+		.case-hero__meta {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.case-body__grid {
+			grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
+			gap: clamp(3rem, 7vw, 6rem);
+		}
+
+		.case-index__sticky {
+			position: sticky;
+			inset-block-start: calc(var(--header-h) + 2rem);
+		}
+	}
+</style>

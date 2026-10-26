@@ -1,98 +1,178 @@
 /* packages/brand/src/styles/tokens.css */
 
+/* Self-hosted type. Keep the woff2 files in apps/web/public/fonts. */
+@font-face {
+	font-family: "Switzer";
+	src: url("/fonts/switzer-400-normal.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Switzer";
+	src: url("/fonts/switzer-500-normal.woff2") format("woff2");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Switzer";
+	src: url("/fonts/switzer-600-normal.woff2") format("woff2");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "JetBrains Mono";
+	src: url("/fonts/jetbrains-mono-400-normal.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+		U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+		U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-family: "JetBrains Mono";
+	src: url("/fonts/jetbrains-mono-500-normal.woff2") format("woff2");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+	unicode-range:
+		U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+		U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+		U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
-	color-scheme: light dark;
+	color-scheme: light;
 
-	/* Superficies */
-	--color-bg: light-dark(#fafaf9, #0a0a0a);
-	--color-bg-gradient: light-dark(
-		radial-gradient(circle at top, #f5f5f4 0%, #fafaf9 40%, #f4f4f3 100%),
-		radial-gradient(circle at top, #171717 0%, #0a0a0a 40%, #000000 100%)
-	);
-	--color-surface: light-dark(#ffffff, #111111);
-	--color-surface-elevated: light-dark(#ffffff, #161616);
-	--color-border: light-dark(#e7e5e4, #262626);
-	--color-border-subtle: light-dark(#f5f5f4, #1c1c1c);
+	/* Signal path palette: roles, not hues. */
+	--c-ground: #f2f1ec;
+	--c-ink: #141413;
+	--c-dark: #141413;
+	--c-muted: #62615b;
+	--c-line: rgb(20 20 19 / 14%);
+	--c-line-strong: rgb(20 20 19 / 28%);
+	--c-accent: #d93a2b;
+	--c-accent-ink: #b72c20;
+	--c-accent-dark: #ff7a6b;
+	--c-curtain: #141413;
+	--c-paper: #f2f1ec;
+	--c-muted-dark: #a3a29b;
 
-	/* Texto */
-	--color-text: light-dark(#1c1917, #f5f5f4);
-	--color-text-muted: light-dark(#78716c, #a8a29e);
-	--color-text-subtle: light-dark(#a8a29e, #78716c);
-	--color-text-inverse: light-dark(#fafaf9, #0a0a0a);
+	/* Compatibility aliases for the existing UI package. */
+	--color-bg: var(--c-ground);
+	--color-surface: #e9e8e2;
+	--color-surface-elevated: #e2e1da;
+	--color-border: var(--c-line);
+	--color-border-subtle: var(--c-line);
+	--color-text: var(--c-ink);
+	--color-text-muted: var(--c-muted);
+	--color-text-subtle: var(--c-muted);
+	--color-text-inverse: var(--c-paper);
+	--color-accent: var(--c-accent);
+	--color-accent-hover: var(--c-accent-ink);
+	--color-accent-subtle: rgb(217 58 43 / 10%);
+	--color-focus: var(--c-accent);
+	--color-danger: #b72c20;
+	--color-success: #2f6f4e;
+	--color-warning: #8a5a12;
+	--color-info: #275b93;
+	--color-surface-inverse: var(--c-ink);
+	--color-surface-active: #dcdbd4;
 
-	/* Acento */
-	--color-accent: light-dark(#16a34a, #22c55e);
-	--color-accent-hover: light-dark(#15803d, #16a34a);
-	--color-accent-subtle: light-dark(#dcfce7, #14532d);
+	/* Type families */
+	--f-display: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	--f-body: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	--f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+	--font-display: var(--f-display);
+	--font-body: var(--f-body);
+	--font-mono: var(--f-mono);
 
-	/* Estados */
-	--color-focus: light-dark(#16a34a, #22c55e);
-	--color-danger: light-dark(#dc2626, #ef4444);
-	--color-success: light-dark(#16a34a, #22c55e);
-	--color-warning: light-dark(#ea580c, #fb923c);
-	--color-info: light-dark(#2563eb, #3b82f6);
-
-	/* Superficies derivadas */
-	--color-surface-inverse: light-dark(#1c1917, #f5f5f4);
-	--color-surface-active: light-dark(#f5f5f4, #1a1a1a);
-
-	/* Tipografía */
-	--font-body:
-		"Inter", "Albert Sans", system-ui, -apple-system, BlinkMacSystemFont,
-		"Segoe UI", sans-serif;
-	--font-display:
-		"Inter", "Albert Sans", system-ui, -apple-system, BlinkMacSystemFont,
-		"Segoe UI", sans-serif;
-
-	/* Escala */
-	--text-xs: 0.75rem;
-	--text-sm: 0.875rem;
+	/* Fluid scale, large jumps. */
+	--t-mega: clamp(4.4rem, 17vw, 17rem);
+	--t-display: clamp(2.9rem, 7.4vw, 7.5rem);
+	--t-xl: clamp(2rem, 3.8vw, 3.6rem);
+	--t-l: clamp(1.55rem, 2.4vw, 2.25rem);
+	--t-m: clamp(1.2rem, 1.5vw, 1.45rem);
+	--t-body: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
+	--t-s: 0.875rem;
+	--t-xs: 0.75rem;
+	--text-xs: var(--t-xs);
+	--text-sm: var(--t-s);
 	--text-base: 1rem;
-	--text-lg: 1.125rem;
-	--text-xl: 1.25rem;
-	--text-2xl: 1.5rem;
-	--text-3xl: 1.875rem;
-	--text-4xl: 2.25rem;
-	--text-5xl: 3rem;
-	--text-6xl: 3.75rem;
-	--text-7xl: 4.5rem;
-	--text-body: var(--text-base);
-	--text-display: clamp(var(--text-4xl), 8vw, var(--text-7xl));
+	--text-lg: var(--t-m);
+	--text-xl: var(--t-l);
+	--text-2xl: var(--t-xl);
+	--text-3xl: var(--t-xl);
+	--text-4xl: var(--t-display);
+	--text-5xl: var(--t-display);
+	--text-6xl: var(--t-mega);
+	--text-7xl: var(--t-mega);
+	--text-body: var(--t-body);
+	--text-display: var(--t-display);
 
-	/* Espacio */
-	--space-1: 0.25rem;
-	--space-2: 0.5rem;
-	--space-3: 0.75rem;
-	--space-4: 1rem;
-	--space-5: 1.25rem;
-	--space-6: 1.5rem;
-	--space-8: 2rem;
-	--space-10: 2.5rem;
-	--space-12: 3rem;
-	--space-16: 4rem;
-	--space-20: 5rem;
-	--space-24: 6rem;
+	/* Grid and space. */
+	--shell: min(100% - 2 * var(--gutter), 92rem);
+	--gutter: clamp(1rem, 3vw, 2.5rem);
+	--u: clamp(0.5rem, 0.35rem + 0.55vw, 1rem);
+	--s-1: 0.25rem;
+	--s-2: 0.5rem;
+	--s-3: 0.75rem;
+	--s-4: 1rem;
+	--s-5: 1.5rem;
+	--s-6: 2rem;
+	--s-7: 3rem;
+	--s-8: 4rem;
+	--s-9: 6rem;
+	--s-10: 8rem;
+	--space-1: var(--s-1);
+	--space-2: var(--s-2);
+	--space-3: var(--s-3);
+	--space-4: var(--s-4);
+	--space-5: var(--s-5);
+	--space-6: var(--s-6);
+	--space-8: var(--s-6);
+	--space-10: var(--s-7);
+	--space-12: var(--s-8);
+	--space-16: var(--s-9);
+	--space-20: var(--s-10);
+	--space-24: var(--s-10);
+	--header-h: 3.75rem;
 
-	/* Radios */
-	--radius-sm: 0.375rem;
-	--radius-md: 0.5rem;
-	--radius-lg: 0.75rem;
-	--radius-xl: 1rem;
-	--radius-2xl: 1.5rem;
-	--radius-full: 999px;
+	/* One radius rule and no shadow. */
+	--radius: 0px;
+	--radius-sm: 0px;
+	--radius-md: 0px;
+	--radius-lg: 0px;
+	--radius-xl: 0px;
+	--radius-2xl: 0px;
+	--radius-full: 0px;
+	--shadow-sm: none;
+	--shadow-md: none;
+	--shadow-lg: none;
+	--shadow-xl: none;
 
-	/* Sombras */
-	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-	--shadow-lg:
-		0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-	--shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+	/* Motion */
+	--motion-fast: 180ms;
+	--motion-base: 300ms;
+	--motion-slow: 500ms;
+	--motion-scene: 800ms;
+	--motion-easing: cubic-bezier(0.16, 1, 0.3, 1);
+	--motion-easing-emphasized: cubic-bezier(0.7, 0, 0.2, 1);
 
-	/* Movimiento */
-	--motion-fast: 150ms;
-	--motion-base: 200ms;
-	--motion-slow: 300ms;
-	--motion-scene: 500ms;
-	--motion-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-	--motion-easing-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+	/* Layers */
+	--z-trace: 0;
+	--z-content: 1;
+	--z-header: 50;
+	--z-menu: 60;
+	--z-cursor: 80;
+	--z-curtain: 90;
+	--z-loader: 100;
 }

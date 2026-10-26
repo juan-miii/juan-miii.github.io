@@ -1,72 +1,139 @@
 import { z } from "zod";
 
+const linkSchema = z.object({
+	label: z.string().min(1),
+	href: z.string().min(1),
+});
+
+const actionSchema = z.object({
+	label: z.string().min(1),
+	href: z.string().min(1),
+});
+
+const sectionSchema = z.object({
+	index: z.string().min(1),
+	label: z.string().min(1),
+	title: z.string().min(1),
+	body: z.string().min(1),
+});
+
+const pageHeaderSchema = z.object({
+	index: z.string().min(1),
+	label: z.string().min(1),
+	title: z.string().min(1),
+	description: z.string().min(1),
+	meta: z.string().min(1),
+});
+
 export const pageSchema = z.object({
 	id: z.string().min(1),
 	locale: z.literal("es"),
+	name: z.string().min(1),
 	title: z.string().min(1),
 	description: z.string().min(1),
-	action: z.object({
+	role: z.string().min(1),
+	location: z.object({
+		city: z.string().min(1),
+		country: z.string().min(1),
+		coordinates: z.string().min(1),
+	}),
+	email: z.email(),
+	github: z.url(),
+	availability: z.object({
 		label: z.string().min(1),
-		href: z.string().startsWith("#"),
+		note: z.string().min(1),
+	}),
+	navigation: z.array(linkSchema.extend({ index: z.string().min(1) })),
+	hero: z.object({
+		kicker: z.string().min(1),
+		firstName: z.string().min(1),
+		lastName: z.string().min(1),
+		intro: z.string().min(1),
+		primaryAction: actionSchema,
+		secondaryAction: actionSchema,
+		portraitCaption: z.string().min(1),
+		scrollCue: z.string().min(1),
+	}),
+	approach: sectionSchema.extend({
+		notes: z.array(
+			z.object({
+				label: z.string().min(1),
+				value: z.string().min(1),
+			}),
+		),
+	}),
+	work: sectionSchema,
+	capabilities: sectionSchema.extend({
+		items: z.array(
+			z.object({
+				title: z.string().min(1),
+				description: z.string().min(1),
+				tools: z.array(z.string().min(1)),
+			}),
+		),
+		stack: z.array(z.string().min(1)),
+	}),
+	experienceSection: sectionSchema.extend({
+		link: actionSchema,
+	}),
+	method: sectionSchema,
+	toolbox: sectionSchema,
+	principlesSection: sectionSchema,
+	profile: sectionSchema.extend({
+		long: z.array(z.string().min(1)),
+		details: z.array(
+			z.object({
+				label: z.string().min(1),
+				value: z.string().min(1),
+			}),
+		),
+		principles: z.array(
+			z.object({
+				title: z.string().min(1),
+				description: z.string().min(1),
+			}),
+		),
+		link: actionSchema,
+	}),
+	contact: z.object({
+		index: z.string().min(1),
+		label: z.string().min(1),
+		title: z.string().min(1),
+		body: z.string().min(1),
+		emailLabel: z.string().min(1),
+		note: z.string().min(1),
+		topics: z.array(z.string().min(1)),
+		guide: z.array(
+			z.object({
+				title: z.string().min(1),
+				description: z.string().min(1),
+			}),
+		),
+	}),
+	footer: z.object({
+		note: z.string().min(1),
+		colophon: z.string().min(1),
+		rights: z.string().min(1),
 	}),
 	notFound: z.object({
+		index: z.string().min(1),
+		label: z.string().min(1),
 		title: z.string().min(1),
 		description: z.string().min(1),
 		backLabel: z.string().min(1),
+		backHref: z.string().min(1),
 	}),
-	navigation: z.array(
-		z.object({
-			label: z.string().min(1),
-			href: z.string().min(1),
-		}),
-	),
-	hero: z.object({
-		badge: z.string().min(1),
-		title: z.string().min(1),
-		bio: z.string().min(1),
-		links: z.array(
-			z.object({
-				label: z.string().min(1),
-				href: z.url(),
-			}),
-		),
+	pages: z.object({
+		projects: pageHeaderSchema,
+		experience: pageHeaderSchema,
+		about: pageHeaderSchema,
+		contact: pageHeaderSchema,
 	}),
-	experience: z.array(
+	process: z.array(
 		z.object({
-			title: z.string().min(1),
-			date: z.string().min(1),
-			description: z.string().min(1),
-		}),
-	),
-	projects: z.array(
-		z.object({
+			index: z.string().min(1),
 			title: z.string().min(1),
 			description: z.string().min(1),
-			tags: z.array(z.string().min(1)).default([]),
 		}),
 	),
-	about: z.object({
-		title: z.string().min(1),
-		bio: z.string().min(1),
-	}),
-	contact: z.object({
-		title: z.string().min(1),
-		description: z.string().min(1),
-		email: z.string().email(),
-	}),
-	thisSite: z.object({
-		title: z.string().min(1),
-		description: z.string().min(1),
-	}),
-	footer: z.object({
-		owner: z.string().min(1),
-		ownerUrl: z.url(),
-		rights: z.string().min(1),
-		links: z.array(
-			z.object({
-				label: z.string().min(1),
-				href: z.string().min(1),
-			}),
-		),
-	}),
 });

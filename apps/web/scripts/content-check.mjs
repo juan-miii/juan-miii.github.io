@@ -49,7 +49,7 @@ function unique(values, label) {
 }
 
 function checkMedia(url, fileLabel) {
-	if (!url || !url.startsWith("/")) return;
+	if (!url?.startsWith("/")) return;
 	const mediaPath = join(process.cwd(), "apps/web/public", url);
 	if (!existsSync(mediaPath)) {
 		throw new Error(`${fileLabel}: recurso multimedia inexistente (${url}).`);
@@ -108,7 +108,7 @@ try {
 		if (study.slug && projectSlugs.has(study.slug)) {
 			errors.push(`Case ${study.id}: slug colisiona con un proyecto.`);
 		}
-		if (study.cover && study.cover.startsWith("/")) {
+		if (study.cover?.startsWith("/")) {
 			checkMedia(study.cover, `Case ${study.id}`);
 		}
 	}

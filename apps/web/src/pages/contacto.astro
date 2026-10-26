@@ -1,0 +1,210 @@
+---
+import { getEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
+
+import ContactSection from "../components/ContactSection.astro";
+import PageHeader from "../components/PageHeader.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const entry = await getEntry("pages", "site");
+if (!entry) throw new Error("No existe el contenido del sitio.");
+const site = entry.data;
+---
+
+<BaseLayout
+	title={`Contacto / ${site.name}`}
+	description={site.pages.contact.description}
+>
+	<PageHeader
+		index={site.pages.contact.index}
+		label={site.pages.contact.label}
+		title={site.pages.contact.title}
+		description={site.pages.contact.description}
+		meta={site.pages.contact.meta}
+	/>
+
+	<section class="guide section" aria-labelledby="guide-title">
+		<div class="shell">
+			<div class="guide__head">
+				<span class="node-label" data-trace-anchor>
+					<span class="node-label__index">01</span>
+					Antes de escribir
+				</span>
+				<h2 id="guide-title" class="guide__title" data-split="lines">
+					Tres datos que ahorran una ronda de correos.
+				</h2>
+			</div>
+
+			<div class="guide__grid">
+				{
+					site.contact.guide.map((item, index) => (
+						<article data-reveal="up" data-delay={String(index * 0.05)}>
+							<span class="mono guide__index">
+								{String(index + 1).padStart(2, "0")}
+							</span>
+							<h3>{item.title}</h3>
+							<p>{item.description}</p>
+						</article>
+					))
+				}
+			</div>
+
+			<div class="guide__channels">
+				<div class="guide__channel">
+					<span class="mono">Correo</span>
+					<a class="guide__link" href={`mailto:${site.email}`}>
+						{site.email}
+						<Icon name="tabler:arrow-up-right" aria-hidden="true" />
+					</a>
+				</div>
+				<div class="guide__channel">
+					<span class="mono">GitHub</span>
+					<a
+						class="guide__link"
+						href={site.github}
+						target="_blank"
+						rel="me noopener"
+					>
+						github.com/juan-miii
+						<Icon name="tabler:arrow-up-right" aria-hidden="true" />
+					</a>
+				</div>
+				<div class="guide__channel">
+					<span class="mono">Base</span>
+					<p>{site.location.city}, {site.location.country}</p>
+					<p class="mono guide__coords">{site.location.coordinates}</p>
+				</div>
+				<div class="guide__channel">
+					<span class="mono">Disponibilidad</span>
+					<p>{site.availability.label}</p>
+					<p class="mono guide__coords">{site.availability.note}</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<ContactSection contact={site.contact} email={site.email} />
+</BaseLayout>
+
+<style>
+	.guide {
+		padding-block-start: clamp(2rem, 4vw, 3rem);
+	}
+
+	.guide__head {
+		display: grid;
+		gap: clamp(1.2rem, 3vw, 2rem);
+		margin-block-end: clamp(2.5rem, 6vw, 4.5rem);
+	}
+
+	.guide__title {
+		max-inline-size: 18ch;
+		font-size: var(--t-xl);
+		font-weight: 500;
+		line-height: 0.98;
+		letter-spacing: -0.045em;
+	}
+
+	.guide__grid {
+		display: grid;
+		border-block-start: 1px solid var(--c-line);
+	}
+
+	.guide__grid article {
+		display: grid;
+		align-content: start;
+		gap: 0.55rem;
+		padding-block: clamp(1.4rem, 3vw, 2.2rem);
+		border-block-end: 1px solid var(--c-line);
+	}
+
+	.guide__index {
+		color: var(--c-accent-ink);
+	}
+
+	.guide__grid h3 {
+		font-size: clamp(1.25rem, 2vw, 1.6rem);
+		font-weight: 500;
+		letter-spacing: -0.03em;
+	}
+
+	.guide__grid p {
+		max-inline-size: 38ch;
+		font-size: var(--t-s);
+		color: var(--c-muted);
+	}
+
+	.guide__channels {
+		display: grid;
+		gap: 1.5rem;
+		margin-block-start: clamp(2.5rem, 5vw, 4rem);
+		padding-block-start: 1.2rem;
+		border-block-start: 1px solid var(--c-line);
+	}
+
+	.guide__channel {
+		display: grid;
+		gap: 0.45rem;
+		align-content: start;
+	}
+
+	.guide__channel > span {
+		color: var(--c-muted);
+	}
+
+	.guide__channel p {
+		font-size: var(--t-s);
+	}
+
+	.guide__link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		font-size: var(--t-s);
+		background: linear-gradient(currentColor 0 0) left bottom / 100% 1px no-repeat;
+		padding-block-end: 0.15rem;
+	}
+
+	.guide__link :global(svg) {
+		transition: transform var(--motion-base) var(--motion-easing);
+	}
+
+	.guide__link:hover :global(svg),
+	.guide__link:focus-visible :global(svg) {
+		transform: translate(2px, -2px);
+	}
+
+	.guide__coords {
+		color: var(--c-muted);
+	}
+
+	@media (min-width: 640px) {
+		.guide__grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.guide__grid article {
+			border-inline-end: 1px solid var(--c-line);
+			padding-inline: 1.2rem;
+		}
+
+		.guide__grid article:first-child {
+			padding-inline-start: 0;
+		}
+
+		.guide__grid article:last-child {
+			border-inline-end: 0;
+			padding-inline-end: 0;
+		}
+
+		.guide__channels {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 900px) {
+		.guide__channels {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+	}
+</style>
