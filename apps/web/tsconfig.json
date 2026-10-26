@@ -1,8 +1,7 @@
 {
-	"extends": "astro/tsconfigs/strictest",
+	"extends": ["@portfolio/typescript-config/base", "astro/tsconfigs/strictest"],
 	"include": [".astro/types.d.ts", "**/*"],
 	"exclude": ["dist"],
-	// TODO: revisar si esto se puede aqui
 	"compilerOptions": {
 		"paths": {
 			"@/*": ["./src/*"]

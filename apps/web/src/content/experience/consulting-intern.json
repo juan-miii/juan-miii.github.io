@@ -1,0 +1,13 @@
+{
+	"id": "consulting-intern",
+	"locale": "es",
+	"role": "Prácticas en Consultoría",
+	"organizationId": "accenture",
+	"startDate": "2024",
+	"summary": "Participación en actividades de consultoría, análisis, estrategia e implementación.",
+	"contributions": [
+		"Análisis de requisitos",
+		"Desarrollo de estrategias",
+		"Implementación de soluciones"
+	]
+}

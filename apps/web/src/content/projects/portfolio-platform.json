@@ -1,0 +1,22 @@
+{
+	"id": "portfolio-platform",
+	"locale": "es",
+	"slug": "plataforma-portfolio",
+	"title": "Plataforma personal de portfolio",
+	"summary": "Portfolio modular centrado en contenido, dise\u00f1o y entrega verificable.",
+	"kind": "personal",
+	"sourceAvailability": "public",
+	"lifecycle": "active",
+	"publicationStatus": "published",
+	"featuredOrder": 1,
+	"technologies": ["astro", "typescript", "turborepo", "zod"],
+	"links": [
+		{
+			"kind": "repository",
+			"label": "C\u00f3digo fuente",
+			"url": "https://github.com/juan-miii/juan-miii.github.io"
+		}
+	],
+	"cover": "/images/portfolio-platform.svg",
+	"coverAlt": "Representaci\u00f3n visual del proyecto de portfolio."
+}

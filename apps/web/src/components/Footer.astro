@@ -1,0 +1,123 @@
+---
+interface FooterLink {
+	label: string;
+	href: string;
+}
+
+interface Props {
+	owner: string;
+	ownerUrl?: string;
+	rights: string;
+	links: FooterLink[];
+}
+
+const { owner, rights, links } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<div class="footer-inner">
+		<div class="footer-brand">
+			<a class="footer-logo" href="#hero">
+				<span class="footer-mark">JM</span>
+				<span class="footer-name">{owner}</span>
+			</a>
+			<p class="footer-copy">© {year} {owner}. {rights}</p>
+		</div>
+		<nav class="footer-nav" aria-label="Enlaces del pie">
+			<ul class="footer-links">
+				{
+					links.map((link) => (
+						<li>
+							<a class="footer-link" href={link.href}>
+								{link.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		border-top: 1px solid var(--color-border-subtle);
+		margin-top: var(--space-20);
+	}
+
+	.footer-inner {
+		width: min(64rem, 100%);
+		margin-inline: auto;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-6);
+		padding: var(--space-10) clamp(var(--space-4), 5vw, var(--space-6));
+	}
+
+	@media (min-width: 640px) {
+		.footer-inner {
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+		}
+	}
+
+	.footer-brand {
+		display: grid;
+		gap: var(--space-2);
+	}
+
+	.footer-logo {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+		text-decoration: none;
+		color: var(--color-text);
+		font-weight: 600;
+	}
+
+	.footer-mark {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.75rem;
+		height: 1.75rem;
+		border-radius: var(--radius-lg);
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		font-size: var(--text-xs);
+	}
+
+	.footer-copy {
+		margin: 0;
+		color: var(--color-text-muted);
+		font-size: var(--text-sm);
+	}
+
+	.footer-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2);
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.footer-link {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.375rem 0.75rem;
+		border-radius: var(--radius-full);
+		text-decoration: none;
+		color: var(--color-text-muted);
+		font-size: var(--text-sm);
+		transition: all var(--motion-fast) var(--motion-easing);
+	}
+
+	.footer-link:hover,
+	.footer-link:focus-visible {
+		color: var(--color-text);
+		background: color-mix(in srgb, var(--color-text) 4%, transparent);
+	}
+</style>

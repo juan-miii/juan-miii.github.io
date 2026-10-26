@@ -1,0 +1,106 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"li"> & {
+	title: string;
+	date?: string;
+	subtitle?: string;
+};
+
+const { title, date, subtitle, class: className, ...attributes } = Astro.props;
+---
+
+<li class:list={["timeline-item", className]} {...attributes}>
+	<span class="timeline-item__marker" aria-hidden="true"></span>
+	<article class="timeline-item__content">
+		<header class="timeline-item__header">
+			<div class="timeline-item__heading">
+				<h3>{title}</h3>
+				{subtitle && <p class="timeline-item__subtitle">{subtitle}</p>}
+			</div>
+			{date && <time class="timeline-item__date">{date}</time>}
+		</header>
+		<div class="timeline-item__body">
+			<slot />
+		</div>
+	</article>
+</li>
+
+<style>
+	.timeline-item {
+		display: grid;
+		grid-template-columns: 1.25rem 1fr;
+		gap: var(--space-4);
+		align-items: start;
+	}
+
+	.timeline-item__marker {
+		inline-size: 0.625rem;
+		block-size: 0.625rem;
+		border-radius: 50%;
+		background: var(--color-accent);
+		margin-top: 0.5rem;
+		box-shadow: 0 0 0 8px color-mix(in srgb, var(--color-accent) 10%, transparent);
+	}
+
+	.timeline-item__content {
+		display: grid;
+		gap: var(--space-3);
+		padding: var(--space-6);
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-xl);
+		box-shadow: var(--shadow-sm);
+	}
+
+	.timeline-item__header {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+	}
+
+	@media (min-width: 640px) {
+		.timeline-item__header {
+			flex-direction: row;
+			align-items: flex-start;
+			justify-content: space-between;
+		}
+	}
+
+	.timeline-item__heading {
+		display: grid;
+		gap: var(--space-1);
+	}
+
+	.timeline-item__heading h3 {
+		margin: 0;
+		font-size: var(--text-xl);
+	}
+
+	.timeline-item__subtitle {
+		margin: 0;
+		color: var(--color-text-muted);
+	}
+
+	.timeline-item__date {
+		color: var(--color-text-subtle);
+		font-size: var(--text-sm);
+		white-space: nowrap;
+	}
+
+	.timeline-item__body {
+		display: grid;
+		gap: var(--space-3);
+		color: var(--color-text-muted);
+	}
+
+	.timeline-item__body :global(p) {
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
+	.timeline-item__body :global(ul) {
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+</style>

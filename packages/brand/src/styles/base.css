@@ -10,24 +10,44 @@
 	padding: 0;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 body {
-	background: var(--color-bg);
+	background: var(--color-bg-gradient);
+	background-attachment: fixed;
 	color: var(--color-text);
 	font-family: var(--font-body);
 	font-size: var(--text-body);
-	line-height: 1.6;
+	line-height: 1.7;
+	font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+	background: var(--color-accent-subtle);
+	color: var(--color-text);
 }
 
 :focus-visible {
-	outline: 2px solid var(--color-accent);
-	outline-offset: 3px;
+	outline: 2px solid var(--color-focus);
+	outline-offset: 2px;
+	border-radius: var(--radius-sm);
 }
 
 @media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
 	*,
 	*::before,
 	*::after {
 		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
 		transition-duration: 0.01ms !important;
 	}
 }
