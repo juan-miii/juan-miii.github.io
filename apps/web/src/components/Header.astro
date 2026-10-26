@@ -12,17 +12,17 @@ interface Props {
 	role: string;
 	navigation: NavigationItem[];
 	availability: { label: string; note: string };
+	homeHref: string;
+	contactHref: string;
 }
 
-const { name, role, navigation, availability } = Astro.props;
-const path = Astro.url.pathname;
-const isActive = (href: string) =>
-	href === "/" ? path === "/" : path.startsWith(href);
+const { name, role, navigation, availability, homeHref, contactHref } =
+	Astro.props;
 ---
 
 <header class="site-header" data-inert-when-menu>
 	<div class="header shell">
-		<a class="brand" href="/">
+		<a class="brand" href={homeHref}>
 			<span class="brand__mark" aria-hidden="true">
 				<span>JM</span>
 			</span>
@@ -33,16 +33,12 @@ const isActive = (href: string) =>
 			<span class="sr-only">Inicio</span>
 		</a>
 
-		<nav class="nav" aria-label="Navegación principal">
+		<nav class="nav" aria-label="Navegación principal" data-section-nav>
 			<ul class="nav__list">
 				{
 					navigation.map((item) => (
 						<li>
-							<a
-								class:list={["nav__link", { "is-active": isActive(item.href) }]}
-								href={item.href}
-								aria-current={isActive(item.href) ? "page" : undefined}
-							>
+							<a class="nav__link" href={item.href}>
 								<span class="nav__index">{item.index}</span>
 								<span class="nav__label">{item.label}</span>
 							</a>
@@ -58,7 +54,7 @@ const isActive = (href: string) =>
 				<span class="status__text">{availability.label}</span>
 			</span>
 			<span class="clock" data-clock aria-hidden="true">MAD --:--</span>
-			<a class="header__contact" href="/contacto/">
+			<a class="header__contact" href={contactHref}>
 				<span>Contacto</span>
 				<Icon name="tabler:arrow-up-right" aria-hidden="true" />
 			</a>
@@ -301,16 +297,18 @@ const isActive = (href: string) =>
 			display: block;
 		}
 
-		.header__contact {
-			display: inline-flex;
-		}
-
 		.menu-toggle {
 			display: none;
 		}
 	}
 
-	@media (min-width: 1200px) {
+	@media (min-width: 1100px) {
+		.header__contact {
+			display: inline-flex;
+		}
+	}
+
+	@media (min-width: 1360px) {
 		.status {
 			display: inline-flex;
 		}

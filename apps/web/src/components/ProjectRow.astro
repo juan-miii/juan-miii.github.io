@@ -18,13 +18,16 @@ const { index, slug, title, summary, role, year, status, technologies } =
 
 <a
 	class="project-row"
-	href={`/proyectos/${slug}/`}
+	href={`#proyecto-${slug}`}
 	data-trace-anchor
-	data-cursor="Abrir caso"
+	data-cursor="Abrir ficha"
+	data-project-open={slug}
+	aria-haspopup="dialog"
+	aria-controls={`proyecto-${slug}`}
 >
 	<span class="project-row__index">{String(index).padStart(2, "0")}</span>
 	<div class="project-row__main">
-		<h2 class="project-row__title">{title}</h2>
+		<h3 class="project-row__title">{title}</h3>
 		<span class="project-row__summary">{summary}</span>
 		<span class="project-row__tech">
 			{technologies.map((technology) => <span>{technology}</span>)}
@@ -36,7 +39,8 @@ const { index, slug, title, summary, role, year, status, technologies } =
 		<span>{status}</span>
 	</span>
 	<span class="project-row__arrow">
-		<Icon name="tabler:arrow-up-right" aria-hidden="true" />
+		<Icon name="tabler:plus" aria-hidden="true" />
+		<span class="sr-only">Abrir ficha</span>
 	</span>
 </a>
 

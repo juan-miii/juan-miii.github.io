@@ -2,17 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const dist = new URL("../dist", import.meta.url).pathname;
-const required = [
-	"index.html",
-	"404.html",
-	"sitemap-index.xml",
-	"proyectos/index.html",
-	"proyectos/plataforma-portfolio/index.html",
-	"proyectos/cadena-verificable/index.html",
-	"experiencia/index.html",
-	"sobre-mi/index.html",
-	"contacto/index.html",
-];
+const required = ["index.html", "404.html", "sitemap-index.xml"];
 
 for (const file of required) {
 	const path = join(dist, file);
@@ -22,13 +12,43 @@ for (const file of required) {
 	}
 }
 
+// The portfolio is one page. Old routes must not be emitted again.
+const removed = [
+	"proyectos/index.html",
+	"proyectos/plataforma-portfolio/index.html",
+	"proyectos/cadena-verificable/index.html",
+	"experiencia/index.html",
+	"sobre-mi/index.html",
+	"contacto/index.html",
+];
+
+for (const file of removed) {
+	if (existsSync(join(dist, file))) {
+		console.error(`route should be removed: ${file}`);
+		process.exit(1);
+	}
+}
+
 const home = readFileSync(join(dist, "index.html"), "utf8");
 for (const content of [
 	"Juan",
 	"Miguel",
 	"Ingeniero informático",
-	"plataforma-portfolio",
-	"cadena-verificable",
+	'id="enfoque"',
+	'id="trabajo"',
+	'id="capacidades"',
+	'id="trayectoria"',
+	'id="perfil"',
+	'id="contacto"',
+	'id="proyecto-plataforma-portfolio"',
+	'id="proyecto-cadena-verificable"',
+	'aria-haspopup="dialog"',
+	'data-project-open="plataforma-portfolio"',
+	'data-project-open="cadena-verificable"',
+	"Contexto: una web que también es una prueba",
+	"Contexto: publicar no es mover archivos",
+	"https://github.com/juan-miii/juan-miii.github.io",
+	"94069179-juan-miii@proton.me",
 ]) {
 	if (!home.includes(content)) {
 		console.error(`home smoke content missing: ${content}`);
@@ -36,20 +56,11 @@ for (const content of [
 	}
 }
 
-const project = readFileSync(
-	join(dist, "proyectos/plataforma-portfolio/index.html"),
-	"utf8",
-);
-for (const content of ["Contexto", "Decisión", "Verificación", "Resultado"]) {
-	if (!project.includes(content)) {
-		console.error(`project case content missing: ${content}`);
-		process.exit(1);
-	}
-}
-
-const contact = readFileSync(join(dist, "contacto/index.html"), "utf8");
-if (!contact.includes("94069179-juan-miii@proton.me")) {
-	console.error("contact email missing");
+// Both sheets need the source repository link and their own chapter index.
+const sheetCount = (home.match(/<dialog[^>]+data-project-sheet=/g) ?? [])
+	.length;
+if (sheetCount !== 2) {
+	console.error(`expected 2 project sheets, found ${sheetCount}`);
 	process.exit(1);
 }
 

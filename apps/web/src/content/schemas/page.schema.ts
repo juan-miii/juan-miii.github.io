@@ -17,12 +17,10 @@ const sectionSchema = z.object({
 	body: z.string().min(1),
 });
 
-const pageHeaderSchema = z.object({
-	index: z.string().min(1),
+const subSectionSchema = z.object({
 	label: z.string().min(1),
 	title: z.string().min(1),
-	description: z.string().min(1),
-	meta: z.string().min(1),
+	body: z.string().min(1),
 });
 
 export const pageSchema = z.object({
@@ -62,7 +60,9 @@ export const pageSchema = z.object({
 			}),
 		),
 	}),
-	work: sectionSchema,
+	work: sectionSchema.extend({
+		note: z.string().min(1),
+	}),
 	capabilities: sectionSchema.extend({
 		items: z.array(
 			z.object({
@@ -73,12 +73,10 @@ export const pageSchema = z.object({
 		),
 		stack: z.array(z.string().min(1)),
 	}),
-	experienceSection: sectionSchema.extend({
-		link: actionSchema,
-	}),
-	method: sectionSchema,
-	toolbox: sectionSchema,
-	principlesSection: sectionSchema,
+	experienceSection: sectionSchema,
+	method: subSectionSchema,
+	toolbox: subSectionSchema,
+	principlesSection: subSectionSchema,
 	profile: sectionSchema.extend({
 		long: z.array(z.string().min(1)),
 		details: z.array(
@@ -93,7 +91,6 @@ export const pageSchema = z.object({
 				description: z.string().min(1),
 			}),
 		),
-		link: actionSchema,
 	}),
 	contact: z.object({
 		index: z.string().min(1),
@@ -122,12 +119,6 @@ export const pageSchema = z.object({
 		description: z.string().min(1),
 		backLabel: z.string().min(1),
 		backHref: z.string().min(1),
-	}),
-	pages: z.object({
-		projects: pageHeaderSchema,
-		experience: pageHeaderSchema,
-		about: pageHeaderSchema,
-		contact: pageHeaderSchema,
 	}),
 	process: z.array(
 		z.object({

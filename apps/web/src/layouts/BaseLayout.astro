@@ -1,6 +1,5 @@
 ---
 import { getEntry } from "astro:content";
-import { ClientRouter } from "astro:transitions";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import Menu from "../components/Menu.astro";
@@ -36,6 +35,17 @@ const canonicalUrl = canonical
 	? new URL(canonical, origin).href
 	: new URL(Astro.url.pathname, origin).href;
 const ogUrl = new URL(ogImage, origin).href;
+
+// The home is the only navigable page. Hash links keep working on the 404 by
+// pointing back to the home instead of a section that does not exist there.
+const isHome =
+	Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
+const navigation = site.navigation.map((item) => ({
+	...item,
+	href: isHome ? item.href : `/${item.href}`,
+}));
+const homeHref = isHome ? "#inicio" : "/#inicio";
+const contactHref = isHome ? "#contacto" : "/#contacto";
 
 const person = {
 	"@context": "https://schema.org",
@@ -117,11 +127,9 @@ const person = {
 			type="application/ld+json"
 			set:html={JSON.stringify(person)}
 		/>
-		<ClientRouter />
 		<noscript>
 			<style>
 				#loader,
-				#curtain,
 				#cursor {
 					display: none !important;
 				}
@@ -161,8 +169,10 @@ const person = {
 		<Header
 			name={site.name}
 			role={site.role}
-			navigation={site.navigation}
+			navigation={navigation}
 			availability={site.availability}
+			homeHref={homeHref}
+			contactHref={contactHref}
 		/>
 
 		<main id="main" data-trace-scope tabindex="-1" data-inert-when-menu>
@@ -174,24 +184,23 @@ const person = {
 			name={site.name}
 			firstName={site.hero.firstName}
 			lastName={site.hero.lastName}
-			navigation={site.navigation}
+			navigation={navigation}
 			email={site.email}
 			github={site.github}
 			location={site.location}
 			footer={site.footer}
+			homeHref={homeHref}
 		/>
+
+		<slot name="overlays" />
 
 		<Menu
 			name={site.name}
-			navigation={site.navigation}
+			navigation={navigation}
 			email={site.email}
 			github={site.github}
 			location={site.location.city}
 		/>
-
-		<div id="curtain" class="curtain" aria-hidden="true">
-			<div class="curtain__panel"></div>
-		</div>
 
 		<div id="cursor" class="cursor" aria-hidden="true">
 			<span class="cursor__inner" data-cursor-label></span>

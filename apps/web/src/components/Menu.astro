@@ -28,7 +28,7 @@ const { name, navigation, email, github, location } = Astro.props;
 			</button>
 		</div>
 
-		<nav class="menu__nav shell" aria-label="Menú principal">
+		<nav class="menu__nav shell" aria-label="Menú principal" data-section-nav>
 			<ul>
 				{
 					navigation.map((item) => (
@@ -167,7 +167,8 @@ const { name, navigation, email, github, location } = Astro.props;
 	}
 
 	.menu__link:hover,
-	.menu__link:focus-visible {
+	.menu__link:focus-visible,
+	.menu__link.is-active {
 		color: var(--c-accent-dark);
 		padding-inline-start: 0.5rem;
 	}

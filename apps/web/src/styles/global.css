@@ -15,7 +15,18 @@ html {
 	scroll-padding-block-start: calc(var(--header-h) + 1.5rem);
 }
 
-body.menu-open {
+body.menu-open,
+html.sheet-open,
+html.sheet-open body {
+	overflow: hidden;
+}
+
+/* No-JS fallback: the sheet is shown through :target, so the page behind it
+   must stop scrolling too. */
+html:has(.sheet:target),
+html:has(.sheet:target) body,
+html:has(.sheet [id]:target),
+html:has(.sheet [id]:target) body {
 	overflow: hidden;
 }
 
@@ -215,7 +226,7 @@ body.menu-open {
 	max-inline-size: 68ch;
 }
 
-.prose h2 {
+.prose :is(h2, h3) {
 	counter-increment: chapter;
 	display: grid;
 	grid-template-columns: 3.5rem 1fr;
@@ -229,7 +240,7 @@ body.menu-open {
 	letter-spacing: -0.035em;
 }
 
-.prose h2::before {
+.prose :is(h2, h3)::before {
 	content: counter(chapter, decimal-leading-zero);
 	font-family: var(--f-mono);
 	font-size: var(--t-xs);
@@ -238,7 +249,7 @@ body.menu-open {
 	color: var(--c-accent-ink);
 }
 
-.prose h2:first-child {
+.prose :is(h2, h3):first-child {
 	margin-block-start: 0;
 }
 
@@ -366,24 +377,6 @@ html.js #loader {
 	transform-origin: left;
 }
 
-/* Page transition curtain */
-#curtain {
-	position: fixed;
-	inset: 0;
-	z-index: var(--z-curtain);
-	opacity: 0;
-	visibility: hidden;
-	pointer-events: none;
-}
-
-.curtain__panel {
-	position: absolute;
-	inset: 0;
-	background: var(--c-ink);
-	border-block-start: 3px solid var(--c-accent);
-	clip-path: inset(100% 0 0 0);
-}
-
 /* Trailing pointer dot. The native cursor is never hidden. */
 #cursor {
 	position: fixed;
@@ -442,10 +435,4 @@ html.js #loader {
 	.loader__foot {
 		display: none;
 	}
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-	animation: none;
-	mix-blend-mode: normal;
 }
