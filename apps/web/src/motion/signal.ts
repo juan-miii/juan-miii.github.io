@@ -44,55 +44,72 @@ export function initSignal() {
 	let width = 0;
 	let height = 0;
 	let busX = 0;
+	let scopeTop = 0;
+	let viewport = 0;
 	let branches: Branch[] = [];
 	let frame = 0;
 	let reach = 0;
+	let lastBusOffset = -1;
+	let lastPulseY = -1;
 
 	function measure() {
+		// Read every rect first, then write. Mixing the two forces the browser
+		// to lay the page out again for each anchor.
 		const scopeRect = traceScope.getBoundingClientRect();
 		const shell = traceScope.querySelector<HTMLElement>(".shell");
 		const shellRect = shell?.getBoundingClientRect();
-		const margin = shellRect ? shellRect.left - scopeRect.left : 24;
+		const docHeight = traceScope.offsetHeight;
+		const anchors = traceScope.querySelectorAll<HTMLElement>(
+			"[data-trace-anchor]",
+		);
+		const rects: { x: number; y: number }[] = [];
 
+		for (const anchor of anchors) {
+			const rect = anchor.getBoundingClientRect();
+			if (rect.width === 0) continue;
+			rects.push({
+				x: Math.round(rect.left - scopeRect.left),
+				y: Math.round(rect.top - scopeRect.top + rect.height / 2),
+			});
+		}
+
+		const margin = shellRect ? shellRect.left - scopeRect.left : 24;
 		width = Math.max(1, Math.round(scopeRect.width));
-		height = Math.max(1, Math.round(traceScope.offsetHeight));
+		height = Math.max(1, Math.round(docHeight));
 		busX = Math.round(Math.min(72, Math.max(10, margin * 0.44)));
+		// Document coordinate of the trace, cached for the scroll clock.
+		scopeTop = scopeRect.top + window.scrollY;
+		viewport = window.innerHeight;
 
 		svgEl.setAttribute("width", String(width));
 		svgEl.setAttribute("height", String(height));
 		busEl.setAttribute("d", `M ${busX} 1 V ${height - 1}`);
 		busEl.style.strokeDasharray = String(height);
 		busEl.style.strokeDashoffset = reduced ? "0" : String(height);
+		pulseEl.setAttribute("cx", String(busX));
+		lastBusOffset = reduced ? 0 : height;
 
 		groupEl.replaceChildren();
 		branches = [];
 
 		const seen = new Set<number>();
-		const anchors = traceScope.querySelectorAll<HTMLElement>(
-			"[data-trace-anchor]",
-		);
+		for (const rect of rects) {
+			if (rect.y < 0 || rect.y > height || seen.has(rect.y)) continue;
+			seen.add(rect.y);
 
-		for (const anchor of anchors) {
-			const rect = anchor.getBoundingClientRect();
-			if (rect.width === 0) continue;
-			const y = Math.round(rect.top - scopeRect.top + rect.height / 2);
-			if (y < 0 || y > height || seen.has(y)) continue;
-			seen.add(y);
-
-			const anchorX = Math.round(rect.left - scopeRect.left);
-			const endX = Math.max(busX + 10, anchorX - 6);
+			const endX = Math.max(busX + 10, rect.x - 6);
 			const length = endX - busX;
 			if (length < 4) continue;
 
 			const path = node("path", {
-				d: `M ${busX} ${y} H ${endX}`,
+				d: `M ${busX} ${rect.y} H ${endX}`,
 				class: "trace__branch",
 				"stroke-dasharray": length,
 				"stroke-dashoffset": reduced ? 0 : length,
 			});
 			const port = node("circle", {
 				cx: endX,
-				cy: y,
+				cy: rect.y,
 				r: 2.6,
 				class: "trace__port",
 			});
@@ -101,7 +118,7 @@ export function initSignal() {
 			branches.push({
 				path,
 				port,
-				y,
+				y: rect.y,
 				length,
 				live: reduced,
 			});
@@ -112,15 +129,17 @@ export function initSignal() {
 
 	function paint() {
 		const state = scrollState();
-		const scopeTop = traceScope.getBoundingClientRect().top + window.scrollY;
-		const viewport = window.innerHeight;
 
 		// The bus is complete up to a little above the fold, so the hero already
 		// shows a live line instead of an empty margin.
 		reach = Math.min(height, Math.max(0, state.y + viewport * 0.86 - scopeTop));
 
 		if (!reduced) {
-			busEl.style.strokeDashoffset = String(Math.max(0, height - reach));
+			const offset = Math.max(0, height - reach);
+			if (offset !== lastBusOffset) {
+				busEl.style.strokeDashoffset = String(offset);
+				lastBusOffset = offset;
+			}
 		}
 
 		for (const branch of branches) {
@@ -133,12 +152,13 @@ export function initSignal() {
 		}
 
 		if (!reduced) {
-			const cy = Math.max(
-				6,
-				Math.min(height - 6, state.y + viewport * 0.56 - scopeTop),
+			const cy = Math.round(
+				Math.max(6, Math.min(height - 6, state.y + viewport * 0.56 - scopeTop)),
 			);
-			pulseEl.setAttribute("cx", String(busX));
-			pulseEl.setAttribute("cy", String(Math.round(cy)));
+			if (cy !== lastPulseY) {
+				pulseEl.setAttribute("cy", String(cy));
+				lastPulseY = cy;
+			}
 			pulseEl.classList.add("is-live");
 		}
 	}

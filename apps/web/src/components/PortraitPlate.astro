@@ -19,10 +19,11 @@ const { alt, caption, meta = "Retrato / 2026", eager = false } = Astro.props;
 			alt={alt}
 			width={720}
 			height={720}
+			widths={[360, 544, 720]}
 			format="webp"
 			quality={84}
 			loading={eager ? "eager" : "lazy"}
-			sizes="(min-width: 900px) 28rem, 100vw"
+			sizes="(min-width: 900px) 34rem, 100vw"
 		/>
 	</div>
 	<figcaption>

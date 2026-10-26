@@ -112,16 +112,52 @@ export function initReveals(root: ParentNode = document) {
 	const intro = gsap.timeline({ paused: true });
 	if (prefersReducedMotion()) return intro;
 
+	// Only the intro is built up front. Everything below the fold is split and
+	// given its ScrollTrigger when it gets close to the viewport, so the first
+	// load does not measure the whole document.
+	const deferred = new Map<Element, () => void>();
+
 	for (const el of root.querySelectorAll<HTMLElement>("[data-split]")) {
 		const isIntro = el.hasAttribute("data-intro");
-		const play = splitTween(el, isIntro);
-		if (isIntro) intro.add(play, 0);
+		if (isIntro) {
+			intro.add(splitTween(el, true), 0);
+			continue;
+		}
+		deferred.set(el, () => splitTween(el, false));
 	}
 
 	for (const el of root.querySelectorAll<HTMLElement>("[data-reveal]")) {
 		const isIntro = el.hasAttribute("data-intro");
-		const tween = blockTween(el, isIntro);
-		if (isIntro) intro.add(() => tween.play(), 0);
+		if (isIntro) {
+			const tween = blockTween(el, true);
+			intro.add(() => tween.play(), 0);
+			continue;
+		}
+		deferred.set(el, () => blockTween(el, false));
+	}
+
+	if (deferred.size > 0 && !("IntersectionObserver" in window)) {
+		for (const build of deferred.values()) build();
+		deferred.clear();
+	}
+
+	if (deferred.size > 0) {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (!entry.isIntersecting) continue;
+					const build = deferred.get(entry.target);
+					if (!build) continue;
+					observer.unobserve(entry.target);
+					deferred.delete(entry.target);
+					build();
+				}
+			},
+			// Start a quarter-screen early so the trigger exists before the
+			// element reaches its reading line.
+			{ rootMargin: "25% 0px 25% 0px" },
+		);
+		for (const el of deferred.keys()) observer.observe(el);
 	}
 
 	for (const el of root.querySelectorAll<HTMLElement>("[data-parallax]")) {

@@ -32,12 +32,16 @@ function criticalAssets(): Promise<unknown>[] {
 	];
 }
 
-export async function runLoader(): Promise<void> {
+export async function runLoader(onExit?: () => void): Promise<void> {
 	const root = document.getElementById("loader");
-	if (!root) return;
+	if (!root) {
+		onExit?.();
+		return;
+	}
 
 	if (prefersReducedMotion()) {
 		await Promise.race([Promise.all(criticalAssets()), wait(0.35)]);
+		onExit?.();
 		await gsap.to(root, { autoAlpha: 0, duration: 0.2 });
 		finish(root);
 		return;
@@ -73,6 +77,10 @@ export async function runLoader(): Promise<void> {
 		};
 		gsap.ticker.add(tick);
 	});
+
+	// Hand over to the page as the curtain lifts, not after it: the hero is
+	// already in motion when the last line clears.
+	onExit?.();
 
 	if (exit) {
 		await exit(root);
