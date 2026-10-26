@@ -7,5 +7,8 @@
 		"./styles/base.css": "./src/styles/base.css",
 		"./styles/tokens.css": "./src/styles/tokens.css",
 		"./styles/icons.css": "./src/styles/icons.css"
+	},
+	"scripts": {
+		"test": "echo 'No unit tests yet'"
 	}
 }

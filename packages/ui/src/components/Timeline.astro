@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"ol">;
+
+const { class: className, ...attributes } = Astro.props;
+---
+
+<ol class:list={["timeline", className]} {...attributes}>
+	<slot />
+</ol>
+
+<style>
+	.timeline {
+		display: grid;
+		gap: var(--space-8);
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		position: relative;
+	}
+
+	.timeline::before {
+		content: "";
+		position: absolute;
+		inset-block: var(--space-2);
+		inset-inline-start: 0.625rem;
+		width: 1px;
+		background: linear-gradient(to bottom, var(--color-border) 0%, transparent 100%);
+	}
+</style>

@@ -1,6 +1,8 @@
 ---
-import ActionLink from "@portfolio/ui/action-link";
 import { getEntry } from "astro:content";
+
+import ActionLink from "@portfolio/ui/action-link";
+import Button from "@portfolio/ui/button";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const entry = await getEntry("pages", "home");
@@ -13,11 +15,25 @@ const { notFound } = entry.data;
 ---
 
 <BaseLayout title={notFound.title} description={notFound.description}>
-  <h1>{notFound.title}</h1>
-  <p>{notFound.description}</p>
-
-  <ActionLink
-    href={import.meta.env.BASE_URL}
-    label={notFound.backLabel}
-  />
+	<section class="not-found">
+		<h1>{notFound.title}</h1>
+		<p>{notFound.description}</p>
+		<Button href="/" variant="primary">Volver al inicio</Button>
+		<p class="secondary-action">
+			<ActionLink href="/" label={notFound.backLabel} />
+		</p>
+	</section>
 </BaseLayout>
+
+<style>
+	.not-found {
+		display: grid;
+		gap: var(--space-3);
+		justify-items: start;
+		padding-block: var(--space-12);
+	}
+
+	.secondary-action {
+		margin: 0;
+	}
+</style>

@@ -1,0 +1,90 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  attestations: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.15.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm content:check
+      - run: pnpm build
+      - run: node apps/web/scripts/smoke.test.mjs
+      - name: Create immutable package
+        run: tar --sort=name --mtime='UTC 2020-01-01' --owner=0 --group=0 --numeric-owner -czf portfolio.tar.gz -C apps/web dist
+      - name: Compute digest
+        run: sha256sum portfolio.tar.gz | tee portfolio.sha256
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/web/dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-package
+          path: |
+            portfolio.tar.gz
+            portfolio.sha256
+          retention-days: 30
+
+  attest:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      id-token: write
+      attestations: write
+      contents: read
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: portfolio-package
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: portfolio.tar.gz
+
+  verify:
+    runs-on: ubuntu-latest
+    needs: attest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: portfolio-package
+      - name: Verify provenance
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh attestation verify portfolio.tar.gz --owner "${{ github.repository_owner }}"
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: verify
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

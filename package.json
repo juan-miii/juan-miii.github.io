@@ -15,7 +15,11 @@
 		"format": "biome format --write .",
 		"format:check": "biome format .",
 		"typecheck": "turbo run check",
-		"check": "pnpm format:check && pnpm lint && pnpm typecheck"
+		"check": "pnpm format:check && pnpm lint && pnpm typecheck",
+		"content:check": "node apps/web/scripts/content-check.mjs",
+		"test": "turbo run test",
+		"test:e2e": "pnpm build && node apps/web/scripts/smoke.test.mjs",
+		"test:visual": "echo 'No visual tests configured yet'"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "catalog:",

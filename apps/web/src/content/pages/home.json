@@ -1,18 +1,22 @@
 {
 	"id": "home",
 	"locale": "es",
-	"title": "Ciberseguridad, tecnología e ingeniería.",
-	"description": "Portfolio profesional en construcción.",
+	"title": "Juan Miguel | Consultor en Tecnolog\u00eda e Ingeniero Inform\u00e1tico",
+	"description": "Consultor en tecnolog\u00eda e ingeniero inform\u00e1tico en Madrid. Ciberseguridad, agentes inteligentes, microservicios y soluciones escalables alineadas con negocio.",
 	"action": {
-		"label": "Siguiente sección",
+		"label": "Siguiente secci\u00f3n",
 		"href": "#siguiente"
 	},
 	"notFound": {
-		"title": "Esta página no existe.",
+		"title": "Esta p\u00e1gina no existe.",
 		"description": "Puedes volver al inicio para continuar.",
 		"backLabel": "Volver al inicio"
 	},
 	"navigation": [
+		{
+			"label": "Inicio",
+			"href": "#hero"
+		},
 		{
 			"label": "Experiencia",
 			"href": "#experience"
@@ -22,22 +26,26 @@
 			"href": "#projects"
 		},
 		{
-			"label": "Sobre mí",
+			"label": "Casos",
+			"href": "#cases"
+		},
+		{
+			"label": "Sobre m\u00ed",
 			"href": "#about"
 		},
 		{
 			"label": "Contacto",
-			"href": "mailto:tu-correo@ejemplo.com"
+			"href": "#contact"
 		}
 	],
 	"hero": {
 		"badge": "Disponible para colaborar",
-		"title": "Ciberseguridad, tecnología e ingeniería.",
-		"bio": "Texto provisional de presentación profesional.",
+		"title": "Juan Miguel \u2014 Consultor en Tecnolog\u00eda e Ingeniero Inform\u00e1tico",
+		"bio": "Dise\u00f1o y aplico soluciones tecnol\u00f3gicas pr\u00e1cticas y verificables: ciberseguridad, automatizaci\u00f3n, agentes inteligentes y arquitectura de sistemas, siempre con foco en el valor de negocio.",
 		"links": [
 			{
 				"label": "Correo",
-				"href": "mailto:tu-correo@ejemplo.com"
+				"href": "mailto:94069179-juan-miii@proton.me"
 			},
 			{
 				"label": "GitHub",
@@ -51,13 +59,45 @@
 		"rights": "Todos los derechos reservados.",
 		"links": [
 			{
-				"label": "Sobre mí",
+				"label": "Sobre m\u00ed",
 				"href": "#about"
 			},
 			{
 				"label": "Contacto",
-				"href": "mailto:tu-correo@ejemplo.com"
+				"href": "mailto:94069179-juan-miii@proton.me"
 			}
 		]
+	},
+	"experience": [
+		{
+			"title": "Pr\u00e1cticas en Consultor\u00eda",
+			"date": "Actualmente",
+			"description": "Participaci\u00f3n en consultor\u00eda, an\u00e1lisis, estrategia e implementaci\u00f3n."
+		},
+		{
+			"title": "Desarrollo de marca personal",
+			"date": "2024-2025",
+			"description": "Redise\u00f1o del sitio personal y mejora de presencia profesional."
+		}
+	],
+	"projects": [
+		{
+			"title": "Plataforma personal de portfolio",
+			"description": "Portfolio modular centrado en contenido, dise\u00f1o y entrega verificable.",
+			"tags": ["astro", "typescript", "turborepo"]
+		}
+	],
+	"about": {
+		"title": "Sobre m\u00ed",
+		"bio": "Ingeniero Inform\u00e1tico y consultor en tecnolog\u00eda. Me centro en traducir necesidades de negocio a arquitecturas simples, mantenibles y seguras. Trabajo con ciberseguridad, agentes inteligentes, microservicios e infraestructura cr\u00edtica, priorizando trazabilidad, comprobabilidad y deuda t\u00e9cnica controlada."
+	},
+	"contact": {
+		"title": "Contacto",
+		"description": "Si quieres hablar sobre tecnolog\u00eda, seguridad o una colaboraci\u00f3n, escr\u00edbeme.",
+		"email": "94069179-juan-miii@proton.me"
+	},
+	"thisSite": {
+		"title": "Esta web",
+		"description": "Portfolio construido como monorepo con Astro, pnpm y Turborepo; salida est\u00e1tica, contenido validado y arquitectura documentada."
 	}
 }
