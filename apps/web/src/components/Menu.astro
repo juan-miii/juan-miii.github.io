@@ -1,0 +1,207 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface NavigationItem {
+	index: string;
+	label: string;
+	href: string;
+}
+
+interface Props {
+	name: string;
+	navigation: NavigationItem[];
+	email: string;
+	github: string;
+	location: string;
+}
+
+const { name, navigation, email, github, location } = Astro.props;
+---
+
+<div id="site-menu" class="menu" data-menu hidden>
+	<div class="menu__panel dark-field" data-menu-panel>
+		<div class="menu__top shell">
+			<span class="mono menu__eyebrow">Menú / {name}</span>
+			<button class="menu__close" type="button" data-menu-close>
+				<span>Cerrar</span>
+				<Icon name="tabler:x" aria-hidden="true" />
+			</button>
+		</div>
+
+		<nav class="menu__nav shell" aria-label="Menú principal">
+			<ul>
+				{
+					navigation.map((item) => (
+						<li>
+							<a class="menu__link" href={item.href} data-menu-item>
+								<span class="menu__index">{item.index}</span>
+								<span class="menu__label">{item.label}</span>
+								<Icon name="tabler:arrow-up-right" aria-hidden="true" />
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+
+		<div class="menu__foot shell">
+			<div class="menu__contact">
+				<a class="text-link" href={`mailto:${email}`}>{email}</a>
+				<a class="text-link" href={github} rel="me noopener" target="_blank">
+					GitHub
+				</a>
+			</div>
+			<span class="mono menu__place">{location}</span>
+		</div>
+
+		<div class="menu__backdrop" data-menu-backdrop aria-hidden="true"></div>
+	</div>
+</div>
+
+<style>
+	.menu {
+		position: fixed;
+		inset: 0;
+		z-index: var(--z-menu);
+	}
+
+	.menu[hidden] {
+		display: none;
+	}
+
+	.menu__panel {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		flex-direction: column;
+		background: var(--c-dark);
+		overflow: hidden;
+	}
+
+	.menu__top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding-block: 1.15rem;
+		border-block-end: 1px solid var(--c-line);
+	}
+
+	.menu__eyebrow {
+		color: var(--c-muted);
+	}
+
+	.menu__close {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-family: var(--f-mono);
+		font-size: var(--t-xs);
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--c-paper);
+	}
+
+	.menu__close :global(svg) {
+		transition: transform var(--motion-base) var(--motion-easing);
+	}
+
+	.menu__close:hover :global(svg),
+	.menu__close:focus-visible :global(svg) {
+		transform: rotate(90deg);
+	}
+
+	.menu__nav {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		padding-block: clamp(2rem, 6vh, 4rem);
+	}
+
+	.menu__nav ul {
+		inline-size: 100%;
+	}
+
+	.menu__nav li {
+		overflow: hidden;
+		border-block-start: 1px solid var(--c-line);
+	}
+
+	.menu__nav li:last-child {
+		border-block-end: 1px solid var(--c-line);
+	}
+
+	.menu__link {
+		display: flex;
+		align-items: baseline;
+		gap: clamp(0.8rem, 2vw, 1.8rem);
+		padding-block: clamp(0.55rem, 1.4vh, 1rem);
+		font-size: clamp(2.5rem, 8.4vw, 7.4rem);
+		font-weight: 500;
+		line-height: 0.95;
+		letter-spacing: -0.045em;
+		transition:
+			color var(--motion-base) var(--motion-easing),
+			padding-inline-start var(--motion-base) var(--motion-easing);
+	}
+
+	.menu__index {
+		font-family: var(--f-mono);
+		font-size: 0.62rem;
+		letter-spacing: 0.04em;
+		color: var(--c-accent-dark);
+	}
+
+	.menu__label {
+		flex: 1;
+	}
+
+	.menu__link :global(svg) {
+		inline-size: clamp(1.4rem, 2.8vw, 2.6rem);
+		block-size: auto;
+		color: var(--c-accent-dark);
+		opacity: 0;
+		transform: translate(-0.5rem, 0.5rem);
+		transition:
+			opacity var(--motion-base) var(--motion-easing),
+			transform var(--motion-base) var(--motion-easing);
+	}
+
+	.menu__link:hover,
+	.menu__link:focus-visible {
+		color: var(--c-accent-dark);
+		padding-inline-start: 0.5rem;
+	}
+
+	.menu__link:hover :global(svg),
+	.menu__link:focus-visible :global(svg) {
+		opacity: 1;
+		transform: none;
+	}
+
+	.menu__foot {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding-block: 1.4rem;
+		border-block-start: 1px solid var(--c-line);
+		font-size: var(--t-s);
+	}
+
+	.menu__contact {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.2rem;
+	}
+
+	.menu__place {
+		color: var(--c-muted);
+	}
+
+	.menu__backdrop {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+	}
+</style>

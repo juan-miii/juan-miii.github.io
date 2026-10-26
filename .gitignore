@@ -190,3 +190,6 @@ mise.local.lock
 ### Turborepo
 .turbo/
 .codegraph/
+
+### QA artifacts
+.shots*/

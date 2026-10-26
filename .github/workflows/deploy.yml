@@ -31,6 +31,10 @@ jobs:
       - run: pnpm content:check
       - run: pnpm build
       - run: node apps/web/scripts/smoke.test.mjs
+      - name: Install Playwright Chromium
+        run: pnpm --filter @portfolio/web exec playwright install --with-deps chromium
+      - name: Accessibility and layout audit
+        run: pnpm --filter @portfolio/web test:a11y
       - name: Create immutable package
         run: tar --sort=name --mtime='UTC 2020-01-01' --owner=0 --group=0 --numeric-owner -czf portfolio.tar.gz -C apps/web dist
       - name: Compute digest
@@ -67,10 +71,13 @@ jobs:
     permissions:
       contents: read
       id-token: write
+      attestations: read
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: portfolio-package
+      - name: Verify package digest
+        run: sha256sum -c portfolio.sha256
       - name: Verify provenance
         env:
           GH_TOKEN: ${{ github.token }}

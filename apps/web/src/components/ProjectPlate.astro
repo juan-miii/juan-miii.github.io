@@ -1,0 +1,392 @@
+---
+interface Props {
+	variant: "content" | "pipeline";
+	title: string;
+	caption: string;
+	figure: string;
+}
+
+const { variant, title, caption, figure } = Astro.props;
+const id = `plate-${figure.replace(/\W+/g, "-").toLowerCase()}`;
+
+const steps =
+	variant === "content"
+		? [
+				{ label: "Entrada", title: "Contenido", note: "proyectos / casos / experiencia" },
+				{ label: "Validar", title: "Zod + referencias", note: "ids únicos y medios existentes", accent: true },
+				{ label: "Construir", title: "Astro build", note: "HTML estático, sin runtime de datos" },
+				{ label: "Salida", title: "/dist", note: "rutas, sitemap y 404" },
+			]
+		: [
+				{ label: "Origen", title: "commit", note: "push a main, dependencias fijas" },
+				{ label: "Integrar", title: "validar", note: "tipos, pruebas y seguridad" },
+				{ label: "Construir", title: "astro build", note: "artefacto sin secretos" },
+				{ label: "Medir", title: "sha-256", note: "digest por ejecución", accent: true },
+				{ label: "Publicar", title: "Pages", note: "solo si el digest coincide" },
+			];
+---
+
+<figure class="plate">
+	<ol class="plate__mobile" aria-label={`${title}. Esquema en pasos.`}>
+		{
+			steps.map((step, index) => (
+				<li class:list={{ "is-accent": step.accent }}>
+					<span class="plate__mobile-index mono">
+						{String(index + 1).padStart(2, "0")}
+					</span>
+					<span class="plate__mobile-body">
+						<span class="plate__mobile-label mono">{step.label}</span>
+						<span class="plate__mobile-title">{step.title}</span>
+						<span class="plate__mobile-note">{step.note}</span>
+					</span>
+				</li>
+			))
+		}
+	</ol>
+
+	<svg
+		class="plate__svg"
+		viewBox="0 0 960 560"
+		role="img"
+		aria-labelledby={id}
+	>
+		<title id={id}>{title}</title>
+		<rect class="plate__bg" x="0.5" y="0.5" width="959" height="559" />
+
+		<g class="plate__grid">
+			{
+				Array.from({ length: 11 }, (_, index) => (
+					<line x1={80 + index * 80} y1="72" x2={80 + index * 80} y2="488" />
+				))
+			}
+			{
+				Array.from({ length: 6 }, (_, index) => (
+					<line x1="40" y1={80 + index * 80} x2="920" y2={80 + index * 80} />
+				))
+			}
+		</g>
+
+		<text class="plate__kicker" x="40" y="44">MAPA / {variant === "content" ? "CONTENIDO" : "ENTREGA"}</text>
+		<text class="plate__kicker plate__kicker--end" x="920" y="44" text-anchor="end">FIG. {figure}</text>
+
+		{
+			variant === "content" ? (
+				<g>
+					<g class="plate__box">
+						<rect x="40" y="120" width="200" height="64" />
+						<text class="plate__title" x="54" y="146">proyectos.json</text>
+						<text class="plate__sub" x="54" y="166">id / slug / orden</text>
+					</g>
+					<g class="plate__box">
+						<rect x="40" y="208" width="200" height="64" />
+						<text class="plate__title" x="54" y="234">experiencia.json</text>
+						<text class="plate__sub" x="54" y="254">rol / organización / fechas</text>
+					</g>
+					<g class="plate__box">
+						<rect x="40" y="296" width="200" height="64" />
+						<text class="plate__title" x="54" y="322">casos.md</text>
+						<text class="plate__sub" x="54" y="342">contexto / decisión / límites</text>
+					</g>
+
+					<path class="plate__line" d="M 240 152 H 296 V 252 H 330" />
+					<path class="plate__line" d="M 240 240 H 330" />
+					<path class="plate__line" d="M 240 328 H 296 V 252 H 330" />
+
+					<g class="plate__box plate__box--accent">
+						<rect x="330" y="192" width="160" height="120" />
+						<text class="plate__label" x="346" y="218">VALIDAR</text>
+						<text class="plate__title" x="346" y="244">Zod + referencias</text>
+						<text class="plate__sub" x="346" y="264">ids únicos</text>
+						<text class="plate__sub" x="346" y="280">slugs sin colisión</text>
+						<text class="plate__sub" x="346" y="296">medios existentes</text>
+						<circle class="plate__port" cx="330" cy="252" r="4" />
+					</g>
+
+					<path class="plate__line plate__line--accent" d="M 490 252 H 550" />
+					<circle class="plate__port plate__port--accent" cx="520" cy="252" r="4" />
+
+					<g class="plate__box">
+						<rect x="550" y="192" width="170" height="120" />
+						<text class="plate__label" x="566" y="218">CONSTRUIR</text>
+						<text class="plate__title" x="566" y="244">Astro build</text>
+						<text class="plate__sub" x="566" y="264">html estático</text>
+						<text class="plate__sub" x="566" y="280">css crítico</text>
+						<text class="plate__sub" x="566" y="296">sin runtime de datos</text>
+					</g>
+
+					<path class="plate__line plate__line--accent" d="M 720 252 H 780" />
+
+					<g class="plate__box">
+						<rect x="780" y="192" width="140" height="120" />
+						<text class="plate__label" x="796" y="218">SALIDA</text>
+						<text class="plate__title" x="796" y="244">/ dist</text>
+						<text class="plate__sub" x="796" y="264">rutas</text>
+						<text class="plate__sub" x="796" y="280">sitemap</text>
+						<text class="plate__sub" x="796" y="296">404</text>
+					</g>
+
+					<path class="plate__bus" d="M 40 430 H 920" />
+					<circle class="plate__port" cx="40" cy="430" r="4" />
+					<circle class="plate__port" cx="330" cy="430" r="4" />
+					<circle class="plate__port plate__port--accent" cx="550" cy="430" r="5" />
+					<circle class="plate__port" cx="780" cy="430" r="4" />
+					<circle class="plate__port" cx="920" cy="430" r="4" />
+					<text class="plate__sub" x="40" y="460">TRAZA / contenido → validación → construcción → salida</text>
+					<text class="plate__kicker" x="920" y="460" text-anchor="end">SIN CMS / SIN PASOS MANUALES</text>
+				</g>
+			) : (
+				<g>
+					<g class="plate__box">
+						<rect x="40" y="190" width="140" height="120" />
+						<text class="plate__label" x="56" y="216">01 / ORIGEN</text>
+						<text class="plate__title" x="56" y="244">commit</text>
+						<text class="plate__sub" x="56" y="264">push a main</text>
+						<text class="plate__sub" x="56" y="280">dependencias fijas</text>
+					</g>
+					<path class="plate__line plate__line--accent" d="M 180 250 H 205" />
+
+					<g class="plate__box">
+						<rect x="205" y="190" width="140" height="120" />
+						<text class="plate__label" x="221" y="216">02 / INTEGRAR</text>
+						<text class="plate__title" x="221" y="244">validar</text>
+						<text class="plate__sub" x="221" y="264">contenido</text>
+						<text class="plate__sub" x="221" y="280">tipos + pruebas</text>
+						<text class="plate__sub" x="221" y="296">seguridad</text>
+					</g>
+					<path class="plate__line plate__line--accent" d="M 345 250 H 370" />
+
+					<g class="plate__box">
+						<rect x="370" y="190" width="140" height="120" />
+						<text class="plate__label" x="386" y="216">03 / CONSTRUIR</text>
+						<text class="plate__title" x="386" y="244">astro build</text>
+						<text class="plate__sub" x="386" y="264">artefacto</text>
+						<text class="plate__sub" x="386" y="280">sin secretos</text>
+					</g>
+					<path class="plate__line plate__line--accent" d="M 510 250 H 535" />
+
+					<g class="plate__box plate__box--accent">
+						<rect x="535" y="190" width="150" height="120" />
+						<text class="plate__label" x="551" y="216">04 / MEDIR</text>
+						<text class="plate__title" x="551" y="244">sha-256</text>
+						<text class="plate__sub" x="551" y="264">digest del artefacto</text>
+						<text class="plate__sub" x="551" y="280">registro por ejecución</text>
+						<circle class="plate__port plate__port--accent" cx="685" cy="250" r="4" />
+					</g>
+
+					<g class="plate__box">
+						<rect x="770" y="190" width="150" height="120" />
+						<text class="plate__label" x="786" y="216">05 / PUBLICAR</text>
+						<text class="plate__title" x="786" y="244">Pages</text>
+						<text class="plate__sub" x="786" y="264">solo si coincide</text>
+						<text class="plate__sub" x="786" y="280">rama principal</text>
+					</g>
+					<path class="plate__line plate__line--accent" d="M 685 250 H 770" />
+
+					<path class="plate__line" d="M 610 310 V 380 H 805 V 310" />
+					<path class="plate__arrow" d="M 805 318 L 800 308 L 810 308 Z" />
+
+					<g class="plate__gate">
+						<rect x="610" y="356" width="230" height="48" />
+						<text class="plate__title" x="624" y="377">verify-artifact.mjs</text>
+						<text class="plate__sub" x="624" y="393">recalcula y compara el digest</text>
+					</g>
+
+					<path class="plate__bus" d="M 40 470 H 920" />
+					<circle class="plate__port" cx="40" cy="470" r="4" />
+					<circle class="plate__port plate__port--accent" cx="535" cy="470" r="5" />
+					<circle class="plate__port" cx="770" cy="470" r="4" />
+					<circle class="plate__port" cx="920" cy="470" r="4" />
+					<text class="plate__sub" x="40" y="500">TRAZA / commit → integración → artefacto → verificación → publicación</text>
+					<text class="plate__kicker" x="920" y="500" text-anchor="end">INTEGRIDAD / PROCEDENCIA</text>
+				</g>
+			)
+		}
+	</svg>
+	<figcaption class="plate__caption">
+		<span class="mono">{caption}</span>
+		<span class="mono">Fig. {figure}</span>
+	</figcaption>
+</figure>
+
+<style>
+	.plate {
+		border: 1px solid var(--c-line);
+		background: var(--c-surface, #e9e8e2);
+		overflow: hidden;
+	}
+
+	.plate__svg {
+		display: block;
+		inline-size: 100%;
+		block-size: auto;
+	}
+
+	.plate__mobile {
+		display: none;
+	}
+
+	@media (max-width: 899px) {
+		.plate__svg {
+			display: none;
+		}
+
+		.plate__mobile {
+			position: relative;
+			display: grid;
+			padding: 1.2rem 1.1rem 0.7rem;
+		}
+
+		.plate__mobile::before {
+			content: "";
+			position: absolute;
+			inset-block: 2.2rem 2rem;
+			inset-inline-start: 1.8rem;
+			inline-size: 1px;
+			background: var(--c-line-strong);
+		}
+
+		.plate__mobile li {
+			display: grid;
+			grid-template-columns: 1.4rem minmax(0, 1fr);
+			gap: 0.9rem;
+			padding-block: 0.6rem;
+		}
+
+		.plate__mobile-index {
+			position: relative;
+			z-index: 1;
+			display: grid;
+			place-items: center;
+			inline-size: 1.4rem;
+			block-size: 1.4rem;
+			border: 1px solid var(--c-line-strong);
+			background: var(--c-ground);
+			font-size: 0.55rem;
+			color: var(--c-muted);
+		}
+
+		.plate__mobile li.is-accent .plate__mobile-index {
+			border-color: var(--c-accent);
+			background: var(--c-accent);
+			color: var(--c-paper);
+		}
+
+		.plate__mobile-body {
+			display: grid;
+			gap: 0.12rem;
+			padding-block-start: 0.1rem;
+		}
+
+		.plate__mobile-label {
+			color: var(--c-accent-ink);
+			font-size: 0.58rem;
+		}
+
+		.plate__mobile-title {
+			font-size: 0.95rem;
+			font-weight: 500;
+			letter-spacing: -0.02em;
+			line-height: 1.25;
+		}
+
+		.plate__mobile-note {
+			font-size: 0.75rem;
+			line-height: 1.4;
+			color: var(--c-muted);
+		}
+	}
+
+	.plate__bg {
+		fill: var(--c-ground);
+		stroke: var(--c-line);
+	}
+
+	.plate__grid line {
+		stroke: var(--c-line);
+		stroke-width: 1;
+		opacity: 0.45;
+	}
+
+	.plate__box rect {
+		fill: var(--c-ground);
+		stroke: var(--c-line-strong);
+		stroke-width: 1;
+	}
+
+	.plate__box--accent rect {
+		stroke: var(--c-accent);
+	}
+
+	.plate__gate rect {
+		fill: var(--c-ground);
+		stroke: var(--c-accent);
+		stroke-width: 1;
+	}
+
+	.plate__line {
+		fill: none;
+		stroke: var(--c-line-strong);
+		stroke-width: 1;
+	}
+
+	.plate__line--accent {
+		stroke: var(--c-accent);
+	}
+
+	.plate__bus {
+		fill: none;
+		stroke: var(--c-line-strong);
+		stroke-width: 1;
+	}
+
+	.plate__arrow {
+		fill: var(--c-accent);
+	}
+
+	.plate__port {
+		fill: var(--c-ground);
+		stroke: var(--c-line-strong);
+		stroke-width: 1;
+	}
+
+	.plate__port--accent {
+		fill: var(--c-accent);
+		stroke: var(--c-accent);
+	}
+
+	.plate__title {
+		fill: var(--c-ink);
+		font-family: var(--f-body);
+		font-size: 13px;
+		font-weight: 500;
+		letter-spacing: -0.02em;
+	}
+
+	.plate__label,
+	.plate__kicker {
+		fill: var(--c-muted);
+		font-family: var(--f-mono);
+		font-size: 8px;
+		letter-spacing: 0.06em;
+	}
+
+	.plate__sub {
+		fill: var(--c-muted);
+		font-family: var(--f-mono);
+		font-size: 8.5px;
+		letter-spacing: 0.01em;
+	}
+
+	.plate__caption {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.65rem 0.8rem;
+		border-block-start: 1px solid var(--c-line);
+		color: var(--c-muted);
+	}
+
+	.plate__caption span:last-child {
+		color: var(--c-accent-ink);
+	}
+</style>
