@@ -4,7 +4,7 @@ Portfolio personal de Juan Miguel, ingeniero informático y consultor tecnológi
 
 El sitio es una sola página: perfil, enfoque, trabajo, capacidades, trayectoria y contacto. Cada proyecto abre una ficha superpuesta con su caso completo y enlaces al código fuente. La única ruta adicional es el 404.
 
-El concepto, la dirección de arte y las decisiones de diseño están en [`DESIGN.md`](./DESIGN.md).
+El concepto, la dirección de arte y las decisiones de diseño están en [`DESIGN.md`](./DESIGN.md). El mapa de cada elemento visible y el archivo donde se edita está en [`COMPONENTS.md`](./COMPONENTS.md).
 
 ## Requisitos
 
@@ -35,7 +35,7 @@ pnpm content:check    # referencias entre proyectos, casos y organizaciones
 
 ## Contenido
 
-El texto vive en `apps/web/src/content`; los esquemas Zod están en `apps/web/src/content/schemas`. Para publicar un proyecto hacen falta su ficha (`projects/*.json`), su caso (`cases/*.md`) y una portada en `apps/web/public/images`. La portada compone ambos proyectos y monta cada caso como un diálogo nativo; el hash `#proyecto-<slug>` abre la ficha correspondiente.
+El texto vive en `apps/web/src/content`; los esquemas Zod están en `apps/web/src/content/schemas`. Para publicar un proyecto hacen falta su ficha (`projects/*.json`) y su caso (`cases/*.md`). El esquema visual se elige con `plate` y se dibuja en `ProjectPlate.astro`; el antiguo campo `cover` es opcional y ya no se pinta en la ficha. La portada compone ambos proyectos y monta cada caso como un diálogo nativo; el hash `#proyecto-<slug>` abre la ficha correspondiente.
 
 ## Despliegue
 

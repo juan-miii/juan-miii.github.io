@@ -72,11 +72,11 @@ export async function boot(setup?: () => void) {
 	booted = true;
 	syncFlags();
 	initScroll();
-	initCursor();
 	setup?.();
 	stopScroll();
 	initPage();
-	await runLoader();
-	startScroll();
-	intro?.play();
+	await runLoader(() => {
+		startScroll();
+		intro?.play();
+	});
 }

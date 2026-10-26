@@ -124,7 +124,7 @@ HOME
 │ 05 Perfil   │ long bio + details + portrait + rules   │
 ├──────────────────────────────────────────────────────┤
 │ 06 Contacto │ dark field, huge invitation, email     │
-│ footer      │ giant name, links, colophon             │
+│             │ map, colophon, contact details, legal  │
 └──────────────────────────────────────────────────────┘
 ```
 
@@ -197,5 +197,13 @@ orientation. The project visuals are diagrams, not invented screenshots.
 - One committed light theme. The final contact and footer are the dark field. No theme toggle:
   it would double the design surface without helping the brief.
 - No WebGL. The signature is DOM/SVG and stays at 60 fps on a phone.
+- Project plates are hand-authored inline SVG in `ProjectPlate.astro`, not screenshots or
+  generated images. Both variants share one 960x560 coordinate system, an 80 px grid, boxes,
+  ports and a labelled bus; below 900 px the same steps render as an accessible ordered list.
+- Keep the first load small: Astro inlines the CSS into the document, only the intro is split
+  up front, and below-the-fold reveals and SplitText runs are built when they approach the
+  viewport. The trace caches its document offset and batches reads before writes; pulses,
+  underlines and hover states animate transform and opacity, not layout or paint properties.
+- Portraits use responsive `srcset` widths, so a 1x screen does not download the 720 px file.
 - Keep the deployment workflow and provenance checks. The site is also the proof of the second
   case study.

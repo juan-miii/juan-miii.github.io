@@ -49,8 +49,13 @@ const {
 
 		<div class="hero__main">
 			<h1 id="hero-title" class="hero__name" aria-label={name}>
-				<span class="hero__line" data-split="lines" data-intro>{firstName}</span>
-				<span class="hero__line hero__line--second" data-split="lines" data-intro>
+				<span class="hero__line" data-split="lines" data-intro data-delay="0.55">{firstName}</span>
+				<span
+					class="hero__line hero__line--second"
+					data-split="lines"
+					data-intro
+					data-delay="0.63"
+				>
 					{lastName}<span class="hero__dot">.</span>
 				</span>
 			</h1>
@@ -62,6 +67,8 @@ const {
 						alt={`Retrato de ${name}`}
 						width={560}
 						height={560}
+						widths={[152, 288, 560]}
+						sizes="(min-width: 1200px) 9rem, 12vw"
 						format="webp"
 						quality={84}
 						loading="eager"
@@ -226,23 +233,34 @@ const {
 	}
 
 	.status-dot {
+		position: relative;
 		inline-size: 0.42rem;
 		block-size: 0.42rem;
 		border-radius: 50%;
 		background: var(--c-accent);
-		box-shadow: 0 0 0 0 rgb(217 58 43 / 40%);
+	}
+
+	/* The halo is a scaled ring instead of an animated box-shadow so it stays
+	   on the compositor. */
+	.status-dot::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		border: 1px solid rgb(217 58 43 / 55%);
+		border-radius: 50%;
+		pointer-events: none;
 		animation: availability 3.4s ease-out infinite;
 	}
 
 	@keyframes availability {
 		0% {
-			box-shadow: 0 0 0 0 rgb(217 58 43 / 40%);
+			opacity: 0.55;
+			transform: scale(1);
 		}
-		55% {
-			box-shadow: 0 0 0 0.4rem rgb(217 58 43 / 0%);
-		}
+		55%,
 		100% {
-			box-shadow: 0 0 0 0 rgb(217 58 43 / 0%);
+			opacity: 0;
+			transform: scale(3);
 		}
 	}
 
@@ -331,7 +349,7 @@ const {
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.status-dot,
+		.status-dot::after,
 		.hero__scroll-line span {
 			animation: none;
 		}

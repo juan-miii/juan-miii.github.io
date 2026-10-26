@@ -8,7 +8,9 @@ export default defineConfig({
 	output: "static",
 	trailingSlash: "always",
 	build: {
-		inlineStylesheets: "auto",
+		// One page, small CSS: keep the styles in the document so the first
+		// render does not wait for two extra requests.
+		inlineStylesheets: "always",
 	},
 	integrations: [
 		sitemap(),
