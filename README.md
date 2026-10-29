@@ -2,7 +2,7 @@
 
 Portfolio personal de Juan Miguel, ingeniero informático y consultor tecnológico. Monorepo con `pnpm` y Turborepo; la web se genera estáticamente con Astro y se publica en GitHub Pages.
 
-El sitio es una sola página: perfil, enfoque, trabajo, capacidades, trayectoria y contacto. Cada proyecto abre una ficha superpuesta con su caso completo y enlaces al código fuente. La única ruta adicional es el 404.
+El sitio es una sola página: disciplina (con método y capacidades), trabajo, experiencia, perfil y contacto. Cada proyecto abre una ficha superpuesta con su caso completo y enlaces al código fuente. La única ruta adicional es el 404.
 
 El concepto, la dirección de arte y las decisiones de diseño están en [`DESIGN.md`](./DESIGN.md). El mapa de cada elemento visible y el archivo donde se edita está en [`COMPONENTS.md`](./COMPONENTS.md).
 

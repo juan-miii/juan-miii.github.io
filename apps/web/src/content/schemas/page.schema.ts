@@ -52,18 +52,9 @@ export const pageSchema = z.object({
 		portraitCaption: z.string().min(1),
 		scrollCue: z.string().min(1),
 	}),
-	approach: sectionSchema.extend({
-		notes: z.array(
-			z.object({
-				label: z.string().min(1),
-				value: z.string().min(1),
-			}),
-		),
-	}),
-	work: sectionSchema.extend({
-		note: z.string().min(1),
-	}),
-	capabilities: sectionSchema.extend({
+	approach: sectionSchema,
+	work: sectionSchema,
+	capabilities: subSectionSchema.extend({
 		items: z.array(
 			z.object({
 				title: z.string().min(1),
@@ -71,26 +62,11 @@ export const pageSchema = z.object({
 				tools: z.array(z.string().min(1)),
 			}),
 		),
-		stack: z.array(z.string().min(1)),
 	}),
 	experienceSection: sectionSchema,
 	method: subSectionSchema,
-	toolbox: subSectionSchema,
-	principlesSection: subSectionSchema,
-	profile: sectionSchema.extend({
+	profile: sectionSchema.omit({ body: true }).extend({
 		long: z.array(z.string().min(1)),
-		details: z.array(
-			z.object({
-				label: z.string().min(1),
-				value: z.string().min(1),
-			}),
-		),
-		principles: z.array(
-			z.object({
-				title: z.string().min(1),
-				description: z.string().min(1),
-			}),
-		),
 	}),
 	contact: z.object({
 		index: z.string().min(1),

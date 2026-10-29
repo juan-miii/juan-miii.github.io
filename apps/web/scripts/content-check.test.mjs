@@ -55,9 +55,9 @@ const scenarios = [
 	{
 		name: "invalid-organization-reference",
 		mutate: (fixture) => {
-			const role = readJson(fixture, "experience/consulting-intern.json");
+			const role = readJson(fixture, "experience/accenture-consultant.json");
 			role.organizationId = "missing-organization";
-			writeJson(fixture, "experience/consulting-intern.json", role);
+			writeJson(fixture, "experience/accenture-consultant.json", role);
 		},
 		expected: false,
 	},

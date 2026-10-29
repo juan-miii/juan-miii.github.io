@@ -14,7 +14,7 @@ const { id, index, label, title, body } = Astro.props;
 	<div class="section-head__label">
 		<span class="node-label" data-trace-anchor>
 			<span class="node-label__index">{index}</span>
-			{label}
+			{label !== title && label}
 		</span>
 	</div>
 	<h2 id={id} class="section-head__title" data-split="lines">{title}</h2>

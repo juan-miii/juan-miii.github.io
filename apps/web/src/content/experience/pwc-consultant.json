@@ -1,0 +1,16 @@
+{
+	"id": "pwc-consultant",
+	"locale": "es",
+	"role": "Consultor en soluciones de seguridad de negocio",
+	"organizationId": "pwc",
+	"startDate": "2025",
+	"current": true,
+	"location": "Madrid",
+	"summary": "Formo parte del área de Business Security Solutions, donde trabajo en iniciativas de gobernanza, riesgo y cumplimiento, así como en la evolución de plataformas tecnológicas para clientes.",
+	"contributions": [
+		"Conexión entre necesidades de negocio y ejecución técnica.",
+		"Análisis funcional, planificación y gestión de stakeholders.",
+		"Seguimiento de entregas y traducción de requisitos en propuestas accionables.",
+		"Identificación de oportunidades, definición de propuestas de valor y elaboración de propuestas técnicas y funcionales."
+	]
+}

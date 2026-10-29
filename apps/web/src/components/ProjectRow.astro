@@ -1,48 +1,98 @@
 ---
 import { Icon } from "astro-icon/components";
 
+interface ProjectLink {
+	kind: string;
+	label: string;
+	url: string;
+}
+
 interface Props {
 	index: number;
 	slug: string;
 	title: string;
 	summary: string;
+	highlights: string[];
+	links: ProjectLink[];
 	role: string;
 	year: string;
 	status: string;
 	technologies: string[];
 }
 
-const { index, slug, title, summary, role, year, status, technologies } =
-	Astro.props;
+const {
+	index,
+	slug,
+	title,
+	summary,
+	highlights,
+	links,
+	role,
+	year,
+	status,
+	technologies,
+} = Astro.props;
+
+const id = `proyecto-${slug}`;
+const externalLinks = links.filter((link) => link.kind !== "demo");
 ---
 
-<a
-	class="project-row"
-	href={`#proyecto-${slug}`}
-	data-trace-anchor
-	data-cursor="Abrir ficha"
-	data-project-open={slug}
-	aria-haspopup="dialog"
-	aria-controls={`proyecto-${slug}`}
->
+<article class="project-row" data-trace-anchor>
 	<span class="project-row__index">{String(index).padStart(2, "0")}</span>
+
 	<div class="project-row__main">
-		<h3 class="project-row__title">{title}</h3>
-		<span class="project-row__summary">{summary}</span>
+		<h3 class="project-row__title">
+			<a
+				href={`#${id}`}
+				data-project-open={slug}
+				aria-haspopup="dialog"
+				aria-controls={id}
+			>
+				{title}
+			</a>
+		</h3>
+
+		<p class="project-row__summary">{summary}</p>
+
+		<ul class="project-row__highlights">
+			{highlights.map((highlight) => <li>{highlight}</li>)}
+		</ul>
+
+		<div class="project-row__links">
+			{
+				externalLinks.map((link) => (
+					<a href={link.url} rel="noopener" target="_blank">
+						{link.label}
+						<Icon name="tabler:arrow-up-right" aria-hidden="true" />
+					</a>
+				))
+			}
+			<a
+				href={`#${id}`}
+				data-project-open={slug}
+				aria-haspopup="dialog"
+				aria-controls={id}
+			>
+				Ver caso
+				<Icon name="tabler:arrow-right" aria-hidden="true" />
+			</a>
+		</div>
+
 		<span class="project-row__tech">
 			{technologies.map((technology) => <span>{technology}</span>)}
 		</span>
 	</div>
+
 	<span class="project-row__meta">
 		<span>{year}</span>
 		<span>{role}</span>
 		<span>{status}</span>
 	</span>
-	<span class="project-row__arrow">
-		<Icon name="tabler:plus" aria-hidden="true" />
-		<span class="sr-only">Abrir ficha</span>
+
+	<span class="project-row__arrow" aria-hidden="true">
+		<Icon name="tabler:plus" />
 	</span>
-</a>
+</article>
 
 <style>
 	.project-row {
@@ -101,12 +151,81 @@ const { index, slug, title, summary, role, year, status, technologies } =
 		transition: transform 420ms var(--motion-easing);
 	}
 
+	.project-row__title a {
+		color: inherit;
+	}
+
+	/* The title link covers the row. Explicit links sit above it. */
+	.project-row__title a::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+	}
+
 	.project-row__summary {
 		max-inline-size: 56ch;
 		font-size: var(--t-s);
 		line-height: 1.5;
 		color: var(--c-muted);
 		transition: color var(--motion-base) var(--motion-easing);
+	}
+
+	.project-row__highlights {
+		display: grid;
+		gap: 0.2rem;
+		max-inline-size: 58ch;
+	}
+
+	.project-row__highlights li {
+		display: grid;
+		grid-template-columns: 0.7rem minmax(0, 1fr);
+		gap: 0.4rem;
+		font-size: var(--t-s);
+		line-height: 1.45;
+		color: var(--c-muted);
+		transition: color var(--motion-base) var(--motion-easing);
+	}
+
+	.project-row__highlights li::before {
+		content: "";
+		inline-size: 0.45rem;
+		block-size: 1px;
+		margin-block-start: 0.65em;
+		background: var(--c-accent);
+	}
+
+	.project-row__links {
+		position: relative;
+		z-index: 2;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem 1.1rem;
+		padding-block-start: 0.2rem;
+	}
+
+	.project-row__links a {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+		min-block-size: 1.5rem;
+		font-family: var(--f-mono);
+		font-size: 0.6rem;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--c-ink);
+		text-decoration: underline;
+		text-decoration-color: var(--c-line-strong);
+		text-underline-offset: 0.3em;
+		transition:
+			color var(--motion-base) var(--motion-easing),
+			text-decoration-color var(--motion-base) var(--motion-easing);
+	}
+
+	.project-row__links :global(svg) {
+		inline-size: 0.75rem;
+		block-size: 0.75rem;
+		transition: transform var(--motion-base) var(--motion-easing);
 	}
 
 	.project-row__tech {
@@ -161,47 +280,55 @@ const { index, slug, title, summary, role, year, status, technologies } =
 		transition: transform var(--motion-base) var(--motion-easing);
 	}
 
-	@media (hover: hover) {
-		.project-row:hover::before {
-			transform: scaleY(1);
-			transform-origin: top;
-		}
-
-		.project-row:hover {
-			color: var(--c-paper);
-		}
-
-		.project-row:hover .project-row__title {
-			transform: translateX(0.3rem);
-		}
-
-		.project-row:hover .project-row__summary,
-		.project-row:hover .project-row__meta,
-		.project-row:hover .project-row__tech span {
-			color: var(--c-muted-dark);
-		}
-
-		.project-row:hover .project-row__tech span {
-			border-color: rgb(242 241 236 / 24%);
-		}
-
-		.project-row:hover .project-row__meta span:last-child {
-			color: var(--c-accent-dark);
-		}
-
-		.project-row:hover .project-row__arrow {
-			border-color: var(--c-accent);
-			background: var(--c-accent);
-			color: var(--c-paper);
-		}
-
-		.project-row:hover .project-row__arrow :global(svg) {
-			transform: translate(2px, -2px);
-		}
+	.project-row:is(:hover, :focus-within)::before {
+		transform: scaleY(1);
+		transform-origin: top;
 	}
 
-	.project-row:focus-visible {
+	.project-row:is(:hover, :focus-within) {
+		color: var(--c-paper);
+	}
+
+	.project-row:is(:hover, :focus-within) .project-row__title {
+		transform: translateX(0.3rem);
+	}
+
+	.project-row:is(:hover, :focus-within) .project-row__summary,
+	.project-row:is(:hover, :focus-within) .project-row__meta,
+	.project-row:is(:hover, :focus-within) .project-row__tech span,
+	.project-row:is(:hover, :focus-within) .project-row__highlights li {
+		color: var(--c-muted-dark);
+	}
+
+	.project-row:is(:hover, :focus-within) .project-row__tech span {
+		border-color: rgb(242 241 236 / 24%);
+	}
+
+	.project-row:is(:hover, :focus-within) .project-row__meta span:last-child,
+	.project-row:is(:hover, :focus-within) .project-row__links a {
+		color: var(--c-accent-dark);
+	}
+
+	.project-row:is(:hover, :focus-within) .project-row__links a {
+		text-decoration-color: var(--c-accent-dark);
+	}
+
+	.project-row:is(:hover, :focus-within) .project-row__arrow {
+		border-color: var(--c-accent);
+		background: var(--c-accent);
+		color: var(--c-paper);
+	}
+
+	.project-row:is(:hover, :focus-within) .project-row__arrow :global(svg) {
+		transform: translate(2px, -2px);
+	}
+
+	.project-row:focus-within {
 		outline-offset: -4px;
+	}
+
+	.project-row__links a:focus-visible {
+		outline-color: var(--c-accent);
 	}
 
 	@media (min-width: 720px) {
