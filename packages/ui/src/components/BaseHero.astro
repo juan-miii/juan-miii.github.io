@@ -1,0 +1,15 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"section"> & {
+	id?: string;
+};
+
+const { id, class: className, ...attributes } = Astro.props;
+---
+
+<section {...attributes} id={id} class:list={["base-hero", className]}>
+	<div class="shell">
+		<slot />
+	</div>
+</section>

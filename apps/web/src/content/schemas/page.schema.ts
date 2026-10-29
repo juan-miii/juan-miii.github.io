@@ -75,13 +75,6 @@ export const pageSchema = z.object({
 		body: z.string().min(1),
 		emailLabel: z.string().min(1),
 		note: z.string().min(1),
-		topics: z.array(z.string().min(1)),
-		guide: z.array(
-			z.object({
-				title: z.string().min(1),
-				description: z.string().min(1),
-			}),
-		),
 	}),
 	footer: z.object({
 		note: z.string().min(1),

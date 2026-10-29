@@ -1,0 +1,53 @@
+/* Trailing pointer dot. The native cursor is never hidden. */
+#cursor {
+	position: fixed;
+	inset-block-start: 0;
+	inset-inline-start: 0;
+	z-index: var(--z-cursor);
+	inline-size: 0;
+	block-size: 0;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 260ms var(--motion-easing);
+}
+
+#cursor.is-ready {
+	opacity: 1;
+}
+
+.cursor__inner {
+	position: absolute;
+	display: grid;
+	place-items: center;
+	min-inline-size: 6px;
+	block-size: 6px;
+	padding: 0;
+	background: var(--c-accent);
+	color: var(--c-paper);
+	font-family: var(--f-mono);
+	font-size: 0.55rem;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	white-space: nowrap;
+	transform: translate(-50%, -50%);
+	transition:
+		min-inline-size 280ms var(--motion-easing),
+		block-size 280ms var(--motion-easing),
+		padding 280ms var(--motion-easing),
+		background-color 280ms var(--motion-easing),
+		border-radius 280ms var(--motion-easing);
+}
+
+#cursor.is-active .cursor__inner {
+	min-inline-size: 0;
+	block-size: auto;
+	padding: 0.45rem 0.65rem;
+	background: var(--c-ink);
+	border-radius: 0;
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+	#cursor {
+		display: none;
+	}
+}

@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import BaseFooter from "@portfolio/ui/base-footer";
 
 interface NavigationItem {
 	index: string;
@@ -22,8 +23,7 @@ const { name, navigation, email, github, location, footer, homeHref } =
 const year = new Date().getFullYear();
 ---
 
-<footer class="footer dark-field" data-inert-when-menu>
-	<div class="shell">
+<BaseFooter data-inert-when-menu>
 		<div class="footer__top">
 			<span class="mono">Fin de la señal / {year}</span>
 			<a class="footer__back" href={homeHref}>
@@ -31,15 +31,6 @@ const year = new Date().getFullYear();
 				<Icon name="tabler:arrow-up-right" aria-hidden="true" />
 			</a>
 		</div>
-
-		<!-- <div class="footer__cta">
-			<h2 class="footer__title">Hablemos</h2>
-			<a class="footer__mail" href={`mailto:${email}`}>
-				<span>Envíame un correo</span>
-				<Icon name="tabler:arrow-up-right" aria-hidden="true" />
-			</a>
-			<a class="footer__mail-inline" href={`mailto:${email}`}>{email}</a>
-		</div> -->
 
 		<div class="footer__grid">
 			<div class="footer__about">
@@ -70,7 +61,6 @@ const year = new Date().getFullYear();
 					<li>
 						<a href={github} rel="me noopener" target="_blank">GitHub</a>
 					</li>
-					<!-- TODO: Añadir Linkedin -->
 				</ul>
 				<p class="mono footer__place">
 					{location.city}, {location.country}
@@ -83,16 +73,9 @@ const year = new Date().getFullYear();
 			<span>{footer.rights}</span>
 			<span class="footer__built">Diseño y código propios</span>
 		</div>
-	</div>
-</footer>
+</BaseFooter>
 
 <style>
-	.footer {
-		position: relative;
-		padding-block: clamp(3rem, 7vw, 6rem) 1.5rem;
-		overflow: hidden;
-	}
-
 	.footer__top {
 		display: flex;
 		align-items: center;
@@ -120,53 +103,6 @@ const year = new Date().getFullYear();
 	.footer__back:hover :global(svg),
 	.footer__back:focus-visible :global(svg) {
 		transform: translate(2px, -2px);
-	}
-
-	.footer__cta {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.8rem 1.4rem;
-		margin-block: clamp(1rem, 2.5vw, 1.8rem) clamp(1.6rem, 4vw, 3rem);
-	}
-
-	.footer__title {
-		font-size: clamp(1.3rem, 3vw, 1.8rem);
-		font-weight: 500;
-		line-height: 1;
-		letter-spacing: -0.03em;
-		color: var(--c-paper);
-	}
-
-	.footer__mail {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.4rem;
-		padding: 0.4rem 0.9rem;
-		border: 1px solid var(--c-line-strong);
-		border-radius: 999px;
-		font-family: var(--f-mono);
-		font-size: 0.6rem;
-		letter-spacing: 0.045em;
-		text-transform: uppercase;
-		color: var(--c-paper);
-	}
-
-	.footer__mail :global(svg) {
-		transition: transform var(--motion-base) var(--motion-easing);
-	}
-
-	.footer__mail:hover :global(svg),
-	.footer__mail:focus-visible :global(svg) {
-		transform: translate(2px, -2px);
-	}
-
-	.footer__mail-inline {
-		font-size: var(--t-s);
-		color: var(--c-muted);
-		text-decoration: underline;
-		text-decoration-color: var(--c-line-strong);
-		text-underline-offset: 0.25em;
 	}
 
 	.footer__grid {
@@ -275,10 +211,6 @@ const year = new Date().getFullYear();
 	}
 
 	@media (max-width: 479px) {
-		.footer__title {
-			font-size: clamp(3.4rem, 20vw, 6rem);
-		}
-
 		.footer__bottom {
 			justify-content: flex-start;
 		}

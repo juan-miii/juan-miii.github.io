@@ -1,0 +1,12 @@
+/* Reveal visibility until the motion engine takes over. */
+.js [data-reveal],
+.js [data-split] {
+	visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.js [data-reveal],
+	.js [data-split] {
+		visibility: visible;
+	}
+}

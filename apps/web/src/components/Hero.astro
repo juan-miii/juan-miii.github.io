@@ -1,6 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
+import BaseHero from "@portfolio/ui/base-hero";
+import Button from "@portfolio/ui/button";
 import profile from "../assets/profile.webp";
 
 interface Action {
@@ -39,8 +41,7 @@ const {
 } = Astro.props;
 ---
 
-<section id="inicio" class="hero" aria-labelledby="hero-title">
-	<div class="shell">
+<BaseHero id="inicio" aria-labelledby="hero-title">
 		<div class="hero__meta">
 			<span class="mono">{kicker}</span>
 			<span class="mono hero__coords">{location.coordinates}</span>
@@ -85,11 +86,11 @@ const {
 			<div class="hero__intro" data-reveal="up" data-intro data-delay="0.5">
 				<p>{intro}</p>
 				<div class="hero__actions">
-					<a class="btn btn--solid" href={primaryAction.href}>
+					<Button variant="solid" href={primaryAction.href}>
 						{primaryAction.label}
 						<Icon name="tabler:arrow-right" aria-hidden="true" />
-					</a>
-					<a class="btn btn--line" href={secondaryAction.href}>{secondaryAction.label}</a>
+					</Button>
+					<Button variant="line" href={secondaryAction.href}>{secondaryAction.label}</Button>
 				</div>
 			</div>
 
@@ -106,18 +107,9 @@ const {
 				<span class="hero__scroll-line" aria-hidden="true"><span></span></span>
 			</a>
 		</div>
-	</div>
-</section>
+</BaseHero>
 
 <style>
-	.hero {
-		padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(2.5rem, 6vw, 4.5rem);
-		min-block-size: calc(100svh - var(--header-h));
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-	}
-
 	.hero__meta {
 		display: flex;
 		flex-wrap: wrap;

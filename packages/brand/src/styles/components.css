@@ -1,0 +1,188 @@
+/* Buttons: square, one border, a fill that rises from the bottom. */
+.btn,
+.base-btn {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.55rem;
+	padding: 0.85rem 1.15rem;
+	border: 1px solid var(--c-ink);
+	font-size: var(--t-s);
+	font-weight: 500;
+	line-height: 1;
+	overflow: hidden;
+	isolation: isolate;
+	transition:
+		color var(--motion-base) var(--motion-easing),
+		border-color var(--motion-base) var(--motion-easing);
+}
+
+.btn::before,
+.base-btn::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: var(--c-ink);
+	transform: scaleY(0);
+	transform-origin: bottom;
+	transition: transform 360ms var(--motion-easing);
+}
+
+.link-arrow svg,
+.btn svg,
+.base-btn svg {
+	transition: transform var(--motion-base) var(--motion-easing);
+}
+
+.btn:hover::before,
+.btn:focus-visible::before,
+.base-btn:hover::before,
+.base-btn:focus-visible::before {
+	transform: scaleY(1);
+	transform-origin: top;
+}
+
+.btn:hover svg,
+.btn:focus-visible svg,
+.base-btn:hover svg,
+.base-btn:focus-visible svg {
+	transform: translate(2px, -2px);
+}
+
+.btn--solid,
+.base-btn--solid {
+	background: var(--c-ink);
+	border-color: var(--c-ink);
+	color: var(--c-paper);
+}
+
+.btn--solid::before,
+.base-btn--solid::before {
+	background: var(--c-accent);
+}
+
+.btn--solid:hover,
+.btn--solid:focus-visible,
+.base-btn--solid:hover,
+.base-btn--solid:focus-visible {
+	border-color: var(--c-accent);
+	color: var(--c-paper);
+}
+
+.btn--line,
+.base-btn--line {
+	color: var(--c-ink);
+}
+
+.btn--line:hover,
+.btn--line:focus-visible,
+.base-btn--line:hover,
+.base-btn--line:focus-visible {
+	color: var(--c-paper);
+}
+
+.btn--light,
+.base-btn--light {
+	border-color: var(--c-paper);
+	color: var(--c-paper);
+}
+
+.btn--light::before,
+.base-btn--light::before {
+	background: var(--c-paper);
+}
+
+.btn--light:hover,
+.btn--light:focus-visible,
+.base-btn--light:hover,
+.base-btn--light:focus-visible {
+	color: var(--c-ink);
+}
+
+.btn--accent,
+.base-btn--accent {
+	background: var(--c-accent);
+	border-color: var(--c-accent);
+	color: var(--c-paper);
+}
+
+.btn--accent::before,
+.base-btn--accent::before {
+	background: var(--c-ink);
+}
+
+.btn--accent:hover,
+.btn--accent:focus-visible,
+.base-btn--accent:hover,
+.base-btn--accent:focus-visible {
+	border-color: var(--c-ink);
+	color: var(--c-paper);
+}
+
+/* Long-form case prose. */
+.prose {
+	counter-reset: chapter;
+	max-inline-size: 68ch;
+}
+
+.prose :is(h2, h3) {
+	counter-increment: chapter;
+	display: grid;
+	grid-template-columns: 3.5rem 1fr;
+	align-items: baseline;
+	gap: 1rem;
+	margin-block: clamp(2.8rem, 6vw, 4.5rem) 1.1rem;
+	padding-block-start: 1.1rem;
+	border-block-start: 1px solid var(--c-line);
+	font-size: var(--t-l);
+	font-weight: 500;
+	letter-spacing: -0.035em;
+}
+
+.prose :is(h2, h3)::before {
+	content: counter(chapter, decimal-leading-zero);
+	font-family: var(--f-mono);
+	font-size: var(--t-xs);
+	font-weight: 400;
+	letter-spacing: 0.03em;
+	color: var(--c-accent-ink);
+}
+
+.prose :is(h2, h3):first-child {
+	margin-block-start: 0;
+}
+
+.prose p {
+	margin-block: 0 1.1rem;
+	font-size: var(--t-body);
+	line-height: 1.65;
+	color: var(--c-ink);
+}
+
+.prose p:last-child {
+	margin-block-end: 0;
+}
+
+.prose strong {
+	font-weight: 600;
+}
+
+.prose ul {
+	margin-block: 1rem 1.4rem;
+	padding-inline-start: 1.1rem;
+	list-style: square;
+}
+
+.prose li {
+	margin-block-end: 0.45rem;
+	padding-inline-start: 0.2rem;
+}
+
+.prose code {
+	font-family: var(--f-mono);
+	font-size: 0.85em;
+	background: color-mix(in srgb, var(--c-ink) 6%, transparent);
+	padding: 0.12em 0.35em;
+}

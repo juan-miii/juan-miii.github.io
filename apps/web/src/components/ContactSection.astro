@@ -1,5 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
+import Button from "@portfolio/ui/button";
+import NodeLabel from "@portfolio/ui/node-label";
 
 interface Props {
 	contact: {
@@ -9,32 +11,22 @@ interface Props {
 		body: string;
 		emailLabel: string;
 		note: string;
-		topics: string[];
-		guide: { title: string; description: string }[];
 	};
 	email: string;
-	github: string;
-	location: { city: string; country: string };
-	availability: { label: string; note: string };
 }
 
-//const { contact, email, github, location, availability } = Astro.props;
 const { contact, email } = Astro.props;
 ---
 
 <section id="contacto" class="contact dark-field" aria-labelledby="contact-title">
 	<div class="shell">
 		<div class="contact__top">
-			<span class="node-label" data-trace-anchor>
-				<span class="node-label__index">{contact.index}</span>
-				{contact.label}
-			</span>
+			<NodeLabel index={contact.index} data-trace-anchor>{contact.label}</NodeLabel>
 			<span class="mono contact__signal">Señal abierta</span>
 		</div>
 
 		<div class="contact__main">
 			<h2 id="contact-title" class="contact__title" data-split="lines">
-				<!--TODO: seguramente lo cambie por Contacto, más corto que Hablemos -->
 				{contact.title}
 			</h2>
 
@@ -45,51 +37,14 @@ const { contact, email } = Astro.props;
 					<Icon name="tabler:arrow-up-right" aria-hidden="true" />
 				</a>
 				<div class="contact__actions">
-					<a class="btn btn--accent" href={`mailto:${email}`}>
+					<Button variant="accent" href={`mailto:${email}`}>
 						{contact.emailLabel}
 						<Icon name="tabler:mail" aria-hidden="true" />
-					</a>
+					</Button>
 					<span class="contact__note">{contact.note}</span>
 				</div>
-
-				<!-- <div class="contact__guide">
-					<span class="mono">Qué incluir</span>
-					<ol>
-						{
-							contact.guide.map((step, index) => (
-								<li>
-									<span class="mono">{String(index + 1).padStart(2, "0")}</span>
-									<p>
-										<strong>{step.title}.</strong> {step.description}
-									</p>
-								</li>
-							))
-						}
-					</ol>
-				</div> -->
 			</div>
 		</div>
-
-		<!-- <ul class="contact__topics">
-			{
-				contact.topics.map((topic, index) => (
-					<li>
-						<span class="mono">{String(index + 1).padStart(2, "0")}</span>
-						{topic}
-					</li>
-				))
-			}
-		</ul> -->
-
-		<!-- <div class="contact__channels">
-			<a href={github} rel="me noopener" target="_blank">
-				GitHub
-				<Icon name="tabler:arrow-up-right" aria-hidden="true" />
-			</a>
-			<span class="mono">{location.city}, {location.country}</span>
-			<span class="mono">{availability.label}</span>
-			<span class="mono">{availability.note}</span>
-		</div> -->
 	</div>
 </section>
 
@@ -130,7 +85,6 @@ const { contact, email } = Astro.props;
 		padding-block: clamp(2.5rem, 6vw, 5rem);
 	}
 
-	/* TODO: hacer más pequeño */
 	.contact__title {
 		max-inline-size: 12ch;
 		font-size: clamp(4.2rem, 15vw, 14rem);
@@ -196,126 +150,10 @@ const { contact, email } = Astro.props;
 		color: var(--c-muted);
 	}
 
-	.contact__guide {
-		display: grid;
-		gap: 0.8rem;
-		padding-block-start: 1.4rem;
-		border-block-start: 1px solid var(--c-line);
-	}
-
-	.contact__guide > .mono {
-		color: var(--c-muted);
-	}
-
-	.contact__guide ol {
-		display: grid;
-		gap: 0.7rem;
-	}
-
-	.contact__guide li {
-		display: grid;
-		grid-template-columns: 1.5rem minmax(0, 1fr);
-		gap: 0.5rem;
-		align-items: baseline;
-	}
-
-	.contact__guide li .mono {
-		color: var(--c-accent-dark);
-	}
-
-	.contact__guide li p {
-		font-size: var(--t-s);
-		line-height: 1.5;
-		color: var(--c-muted);
-	}
-
-	.contact__guide strong {
-		font-weight: 500;
-		color: var(--c-paper);
-	}
-
-	.contact__topics {
-		display: grid;
-		gap: 0;
-		border-block-start: 1px solid var(--c-line);
-	}
-
-	.contact__topics li {
-		display: flex;
-		align-items: baseline;
-		gap: 0.9rem;
-		padding-block: 0.7rem;
-		border-block-end: 1px solid var(--c-line);
-		font-size: var(--t-s);
-		color: var(--c-paper);
-	}
-
-	.contact__topics .mono {
-		color: var(--c-accent-dark);
-	}
-
-	.contact__channels {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.7rem 1.5rem;
-		padding-block-start: 1rem;
-		color: var(--c-muted);
-	}
-
-	.contact__channels a {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.3rem;
-		min-block-size: 1.5rem;
-		padding-block: 0.2rem;
-		font-family: var(--f-mono);
-		font-size: 0.6rem;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-		color: var(--c-paper);
-		text-decoration: underline;
-		text-decoration-color: var(--c-line-strong);
-		text-underline-offset: 0.25em;
-		transition: text-decoration-color var(--motion-base) var(--motion-easing);
-	}
-
-	.contact__channels a:hover,
-	.contact__channels a:focus-visible {
-		text-decoration-color: var(--c-accent-dark);
-	}
-
-	.contact__channels :global(svg) {
-		inline-size: 0.8rem;
-		block-size: 0.8rem;
-		color: var(--c-accent-dark);
-	}
-
 	@media (min-width: 900px) {
 		.contact__main {
 			grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
 			align-items: end;
-		}
-
-		.contact__topics {
-			grid-template-columns: repeat(4, minmax(0, 1fr));
-			border-block-end: 1px solid var(--c-line);
-		}
-
-		.contact__topics li {
-			border-block-end: 0;
-			border-inline-end: 1px solid var(--c-line);
-			padding-inline: 1rem;
-		}
-
-		.contact__topics li:first-child {
-			padding-inline-start: 0;
-		}
-
-		.contact__topics li:last-child {
-			border-inline-end: 0;
-			padding-inline-end: 0;
 		}
 	}
 </style>
