@@ -12,20 +12,19 @@ owner wrote the request in English. Every visible string stays in Spanish.
 **Assets:** `apps/web/src/assets/profile.webp` (owner supplied), the repository itself.
 **Constraints:** Keep the Astro + pnpm + Turborepo + TypeScript monorepo, the content
 collections, the component package split and the deployment workflow already in the repo.
-Keep everything on one page: profile, approach, work, capabilities, experience and contact.
-Project detail opens as a sheet, not as a separate route. Use Tabler for interface icons and
-Simple Icons for technology marks.
+Keep everything on one page: discipline (method and capabilities), work, experience, profile
+and contact. Project detail opens as a sheet, not as a separate route. Use Tabler for interface
+icons and Simple Icons for technology marks.
 
 ### Assumptions (replace with real facts when available)
 
 - Madrid is the working location (carried over from the previous `home.json` metadata).
 - The email and GitHub profile in the previous content are the public contact details.
-- Accenture consulting internship began in 2024 to 2025.
-- PwC consulting associate since 2025 (Business Security Solutions division)
-- The independent practice ran 2024 to 2025 (previous content).
+- Accenture technology consulting ran from 2024 to 2025.
+- PwC consulting since 2025 (Business Security Solutions division).
 - The two projects are the two real engineering outcomes visible in this repository: the
-  content-driven site and the verifiable delivery chain. No client names, awards, metrics or
-  testimonials are invented.
+  content-driven portfolio and the TFG automation of academic exercise correction. No client
+  names, awards, metrics or testimonials are invented.
 - "Available for new projects" is inferred from the existing badge. Remove it if it is not true.
 - The supplied portrait is Juan Miguel.
 
@@ -113,17 +112,15 @@ HOME
 │                                                      │
 │ availability                         scroll cue      │
 ├──────────────────────────────────────────────────────┤
-│ 01 Enfoque  │ statement + three notes + four steps    │
+│ 01 Disciplina │ statement + four steps + 2x2 rules    │
 ├──────────────────────────────────────────────────────┤
-│ 02 Trabajo  │ title + note + 01/02 project ports      │
+│ 02 Trabajo  │ title + 01/02 project ports             │
 ├──────────────────────────────────────────────────────┤
-│ 03 Capacidades │ 2x2 rule table + toolbox stack       │
+│ 03 Experiencia │ ruled roles timeline                 │
 ├──────────────────────────────────────────────────────┤
-│ 04 Trayectoria │ ruled roles timeline                 │
+│ 04 Perfil   │ long bio + portrait                     │
 ├──────────────────────────────────────────────────────┤
-│ 05 Perfil   │ long bio + details + portrait + rules   │
-├──────────────────────────────────────────────────────┤
-│ 06 Contacto │ dark field, huge invitation, email     │
+│ 05 Contacto │ dark field, huge invitation, email     │
 │             │ map, colophon, contact details, legal  │
 └──────────────────────────────────────────────────────┘
 ```

@@ -57,11 +57,11 @@ packages/ui/src/                  componentes compartidos (ver sección 9)
 | Loader de entrada | — | `layouts/BaseLayout.astro` | nombres y coordenadas de `site.json` |
 | Cabecera fija | — | `components/Header.astro` | `site.name`, `site.role`, `site.navigation`, `site.availability` |
 | Hero | `#inicio` | `components/Hero.astro` | `site.hero`, `site.location`, `site.availability` |
-| Enfoque y método | `#enfoque` | `pages/index.astro` | `site.approach`, `site.method`, `site.process` |
+| Disciplina y método | `#disciplina` | `pages/index.astro` | `site.approach`, `site.method`, `site.process` |
+| Capacidades (dentro de disciplina) | `#capacidades` | `pages/index.astro` | `site.capabilities` |
 | Trabajo | `#trabajo` | `pages/index.astro` + `ProjectRow` | `site.work`, colección `projects` |
-| Capacidades | `#capacidades` | `pages/index.astro` + `TechStack` | `site.capabilities`, `site.toolbox` |
 | Trayectoria | `#trayectoria` | `components/ExperienceList.astro` | colecciones `experience` y `organizations` |
-| Perfil | `#perfil` | `pages/index.astro` + `PortraitPlate` | `site.profile`, `site.principlesSection`, `site.location` |
+| Perfil | `#perfil` | `pages/index.astro` + `PortraitPlate` | `site.profile`, `site.location` |
 | Contacto y CTA | `#contacto` | `components/ContactSection.astro` | `site.contact`, `site.email`, `site.github`, `site.availability`, `site.navigation`, `site.footer` |
 | Barra legal | — | `components/Footer.astro` | `site.footer.rights`, `site.name` |
 | Fichas de proyecto | `#proyecto-<slug>` | `components/ProjectSheet.astro` | `projects/*.json` + `cases/*.md` |
@@ -94,11 +94,11 @@ Rutas principales dentro de `site.json`:
 | `availability` | cabecera, hero, contacto |
 | `navigation` | cabecera, menú y mapa del cierre |
 | `hero` | hero |
-| `approach`, `method`, `process` | enfoque y método |
+| `approach`, `method`, `process` | disciplina y método |
+| `capabilities` | capacidades dentro de disciplina |
 | `work` | trabajo |
-| `capabilities`, `toolbox` | capacidades y stack |
 | `experienceSection` | cabecera de trayectoria |
-| `profile`, `principlesSection` | perfil |
+| `profile` | perfil |
 | `contact` | cierre y CTA |
 | `footer` | cierre y barra legal |
 | `notFound` | 404 |
@@ -153,7 +153,7 @@ Componente: `apps/web/src/components/Header.astro`. Datos: `site.json`.
 | Cuadrado `JM` | literal en `Header.astro` | decorativo, `aria-hidden` |
 | Nombre | `site.name` | enlace a inicio |
 | Rol | `site.role` | debajo del nombre |
-| Navegación de 6 nodos | `site.navigation` | `[data-section-nav]`; el estado activo lo pone `motion/scrollspy.ts` |
+| Navegación de 5 nodos | `site.navigation` | `[data-section-nav]`; el estado activo lo pone `motion/scrollspy.ts` |
 | Punto verde y disponibilidad | `site.availability.label` | el `title` usa `availability.note` |
 | Reloj `MAD --:--` | `motion/setup.ts` | zona `Europe/Madrid`, actualiza cada 30 s |
 | `Contacto` | literal `Header.astro` | apunta a `#contacto` o `/#contacto` |
@@ -197,7 +197,7 @@ Componente: `components/Menu.astro`. Comportamiento: `motion/menu.ts`.
 | --- | --- |
 | `Menú / Juan Miguel` | literal + `site.name` |
 | `Cerrar` | literal |
-| 6 enlaces grandes | `site.navigation` |
+| 5 enlaces grandes | `site.navigation` |
 | Correo | `site.email` |
 | GitHub | `site.github` |
 | Ciudad | `site.location.city` |
@@ -249,54 +249,53 @@ Componente: `components/Hero.astro`. Retrato: `src/assets/profile.webp`.
 El retrato usa `astro:assets`: se generan variantes webp de 152, 288 y 560 px. Si
 cambias la imagen, mantén una proporción cuadrada para no romper la retícula.
 
-### 5.2 Enfoque y método
+### 5.2 Disciplina y método
 
 Marcado en `pages/index.astro`, con datos de `site.json`.
 
 | Elemento visible | Fuente |
 | --- | --- |
-| Etiqueta `01 / Enfoque` | `site.approach.index`, `label` |
+| Etiqueta `01 / Disciplina` | `site.approach.index`, `label` |
 | Titular | `site.approach.title` |
 | Párrafo | `site.approach.body` |
-| Tres notas (`Método`, `Unidad de trabajo`, `Criterio`) | `site.approach.notes` |
 | `Método` | `site.method.label` |
 | `Cuatro pasos, ninguna caja negra.` | `site.method.title` |
 | Párrafo del método | `site.method.body` |
 | Cuatro pasos numerados | `site.process` (`index`, `title`, `description`) |
 
 Los estilos de esta sección están en el `<style>` de `pages/index.astro`
-(`.approach*`, `.method*`). El encabezado común lo pone `SectionHeading.astro`.
+(`.method*`, `.capabilities*`). El encabezado común lo pone `SectionHeading.astro`.
+La sub-sección de capacidades se monta dentro de este mismo `<section>`.
 
 ### 5.3 Trabajo
 
 | Elemento visible | Fuente |
 | --- | --- |
 | Etiqueta, titular y párrafo | `site.work.index`, `label`, `title`, `body` |
-| `Nota / criterio` | literal en `pages/index.astro` |
-| Texto de la nota | `site.work.note` |
 | Filas de proyecto | colección `projects`, ordenadas por `featuredOrder` |
 | Número de fila | índice automático |
-| Título, resumen y tecnologías | `projects/*.json` |
+| Título, resumen, hitos y enlaces | `projects/*.json` |
+| Tecnologías | `technologies` |
 | Año, rol y estado | `year`, `role`, `statusLabel` |
 | Flecha y texto accesible | `ProjectRow.astro` |
 
-Cada fila es un enlace a `#proyecto-<slug>` con `aria-haspopup="dialog"`. Al
-pasar el ratón, el fondo se invierte de abajo arriba con `::before` y
-`scaleY`. Los estilos están en `components/ProjectRow.astro`; el contenedor y la
-nota, en `pages/index.astro`.
+El título de cada fila es un enlace a `#proyecto-<slug>` con
+`aria-haspopup="dialog"` y una capa `::after` que cubre la fila. Los enlaces
+externos y `Ver caso` quedan por encima de esa capa. Al pasar el ratón, el fondo
+se invierte de abajo arriba con `::before` y `scaleY`. Los estilos están en
+`components/ProjectRow.astro`; el contenedor, en `pages/index.astro`.
 
 ### 5.4 Capacidades
+
+Sub-bloque con `id="capacidades"` dentro de la sección `#disciplina`.
 
 | Elemento visible | Fuente |
 | --- | --- |
 | Etiqueta, titular y párrafo | `site.capabilities.*` |
 | Cuatro tarjetas | `site.capabilities.items` |
-| Número de tarjeta | índice automático |
+| Letra de tarjeta (`A` a `D`) | índice automático |
 | Icono | array `capabilityIcons` en `pages/index.astro` |
 | Título, descripción y herramientas | `items[].title`, `description`, `tools` |
-| `Herramientas` | `site.toolbox.label` |
-| Titular y párrafo del stack | `site.toolbox.title`, `body` |
-| Iconos y nombres del stack | `site.capabilities.stack` + `components/TechStack.astro` |
 
 Orden de `capabilityIcons` (debe coincidir con el orden de `items`):
 
@@ -317,11 +316,10 @@ Componente: `components/ExperienceList.astro`. Datos:
 | --- | --- |
 | Etiqueta, titular y párrafo | `site.experienceSection.*` |
 | Número de puesto | índice automático |
-| Puesto | `experience.role` |
 | Organización | `organizations.name`; enlace si tiene `url` |
+| Puesto y fechas | `experience.role`, `startDate` y `endDate`; `current` muestra `actualidad` |
 | Resumen | `experience.summary` |
 | Contribuciones | `experience.contributions` |
-| Fechas | `startDate` y `endDate`; `current` muestra `actualidad` |
 | Lugar | `experience.location` |
 | `En curso` / `Finalizada` | literal en el componente, según `current` |
 
@@ -332,16 +330,12 @@ componente admite `compact`, pero la portada usa la versión completa.
 
 | Elemento visible | Fuente |
 | --- | --- |
-| Etiqueta, titular y párrafo | `site.profile.*` |
-| Tres párrafos biográficos | `site.profile.long` |
-| Ficha (`Base`, `Foco`, `Trabajo`, `Idiomas`) | `site.profile.details` |
-| `Criterios` | `site.principlesSection.label` |
-| Titular y párrafo | `site.principlesSection.title`, `body` |
-| Tres reglas | `site.profile.principles` |
+| Etiqueta y titular | `site.profile.index`, `label`, `title` |
+| Cuatro párrafos biográficos | `site.profile.long` |
 | Retrato grande | `components/PortraitPlate.astro` + `src/assets/profile.webp` |
 | Alt | `Retrato de {site.name}` |
 | Pie `Madrid` | `site.location.city` |
-| `Perfil / 05` | literal en `pages/index.astro` |
+| `Perfil / 04` | `site.profile.index` en `pages/index.astro` |
 
 El mismo archivo `profile.webp` alimenta el retrato pequeño del hero y el grande
 del perfil. `PortraitPlate` aplica escala de grises y un cuadrado rojo decorativo;
@@ -354,7 +348,7 @@ principal. Vive dentro de `main` y usa el campo oscuro (`.dark-field`).
 
 | Elemento visible | Fuente | Archivo |
 | --- | --- | --- |
-| Etiqueta `06 / Contacto` | `site.contact.index`, `label` | `site.json` |
+| Etiqueta `05 / Contacto` | `site.contact.index`, `label` | `site.json` |
 | `Señal abierta` | literal | `ContactSection.astro` |
 | Titular `Hablemos.` | `site.contact.title` | `site.json` |
 | Párrafo | `site.contact.body` | `site.json` |
@@ -364,7 +358,7 @@ principal. Vive dentro de `main` y usa el campo oscuro (`.dark-field`).
 | `Qué incluir` | literal | `ContactSection.astro` |
 | Tres pasos de la guía | `site.contact.guide` | `site.json` |
 | `Mapa` | literal | `ContactSection.astro` |
-| Seis celdas del mapa | `site.navigation` | `site.json` |
+| Cinco celdas del mapa | `site.navigation` | `site.json` |
 | Nota de cierre | `site.footer.note` | `site.json` |
 | Colofón | `site.footer.colophon` | `site.json` |
 | `GitHub` | `site.github` | `site.json` |
@@ -395,6 +389,7 @@ Se abren desde cada fila de `ProjectRow`. El diálogo nativo está en
 | Titular y resumen | `title`, `summary` |
 | Botón de repositorio | `links[kind=repository]` |
 | Botón de demo | `links[kind=demo]`, si existe |
+| Botón de documentación | `links[kind=documentation]`, si existe |
 | `Rol`, `Periodo`, `Estado`, `Tecnologías` | etiquetas literales + campos del JSON |
 | Esquema | `components/ProjectPlate.astro`, variante `plate` |
 | Título accesible del esquema | `coverAlt` (o `title`) |
@@ -424,8 +419,9 @@ Reglas de edición:
   pasos. No es una imagen generada ni una captura.
 
 Comportamiento: `dialog.showModal()` da contención de foco, Escape y backdrop. Al
-cerrar se restaura el foco en la fila original. `history.replaceState` mantiene el
-hash sin llenar el historial; el botón Atrás del navegador no cierra la ficha.
+cerrar se restaura el foco en el enlace que abrió la ficha. `history.replaceState`
+mantiene el hash sin llenar el historial; el botón Atrás del navegador no cierra
+la ficha.
 
 ## 7. 404
 
@@ -521,8 +517,8 @@ Iconos:
   nuevo de Tabler o Simple Icons, añádelo allí antes de referenciarlo.
 - Los iconos de capacidad se eligen en `capabilityIcons` dentro de
   `pages/index.astro`.
-- El stack usa `simple-icons:<slug>` y un mapa de nombres legibles en
-  `components/TechStack.astro`.
+- `components/TechStack.astro` sigue disponible para futuros bloques de stack,
+  pero la portada ya no lo usa.
 - Los tamaños compartidos están en `packages/brand/src/styles/icons.css`.
 
 Paquetes:
@@ -576,7 +572,7 @@ muestra completo.
 1. Edita `apps/web/src/content/pages/site.json`.
 2. Cambia `name`, `role`, `email`, `github` o `location`.
 3. Revisa `hero.firstName`, `hero.lastName`, `hero.portraitCaption` y
-   `profile.details` si el cambio afecta a esos textos.
+   `profile.long` si el cambio afecta a esos textos.
 4. Ejecuta `pnpm content:check && pnpm build`.
 
 ### Cambiar el texto de una sección
@@ -590,7 +586,7 @@ muestra completo.
 ### Reordenar o renombrar la navegación
 
 1. Edita el array `navigation` de `site.json`.
-2. Mantén los seis `href` existentes salvo que añadas o quites una sección real.
+2. Mantén los cinco `href` existentes salvo que añadas o quites una sección real.
 3. Si añades una sección, crea su `<section id="...">` en `index.astro` con un
    `SectionHeading`.
 4. Revisa `apps/web/scripts/smoke.test.mjs` y `a11y.test.mjs`, que comprueban los
@@ -676,7 +672,7 @@ pnpm --filter @portfolio/web preview --port 4400
 Revisa en `http://localhost:4400`:
 
 - 320, 390, 720, 900, 1024, 1440 y 1920 px sin desbordamiento horizontal.
-- Las seis anclas y el estado activo en cabecera, menú y mapa del cierre.
+- Las cinco anclas y el estado activo en cabecera, menú y mapa del cierre.
 - Las dos fichas: apertura, cierre con Escape, backdrop, foco devuelto y enlace
   profundo `#proyecto-...`.
 - El 404 y sus enlaces `/#...`.

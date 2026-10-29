@@ -9,7 +9,6 @@ import PortraitPlate from "../components/PortraitPlate.astro";
 import ProjectRow from "../components/ProjectRow.astro";
 import ProjectSheet from "../components/ProjectSheet.astro";
 import SectionHeading from "../components/SectionHeading.astro";
-import TechStack from "../components/TechStack.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const entry = await getEntry("pages", "site");
@@ -61,7 +60,7 @@ const capabilityIcons = [
 		availability={site.availability}
 	/>
 
-	<section id="enfoque" class="section approach" aria-labelledby="approach-title">
+	<section id="disciplina" class="section approach" aria-labelledby="approach-title">
 		<div class="shell">
 			<SectionHeading
 				id="approach-title"
@@ -70,17 +69,6 @@ const capabilityIcons = [
 				title={site.approach.title}
 				body={site.approach.body}
 			/>
-
-			<dl class="approach__notes">
-				{
-					site.approach.notes.map((note) => (
-						<div class="approach__note" data-reveal="up">
-							<dt class="mono">{note.label}</dt>
-							<dd>{note.value}</dd>
-						</div>
-					))
-				}
-			</dl>
 
 			<div class="method" aria-labelledby="method-title">
 				<div class="method__head">
@@ -101,6 +89,34 @@ const capabilityIcons = [
 					}
 				</ol>
 			</div>
+
+			<div id="capacidades" class="capabilities" aria-labelledby="capabilities-title">
+				<div class="capabilities__head">
+					<span class="mono capabilities__label">{site.capabilities.label}</span>
+					<h3 id="capabilities-title" class="capabilities__title">
+						{site.capabilities.title}
+					</h3>
+					<p class="capabilities__body">{site.capabilities.body}</p>
+				</div>
+
+				<div class="capabilities__grid">
+					{
+						site.capabilities.items.map((item, index) => (
+							<article class="capability" data-reveal="up" data-delay={String(index * 0.05)}>
+								<div class="capability__top">
+									<span class="mono">{String.fromCharCode(65 + index)}</span>
+									<Icon name={capabilityIcons[index]} aria-hidden="true" />
+								</div>
+								<h4>{item.title}</h4>
+								<p>{item.description}</p>
+								<ul class="capability__tools">
+									{item.tools.map((tool) => <li>{tool}</li>)}
+								</ul>
+							</article>
+						))
+					}
+				</div>
+			</div>
 		</div>
 	</section>
 
@@ -114,11 +130,6 @@ const capabilityIcons = [
 				body={site.work.body}
 			/>
 
-			<div class="work__note" data-reveal="up">
-				<span class="mono">Nota / criterio</span>
-				<p>{site.work.note}</p>
-			</div>
-
 			<div class="work__list">
 				{
 					projects.map((project, index) => (
@@ -127,6 +138,8 @@ const capabilityIcons = [
 							slug={project.data.slug}
 							title={project.data.title}
 							summary={project.data.summary}
+							highlights={project.data.highlights}
+							links={project.data.links}
 							role={project.data.role}
 							year={project.data.year}
 							status={project.data.statusLabel}
@@ -134,45 +147,6 @@ const capabilityIcons = [
 						/>
 					))
 				}
-			</div>
-		</div>
-	</section>
-
-	<section id="capacidades" class="section capabilities" aria-labelledby="capabilities-title">
-		<div class="shell">
-			<SectionHeading
-				id="capabilities-title"
-				index={site.capabilities.index}
-				label={site.capabilities.label}
-				title={site.capabilities.title}
-				body={site.capabilities.body}
-			/>
-
-			<div class="capabilities__grid">
-				{
-					site.capabilities.items.map((item, index) => (
-						<article class="capability" data-reveal="up" data-delay={String(index * 0.05)}>
-							<div class="capability__top">
-								<span class="mono">{String(index + 1).padStart(2, "0")}</span>
-								<Icon name={capabilityIcons[index]} aria-hidden="true" />
-							</div>
-							<h3>{item.title}</h3>
-							<p>{item.description}</p>
-							<ul class="capability__tools">
-								{item.tools.map((tool) => <li>{tool}</li>)}
-							</ul>
-						</article>
-					))
-				}
-			</div>
-
-			<div class="capabilities__stack" aria-labelledby="toolbox-title">
-				<div class="capabilities__stack-copy">
-					<span class="mono">{site.toolbox.label}</span>
-					<h3 id="toolbox-title">{site.toolbox.title}</h3>
-					<p>{site.toolbox.body}</p>
-				</div>
-				<TechStack icons={site.capabilities.stack} />
 			</div>
 		</div>
 	</section>
@@ -198,7 +172,6 @@ const capabilityIcons = [
 				index={site.profile.index}
 				label={site.profile.label}
 				title={site.profile.title}
-				body={site.profile.body}
 			/>
 
 			<div class="profile__grid">
@@ -206,40 +179,12 @@ const capabilityIcons = [
 					<div class="profile__bio" data-reveal="up">
 						{site.profile.long.map((paragraph) => <p>{paragraph}</p>)}
 					</div>
-
-					<!-- <dl class="profile__details" data-reveal="up">
-						{
-							site.profile.details.map((detail) => (
-								<div>
-									<dt class="mono">{detail.label}</dt>
-									<dd>{detail.value}</dd>
-								</div>
-							))
-						}
-					</dl> -->
-
-					<!-- <div class="profile__principles-head">
-						<span class="mono">{site.principlesSection.label}</span>
-						<h3>{site.principlesSection.title}</h3>
-						<p>{site.principlesSection.body}</p>
-					</div>
-
-					<div class="profile__principles">
-						{
-							site.profile.principles.map((principle) => (
-								<article data-reveal="up">
-									<h4>{principle.title}</h4>
-									<p>{principle.description}</p>
-								</article>
-							))
-						}
-					</div> -->
 				</div>
 
 				<PortraitPlate
 					alt={`Retrato de ${site.name}`}
 					caption={site.location.city}
-					meta="Perfil / 05"
+					meta={`Perfil / ${site.profile.index}`}
 				/>
 			</div>
 		</div>
@@ -268,28 +213,6 @@ const capabilityIcons = [
 </BaseLayout>
 
 <style>
-	.approach__notes {
-		display: grid;
-		border-block-start: 1px solid var(--c-line);
-	}
-
-	.approach__note {
-		display: grid;
-		gap: 0.55rem;
-		padding-block: 1.2rem;
-		border-block-end: 1px solid var(--c-line);
-	}
-
-	.approach__note dt {
-		color: var(--c-muted);
-	}
-
-	.approach__note dd {
-		font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-		line-height: 1.35;
-		letter-spacing: -0.02em;
-	}
-
 	.method {
 		display: grid;
 		gap: clamp(1.8rem, 4vw, 3rem);
@@ -350,21 +273,33 @@ const capabilityIcons = [
 		color: var(--c-muted);
 	}
 
-	.work__note {
+	.capabilities {
 		display: grid;
-		grid-template-columns: 3rem minmax(0, 1fr);
-		gap: 1rem;
-		max-inline-size: 72ch;
-		margin-block-end: clamp(1.5rem, 4vw, 2.5rem);
-		padding-block: 1rem;
+		gap: clamp(1.8rem, 4vw, 3rem);
+		margin-block-start: clamp(2.5rem, 6vw, 4.5rem);
+		padding-block-start: clamp(1.5rem, 3vw, 2.2rem);
 		border-block-start: 1px solid var(--c-line);
 	}
 
-	.work__note > .mono {
+	.capabilities__head {
+		display: grid;
+		gap: 0.6rem;
+	}
+
+	.capabilities__label {
 		color: var(--c-muted);
 	}
 
-	.work__note p {
+	.capabilities__title {
+		max-inline-size: 22ch;
+		font-size: var(--t-l);
+		font-weight: 500;
+		line-height: 1.02;
+		letter-spacing: -0.04em;
+	}
+
+	.capabilities__body {
+		max-inline-size: 58ch;
 		font-size: var(--t-s);
 		color: var(--c-muted);
 	}
@@ -395,7 +330,7 @@ const capabilityIcons = [
 		color: var(--c-accent);
 	}
 
-	.capability h3 {
+	.capability h4 {
 		font-size: clamp(1.25rem, 2vw, 1.65rem);
 		font-weight: 500;
 		letter-spacing: -0.03em;
@@ -428,33 +363,6 @@ const capabilityIcons = [
 		color: var(--c-accent);
 	}
 
-	.capabilities__stack {
-		display: grid;
-		gap: 1.5rem;
-		padding-block-start: clamp(2rem, 4vw, 3rem);
-	}
-
-	.capabilities__stack-copy {
-		display: grid;
-		gap: 0.6rem;
-	}
-
-	.capabilities__stack-copy > .mono {
-		color: var(--c-muted);
-	}
-
-	.capabilities__stack-copy h3 {
-		font-size: var(--t-m);
-		font-weight: 500;
-		letter-spacing: -0.03em;
-	}
-
-	.capabilities__stack-copy p {
-		max-inline-size: 58ch;
-		font-size: var(--t-s);
-		color: var(--c-muted);
-	}
-
 	.profile__grid {
 		display: grid;
 		gap: clamp(2rem, 5vw, 4rem);
@@ -477,90 +385,7 @@ const capabilityIcons = [
 		line-height: 1.65;
 	}
 
-	.profile__details {
-		display: grid;
-		border-block-start: 1px solid var(--c-line);
-	}
-
-	.profile__details div {
-		display: grid;
-		grid-template-columns: 7.5rem minmax(0, 1fr);
-		gap: 1rem;
-		align-items: baseline;
-		padding-block: 0.7rem;
-		border-block-end: 1px solid var(--c-line);
-	}
-
-	.profile__details dt {
-		color: var(--c-muted);
-	}
-
-	.profile__details dd {
-		font-size: var(--t-s);
-	}
-
-	.profile__principles-head {
-		display: grid;
-		gap: 0.5rem;
-		padding-block-start: 0.5rem;
-	}
-
-	.profile__principles-head > .mono {
-		color: var(--c-muted);
-	}
-
-	.profile__principles-head h3 {
-		font-size: var(--t-m);
-		font-weight: 500;
-		letter-spacing: -0.03em;
-	}
-
-	.profile__principles-head p {
-		max-inline-size: 56ch;
-		font-size: var(--t-s);
-		color: var(--c-muted);
-	}
-
-	.profile__principles {
-		display: grid;
-		border-block-start: 1px solid var(--c-line);
-	}
-
-	.profile__principles article {
-		display: grid;
-		gap: 0.4rem;
-		padding-block: 1.1rem;
-		border-block-end: 1px solid var(--c-line);
-	}
-
-	.profile__principles h4 {
-		font-size: 1.05rem;
-		font-weight: 500;
-		letter-spacing: -0.02em;
-	}
-
-	.profile__principles p {
-		max-inline-size: 52ch;
-		font-size: var(--t-s);
-		color: var(--c-muted);
-	}
-
 	@media (min-width: 640px) {
-		.approach__notes {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-		}
-
-		.approach__note {
-			border-block-end: 0;
-			border-inline-start: 1px solid var(--c-line);
-			padding-inline: 1.1rem;
-		}
-
-		.approach__note:first-child {
-			border-inline-start: 0;
-			padding-inline-start: 0;
-		}
-
 		.capabilities__grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
@@ -596,19 +421,14 @@ const capabilityIcons = [
 	}
 
 	@media (min-width: 900px) {
-		.method {
+		.method,
+		.capabilities {
 			grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
 			align-items: start;
 		}
 
 		.method__steps {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-
-		.capabilities__stack {
-			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-			align-items: end;
-			gap: clamp(2rem, 5vw, 4rem);
 		}
 
 		.profile__grid {

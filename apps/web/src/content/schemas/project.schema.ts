@@ -6,6 +6,7 @@ export const projectSchema = z.object({
 	slug: z.string().min(1),
 	title: z.string().min(1),
 	summary: z.string().min(1),
+	highlights: z.array(z.string().min(1)).min(1),
 	kind: z.enum(["professional", "personal", "open-source"]),
 	sourceAvailability: z.enum(["public", "private", "not-applicable"]),
 	lifecycle: z.enum(["active", "completed", "archived"]),

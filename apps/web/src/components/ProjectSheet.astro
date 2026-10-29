@@ -27,6 +27,9 @@ const chapters = headings.filter((heading) => heading.depth === 3);
 
 const repository = data.links.find((link) => link.kind === "repository");
 const demo = data.links.find((link) => link.kind === "demo");
+const documentation = data.links.find(
+	(link) => link.kind === "documentation",
+);
 
 const id = `proyecto-${data.slug}`;
 const titleId = `${id}-title`;
@@ -80,6 +83,17 @@ const titleId = `${id}-title`;
 									rel="noopener"
 								>
 									{demo.label}
+									<Icon name="tabler:arrow-up-right" aria-hidden="true" />
+								</a>
+							)}
+							{documentation && (
+								<a
+									class="btn btn--line"
+									href={documentation.url}
+									target="_blank"
+									rel="noopener"
+								>
+									{documentation.label}
 									<Icon name="tabler:arrow-up-right" aria-hidden="true" />
 								</a>
 							)}

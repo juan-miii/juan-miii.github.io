@@ -1,0 +1,17 @@
+{
+	"id": "accenture-consultant",
+	"locale": "es",
+	"role": "Consultor tecnológico en proyectos de identidad digital para el sector público",
+	"organizationId": "accenture",
+	"startDate": "2024",
+	"endDate": "2025",
+	"current": false,
+	"location": "Madrid",
+	"summary": "Participé en proyectos de identidad digital, certificados digitales y criptografía para el sector público, desarrollando y asegurando funcionalidades en entornos Java con requisitos elevados de seguridad, trazabilidad y cumplimiento.",
+	"contributions": [
+		"Desarrollo, pruebas y calidad de funcionalidades en entornos Java.",
+		"Análisis de necesidades, documentación e interlocución con el cliente.",
+		"Presentación de iniciativas y propuestas de mejora, con estimación y presupuesto.",
+		"Participación en iniciativas de inteligencia artificial aplicadas a servicios públicos de gran escala."
+	]
+}

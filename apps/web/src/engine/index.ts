@@ -15,7 +15,7 @@ export {
 	scrollState,
 	scrollToTarget,
 	startScroll,
-	stopScroll
+	stopScroll,
 } from "./scroll";
 
 export type PageFn = (page: {

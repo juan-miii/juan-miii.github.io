@@ -17,7 +17,7 @@ const axeSource = readFileSync(require.resolve("axe-core/axe.min.js"), "utf8");
 const root = fileURLToPath(new URL("../", import.meta.url));
 const port = 4401;
 const routes = ["/", "/404.html"];
-const sheets = ["plataforma-portfolio", "cadena-verificable"];
+const sheets = ["plataforma-portfolio", "tfg-correccion-practicas"];
 const viewports = [
 	{ name: "desktop", width: 1440, height: 900 },
 	{ name: "phone", width: 390, height: 844 },
@@ -100,7 +100,9 @@ function auditIssues(result) {
 }
 
 async function openSheet(page, slug) {
-	const trigger = page.locator(`.project-row[data-project-open="${slug}"]`);
+	const trigger = page.locator(
+		`.project-row__title a[data-project-open="${slug}"]`,
+	);
 	await trigger.click();
 	await page.waitForFunction(
 		(id) => document.getElementById(id)?.open === true,
@@ -160,7 +162,7 @@ async function checkClosedSheet(page, slug) {
 	return page.evaluate((id) => {
 		const style = getComputedStyle(document.body);
 		const trigger = document.querySelector(
-			`.project-row[data-project-open="${id.replace("proyecto-", "")}"]`,
+			`.project-row__title a[data-project-open="${id.replace("proyecto-", "")}"]`,
 		);
 		const issues = [];
 		if (document.getElementById(id)?.open)
@@ -229,16 +231,21 @@ try {
 		viewport: { width: 1440, height: 900 },
 	});
 	const page = await context.newPage();
-	await page.goto(`http://127.0.0.1:${port}/#proyecto-cadena-verificable`, {
-		waitUntil: "load",
-	});
+	await page.goto(
+		`http://127.0.0.1:${port}/#proyecto-tfg-correccion-practicas`,
+		{
+			waitUntil: "load",
+		},
+	);
 	const deepLink = await page.evaluate(() => ({
-		open: document.getElementById("proyecto-cadena-verificable")?.open === true,
+		open:
+			document.getElementById("proyecto-tfg-correccion-practicas")?.open ===
+			true,
 		hash: location.hash,
 	}));
 	report("desktop enlace directo a ficha", [
 		...(deepLink.open ? [] : ["la ficha no se abrió desde el hash"]),
-		...(deepLink.hash === "#proyecto-cadena-verificable"
+		...(deepLink.hash === "#proyecto-tfg-correccion-practicas"
 			? []
 			: [`hash inesperado: ${deepLink.hash}`]),
 	]);
