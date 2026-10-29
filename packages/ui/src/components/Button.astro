@@ -1,122 +1,33 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-type Variant = "primary" | "secondary" | "ghost" | "danger" | "outline";
-type Size = "sm" | "md" | "lg";
+type Variant = "solid" | "line" | "light" | "accent";
 
-type Props = HTMLAttributes<"a"> &
-	HTMLAttributes<"button"> & {
-		variant?: Variant;
-		size?: Size;
-		href?: string;
-		type?: "button" | "submit" | "reset";
-	};
+interface Props extends HTMLAttributes<"a"> {
+	href?: string;
+	variant?: Variant;
+	type?: "button" | "submit" | "reset";
+}
 
 const {
-	variant = "primary",
-	size = "md",
 	href,
+	variant = "line",
 	type = "button",
 	class: className,
 	...attributes
 } = Astro.props;
 
-const isLink = typeof href === "string" && href.length > 0;
+const classes = [`base-btn`, `base-btn--${variant}`, className];
 ---
 
 {
-	isLink ? (
-		<a
-			href={href}
-			class:list={["button", `button--${variant}`, `button--${size}`, className]}
-			{...attributes}
-		>
+	href ? (
+		<a {...attributes} href={href} class:list={classes}>
 			<slot />
 		</a>
 	) : (
-		<button
-			type={type}
-			class:list={["button", `button--${variant}`, `button--${size}`, className]}
-			{...attributes}
-		>
+		<button {...attributes} type={type} class:list={classes}>
 			<slot />
 		</button>
 	)
 }
-
-<style>
-	.button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		gap: var(--space-2, 0.5rem);
-		border: 1px solid transparent;
-		border-radius: 999px;
-		font: inherit;
-		font-weight: 600;
-		text-decoration: none;
-		cursor: pointer;
-		transition:
-			background-color var(--motion-fast, 180ms) var(--motion-easing, ease),
-			color var(--motion-fast, 180ms) var(--motion-easing, ease),
-			border-color var(--motion-fast, 180ms) var(--motion-easing, ease);
-	}
-
-	.button--sm {
-		padding: 0.35rem 0.9rem;
-		font-size: 0.9rem;
-	}
-
-	.button--md {
-		padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
-	}
-
-	.button--lg {
-		padding: 0.75rem 1.5rem;
-		font-size: 1.05rem;
-	}
-
-	.button--primary {
-		background: var(--color-accent, #285b3c);
-		color: var(--color-text-inverse, #fbfaf7);
-	}
-
-	.button--primary:hover,
-	.button--primary:focus-visible {
-		filter: brightness(1.08);
-	}
-
-	.button--secondary {
-		background: var(--color-surface, #fbfaf7);
-		color: var(--color-text, #22261f);
-		border-color: var(--color-border, #d8d5cd);
-	}
-
-	.button--ghost {
-		background: transparent;
-		color: var(--color-text, #22261f);
-	}
-
-	.button--danger {
-		background: #c0392b;
-		color: var(--color-text-inverse, #fbfaf7);
-	}
-
-	.button--outline {
-		background: transparent;
-		color: var(--color-text, #22261f);
-		border-color: var(--color-border, #d8d5cd);
-	}
-
-	.button:disabled,
-	.button[aria-disabled="true"] {
-		opacity: 0.6;
-		cursor: not-allowed;
-		filter: grayscale(0.2);
-	}
-
-	.button:focus-visible {
-		outline: 2px solid var(--color-focus, #285b3c);
-		outline-offset: 3px;
-	}
-</style>

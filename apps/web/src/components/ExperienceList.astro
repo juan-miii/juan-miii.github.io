@@ -2,12 +2,6 @@
 import { Icon } from "astro-icon/components";
 import { getCollection, getEntry } from "astro:content";
 
-interface Props {
-	compact?: boolean;
-}
-
-const { compact = false } = Astro.props;
-
 const experience = await getCollection("experience");
 const roles = await Promise.all(
 	experience.map(async (role) => {
@@ -33,7 +27,7 @@ const formatPeriod = (role: (typeof roles)[number]) =>
 		: `${role.startDate}-${role.endDate ?? role.startDate}`;
 ---
 
-<div class:list={["roles", { "roles--compact": compact }]}>
+<div class="roles">
 	{
 		roles.map((role, index) => (
 			<article class="role" data-trace-anchor>
@@ -60,13 +54,11 @@ const formatPeriod = (role: (typeof roles)[number]) =>
 						<em>{role.role} ({formatPeriod(role)})</em>
 					</p>
 					<p class="role__summary">{role.summary}</p>
-					{!compact && (
-						<ul class="role__contributions">
-							{role.contributions.map((contribution) => (
-								<li>{contribution}</li>
-							))}
-						</ul>
-					)}
+					<ul class="role__contributions">
+						{role.contributions.map((contribution) => (
+							<li>{contribution}</li>
+						))}
+					</ul>
 				</div>
 
 				<div class="role__meta">

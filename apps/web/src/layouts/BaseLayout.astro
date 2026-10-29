@@ -3,15 +3,13 @@ import { getEntry } from "astro:content";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import Menu from "../components/Menu.astro";
+import PageWrapper from "@portfolio/ui/page-wrapper";
 import SignalTrace from "../components/SignalTrace.astro";
 import "../styles/global.css";
 
 interface Props {
 	title?: string;
 	description?: string;
-	canonical?: string;
-	ogImage?: string;
-	ogType?: string;
 	noindex?: boolean;
 	bodyClass?: string;
 }
@@ -23,18 +21,13 @@ const site = entry.data;
 const {
 	title = site.title,
 	description = site.description,
-	canonical,
-	ogImage = "/og.png",
-	ogType = "website",
 	noindex = false,
 	bodyClass,
 } = Astro.props;
 
 const origin = Astro.site ?? new URL("https://juan-miii.github.io");
-const canonicalUrl = canonical
-	? new URL(canonical, origin).href
-	: new URL(Astro.url.pathname, origin).href;
-const ogUrl = new URL(ogImage, origin).href;
+const canonicalUrl = new URL(Astro.url.pathname, origin).href;
+const ogUrl = new URL("/og.png", origin).href;
 
 // The home is the only navigable page. Hash links keep working on the 404 by
 // pointing back to the home instead of a section that does not exist there.
@@ -110,7 +103,7 @@ const person = {
 
 		<meta property="og:locale" content="es_ES" />
 		<meta property="og:site_name" content={site.name} />
-		<meta property="og:type" content={ogType} />
+		<meta property="og:type" content="website" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonicalUrl} />
@@ -177,7 +170,9 @@ const person = {
 
 		<main id="main" data-trace-scope tabindex="-1" data-inert-when-menu>
 			<SignalTrace />
-			<slot />
+			<PageWrapper>
+				<slot />
+			</PageWrapper>
 		</main>
 
 		<Footer

@@ -5,11 +5,10 @@ import profile from "../assets/profile.webp";
 interface Props {
 	alt: string;
 	caption: string;
-	meta?: string;
-	eager?: boolean;
+	meta: string;
 }
 
-const { alt, caption, meta = "Retrato / 2026", eager = false } = Astro.props;
+const { alt, caption, meta } = Astro.props;
 ---
 
 <figure class="portrait">
@@ -22,7 +21,7 @@ const { alt, caption, meta = "Retrato / 2026", eager = false } = Astro.props;
 			widths={[360, 544, 720]}
 			format="webp"
 			quality={84}
-			loading={eager ? "eager" : "lazy"}
+			loading="lazy"
 			sizes="(min-width: 900px) 34rem, 100vw"
 		/>
 	</div>

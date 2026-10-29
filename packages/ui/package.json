@@ -4,17 +4,13 @@
 	"private": true,
 	"type": "module",
 	"exports": {
-		"./action-link": "./src/components/ActionLink.astro",
-		"./social-link": "./src/components/SocialLink.astro",
+		"./page-wrapper": "./src/components/PageWrapper.astro",
+		"./base-hero": "./src/components/BaseHero.astro",
+		"./base-footer": "./src/components/BaseFooter.astro",
+		"./section-heading": "./src/components/SectionHeading.astro",
 		"./button": "./src/components/Button.astro",
-		"./badge": "./src/components/Badge.astro",
-		"./card": "./src/components/Card.astro",
-		"./link-button": "./src/components/LinkButton.astro",
-		"./section-title": "./src/components/SectionTitle.astro",
-		"./timeline": "./src/components/Timeline.astro",
-		"./timeline-item": "./src/components/TimelineItem.astro",
-		"./icons/icon-base": "./src/icons/IconBase.astro",
-		"./icons/mail-icon": "./src/icons/MailIcon.astro"
+		"./node-label": "./src/components/NodeLabel.astro",
+		"./prose": "./src/components/Prose.astro"
 	},
 	"scripts": {
 		"check": "astro check",

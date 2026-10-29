@@ -4,9 +4,14 @@
 	"private": true,
 	"type": "module",
 	"exports": {
-		"./styles/base.css": "./src/styles/base.css",
 		"./styles/tokens.css": "./src/styles/tokens.css",
-		"./styles/icons.css": "./src/styles/icons.css"
+		"./styles/base.css": "./src/styles/base.css",
+		"./styles/icons.css": "./src/styles/icons.css",
+		"./styles/layout.css": "./src/styles/layout.css",
+		"./styles/components.css": "./src/styles/components.css",
+		"./styles/motion.css": "./src/styles/motion.css",
+		"./styles/loader.css": "./src/styles/loader.css",
+		"./styles/cursor.css": "./src/styles/cursor.css"
 	},
 	"scripts": {
 		"test": "echo 'No unit tests yet'"

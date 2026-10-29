@@ -1,0 +1,13 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"footer">;
+
+const { class: className, ...attributes } = Astro.props;
+---
+
+<footer {...attributes} class:list={["base-footer", "dark-field", className]}>
+	<div class="shell">
+		<slot />
+	</div>
+</footer>

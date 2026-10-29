@@ -1,0 +1,22 @@
+---
+interface Props {
+	id: string;
+	index: string;
+	label: string;
+	title: string;
+	body?: string;
+}
+
+const { id, index, label, title, body } = Astro.props;
+---
+
+<header class="base-section-head">
+	<div class="base-section-head__label">
+		<span class="node-label" data-trace-anchor>
+			<span class="node-label__index">{index}</span>
+			{label !== title && label}
+		</span>
+	</div>
+	<h2 id={id} class="base-section-head__title" data-split="lines">{title}</h2>
+	{body && <p class="base-section-head__body">{body}</p>}
+</header>

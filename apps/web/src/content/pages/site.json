@@ -126,27 +126,7 @@
 		"title": "Hablemos.",
 		"body": "Si tienes un sistema que ordenar, una entrega que asegurar o una decisión técnica que necesita criterio, escríbeme. Cuéntame el contexto y qué intentas resolver.",
 		"emailLabel": "Escribir un correo",
-		"note": "Sin formularios ni intermediarios. El correo llega directamente.",
-		"topics": [
-			"Arquitectura y revisión técnica",
-			"Seguridad aplicada",
-			"Automatización y agentes",
-			"Entrega y operación"
-		],
-		"guide": [
-			{
-				"title": "Contexto",
-				"description": "Qué sistema o equipo existe hoy, quién lo usa y qué restricción pesa más."
-			},
-			{
-				"title": "Problema",
-				"description": "Qué decisión está bloqueada o qué parte de la entrega no se puede comprobar."
-			},
-			{
-				"title": "Resultado esperado",
-				"description": "Qué tendría que ser cierto para considerar que el trabajo está terminado."
-			}
-		]
+		"note": "Sin formularios ni intermediarios. El correo llega directamente."
 	},
 	"footer": {
 		"note": "Diseñado y construido en Madrid.",

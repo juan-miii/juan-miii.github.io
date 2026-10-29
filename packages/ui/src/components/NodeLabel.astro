@@ -1,0 +1,14 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"span"> {
+	index?: string;
+}
+
+const { index, class: className, ...attributes } = Astro.props;
+---
+
+<span {...attributes} class:list={["node-label", className]}>
+	{index && <span class="node-label__index">{index}</span>}
+	<slot />
+</span>

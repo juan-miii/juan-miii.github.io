@@ -44,8 +44,13 @@ apps/web/
 
 packages/brand/src/styles/
 ├── tokens.css                    colores, tipos, espacio, movimiento, capas
-├── base.css                      shell, secciones, etiquetas de nodo, campo oscuro
-└── icons.css                     tamaños de icono compartidos
+├── base.css                      reset, shell, secciones, etiquetas de nodo, campo oscuro
+├── icons.css                     tamaños de icono compartidos
+├── layout.css                    envoltura, hero/pie/cabecera de sección base
+├── components.css                botones, prosa
+├── motion.css                    visibilidad de revelaciones
+├── loader.css                    loader de entrada
+└── cursor.css                    seguidor del puntero
 
 packages/ui/src/                  componentes compartidos (ver sección 9)
 ```
@@ -62,8 +67,8 @@ packages/ui/src/                  componentes compartidos (ver sección 9)
 | Trabajo | `#trabajo` | `pages/index.astro` + `ProjectRow` | `site.work`, colección `projects` |
 | Trayectoria | `#trayectoria` | `components/ExperienceList.astro` | colecciones `experience` y `organizations` |
 | Perfil | `#perfil` | `pages/index.astro` + `PortraitPlate` | `site.profile`, `site.location` |
-| Contacto y CTA | `#contacto` | `components/ContactSection.astro` | `site.contact`, `site.email`, `site.github`, `site.availability`, `site.navigation`, `site.footer` |
-| Barra legal | — | `components/Footer.astro` | `site.footer.rights`, `site.name` |
+| Contacto y CTA | `#contacto` | `components/ContactSection.astro` | `site.contact`, `site.email` |
+| Barra legal | — | `components/Footer.astro` | `site.footer`, `site.navigation`, `site.github`, `site.location` |
 | Fichas de proyecto | `#proyecto-<slug>` | `components/ProjectSheet.astro` | `projects/*.json` + `cases/*.md` |
 | Menú móvil | — | `components/Menu.astro` | `site.navigation`, `site.email`, `site.github` |
 | 404 | — | `pages/404.astro` | `site.notFound` |
@@ -214,13 +219,19 @@ Componente: `components/Footer.astro`, con datos de `site.json`. Es el
 | Elemento visible | Fuente |
 | --- | --- |
 | `Fin de la señal` | literal |
+| `Volver al inicio` | literal + `homeHref` |
+| Nota de cierre | `site.footer.note` |
+| Colofón | `site.footer.colophon` |
+| `Mapa` y sus cinco celdas | literal + `site.navigation` |
+| `GitHub` | `site.github` |
+| Ciudad y país | `site.location.*` |
 | `© {año} {name}` | año actual + `site.name` |
 | Derechos | `site.footer.rights` |
 | `Diseño y código propios` | literal |
-| `Volver al inicio` | literal + `homeHref` |
 
-El antiguo nombre gigante del pie ya no existe. El cierre visual es
-`ContactSection.astro`; la barra legal solo remata la página.
+El cierre visual es `ContactSection.astro`; la barra legal solo remata la página.
+El mapa usa `[data-section-nav]`, así que el mismo scrollspy que marca la cabecera
+marca la celda activa.
 
 ## 5. Portada, sección por sección
 
@@ -323,8 +334,7 @@ Componente: `components/ExperienceList.astro`. Datos:
 | Lugar | `experience.location` |
 | `En curso` / `Finalizada` | literal en el componente, según `current` |
 
-La lista se ordena por `current` y después por `startDate` descendente. El
-componente admite `compact`, pero la portada usa la versión completa.
+La lista se ordena por `current` y después por `startDate` descendente.
 
 ### 5.6 Perfil
 
@@ -355,20 +365,9 @@ principal. Vive dentro de `main` y usa el campo oscuro (`.dark-field`).
 | `Escribir un correo` | `site.contact.emailLabel` | `site.json` |
 | Dirección grande | `site.email` | `site.json` |
 | Nota del correo | `site.contact.note` | `site.json` |
-| `Qué incluir` | literal | `ContactSection.astro` |
-| Tres pasos de la guía | `site.contact.guide` | `site.json` |
-| `Mapa` | literal | `ContactSection.astro` |
-| Cinco celdas del mapa | `site.navigation` | `site.json` |
-| Nota de cierre | `site.footer.note` | `site.json` |
-| Colofón | `site.footer.colophon` | `site.json` |
-| `GitHub` | `site.github` | `site.json` |
-| Ciudad y país | `site.location.*` | `site.json` |
-| Disponibilidad y respuesta | `site.availability.*` | `site.json` |
 
 En el cierre, la dirección de correo es el único CTA grande: no hay botón `mailto`
-duplicado ni lista de temas. El mapa usa `[data-section-nav]`, así que el mismo
-scrollspy que marca la cabecera marca la celda activa. Al pasar el ratón o
-enfocar, cada celda se inunda de papel con un `::before` animado.
+duplicado ni lista de temas.
 
 Los estilos del cierre están todos en el `<style>` de `ContactSection.astro`.
 Los colores del campo oscuro vienen de `.dark-field` en
@@ -517,15 +516,14 @@ Iconos:
   nuevo de Tabler o Simple Icons, añádelo allí antes de referenciarlo.
 - Los iconos de capacidad se eligen en `capabilityIcons` dentro de
   `pages/index.astro`.
-- `components/TechStack.astro` sigue disponible para futuros bloques de stack,
-  pero la portada ya no lo usa.
 - Los tamaños compartidos están en `packages/brand/src/styles/icons.css`.
 
 Paquetes:
 
-- `packages/brand` sí se usa: tokens, base e iconos.
-- `packages/ui` existe y se mantiene, pero la portada usa componentes locales.
-  Su catálogo está en `docs/design/components.md`.
+- `packages/brand` sí se usa: tokens, base, iconos, layout, components, motion, loader y cursor.
+- `packages/ui` aporta las bases compartidas (`PageWrapper`, `BaseHero`, `BaseFooter`,
+  `SectionHeading`, `Button`, `NodeLabel`, `Prose`); la portada las compone con sus
+  componentes locales. Su catálogo está en `docs/design/components.md`.
 
 ## 10. Movimiento y comportamiento
 
@@ -645,8 +643,7 @@ muestra completo.
 ### Añadir un icono
 
 1. Añade el nombre a `include` en `apps/web/astro.config.mjs`.
-2. Úsalo con `<Icon name="tabler:..." />` o `simple-icons:...`.
-3. Si es del stack, añade también su etiqueta legible en `TechStack.astro`.
+2. Úsalo con `<Icon name="tabler:..." />`.
 
 ## 12. Verificación
 

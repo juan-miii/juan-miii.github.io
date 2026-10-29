@@ -8,7 +8,7 @@ import Hero from "../components/Hero.astro";
 import PortraitPlate from "../components/PortraitPlate.astro";
 import ProjectRow from "../components/ProjectRow.astro";
 import ProjectSheet from "../components/ProjectSheet.astro";
-import SectionHeading from "../components/SectionHeading.astro";
+import SectionHeading from "@portfolio/ui/section-heading";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const entry = await getEntry("pages", "site");
@@ -190,13 +190,7 @@ const capabilityIcons = [
 		</div>
 	</section>
 
-	<ContactSection
-		contact={site.contact}
-		email={site.email}
-		github={site.github}
-		location={site.location}
-		availability={site.availability}
-	/>
+	<ContactSection contact={site.contact} email={site.email} />
 
 	<Fragment slot="overlays">
 		{
