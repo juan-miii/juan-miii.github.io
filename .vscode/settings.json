@@ -2,7 +2,8 @@
 	"files.autoSave": "onFocusChange",
 	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
-		"source.organizeImports": "always"
+		"source.organizeImports": "never",
+		"source.organizeImports.biome": "explicit"
 	},
 	"editor.formatOnSaveMode": "file",
 	"task.saveBeforeRun": "always",
@@ -19,5 +20,10 @@
 	},
 	"[jsonc]": {
 		"editor.defaultFormatter": "biomejs.biome"
-	}
+	},
+	"biome.requireConfiguration": true,
+	"astro.updateImportsOnFileMove.enabled": false,
+	"biome.suggestInstallingGlobally": false,
+	"biome.configurationPath": "biome.jsonc",
+	"editor.defaultFormatter": "biomejs.biome"
 }
