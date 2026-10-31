@@ -1,40 +1,40 @@
 ---
-import { getCollection, render, type CollectionEntry } from "astro:content";
-import { Icon } from "astro-icon/components";
+// import { getCollection, render, type CollectionEntry } from "astro:content";
+// import { Icon } from "astro-icon/components";
 
-import ProjectPlate from "./ProjectPlate.astro";
+// import ProjectPlate from "./ProjectPlate.astro";
 
-interface Props {
-	project: CollectionEntry<"projects">;
-	index: number;
-	total: number;
-	next: { slug: string; title: string };
-}
+// interface Props {
+// 	project: CollectionEntry<"projects">;
+// 	index: number;
+// 	total: number;
+// 	next: { slug: string; title: string };
+// }
 
-const { project, index, total, next } = Astro.props;
-const { data } = project;
+// const { project, index, total} = Astro.props;
+// const { data } = project;
 
-const cases = await getCollection("cases");
-const caseEntry = cases.find(
-	(item) =>
-		item.data.projectId === data.id &&
-		item.data.publicationStatus === "published",
-);
-if (!caseEntry) throw new Error(`No existe el caso de ${data.id}.`);
+// const cases = await getCollection("cases");
+// const caseEntry = cases.find(
+// 	(item) =>
+// 		item.data.projectId === data.id &&
+// 		item.data.publicationStatus === "published",
+// );
+// if (!caseEntry) throw new Error(`No existe el caso de ${data.id}.`);
 
-const { Content, headings } = await render(caseEntry);
-const chapters = headings.filter((heading) => heading.depth === 3);
+// const { Content, headings } = await render(caseEntry);
+// const chapters = headings.filter((heading) => heading.depth === 3);
 
-const repository = data.links.find((link) => link.kind === "repository");
-const demo = data.links.find((link) => link.kind === "demo");
-const documentation = data.links.find(
-	(link) => link.kind === "documentation",
-);
+// const repository = data.links.find((link) => link.kind === "repository");
+// const demo = data.links.find((link) => link.kind === "demo");
+// const documentation = data.links.find(
+// 	(link) => link.kind === "documentation",
+// );
 
-const id = `proyecto-${data.slug}`;
-const titleId = `${id}-title`;
+// const id = `proyecto-${data.slug}`;
+// const titleId = `${id}-title`;
 ---
-
+<!-- 
 <dialog
 	id={id}
 	class="sheet"
@@ -503,4 +503,4 @@ const titleId = `${id}-title`;
 			transition: none;
 		}
 	}
-</style>
+</style> -->

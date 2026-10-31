@@ -64,7 +64,7 @@ const formatPeriod = (role: (typeof roles)[number]) =>
 				<div class="role__meta">
 					<span>{role.location}</span>
 					<span class:list={["role__status", { "is-current": role.current }]}>
-						{role.current ? "En curso" : "Finalizada"}
+						{role.current ? "Puesto actual" : "Finalizada"}
 					</span>
 				</div>
 			</article>

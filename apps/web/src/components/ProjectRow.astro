@@ -22,7 +22,7 @@ interface Props {
 
 const {
 	index,
-	slug,
+	// slug,
 	title,
 	summary,
 	highlights,
@@ -33,7 +33,7 @@ const {
 	technologies,
 } = Astro.props;
 
-const id = `proyecto-${slug}`;
+//const id = `proyecto-${slug}`;
 const externalLinks = links.filter((link) => link.kind !== "demo");
 ---
 
@@ -42,14 +42,14 @@ const externalLinks = links.filter((link) => link.kind !== "demo");
 
 	<div class="project-row__main">
 		<h3 class="project-row__title">
-			<a
+			<!-- <a
 				href={`#${id}`}
 				data-project-open={slug}
 				aria-haspopup="dialog"
 				aria-controls={id}
-			>
+			> -->
 				{title}
-			</a>
+			<!-- </a> -->
 		</h3>
 
 		<p class="project-row__summary">{summary}</p>
@@ -67,7 +67,8 @@ const externalLinks = links.filter((link) => link.kind !== "demo");
 					</a>
 				))
 			}
-			<a
+			<!-- TODO: habrá ver caso cuando haya un blog -->
+			<!-- <a
 				href={`#${id}`}
 				data-project-open={slug}
 				aria-haspopup="dialog"
@@ -75,7 +76,7 @@ const externalLinks = links.filter((link) => link.kind !== "demo");
 			>
 				Ver caso
 				<Icon name="tabler:arrow-right" aria-hidden="true" />
-			</a>
+			</a> -->
 		</div>
 
 		<span class="project-row__tech">
@@ -89,9 +90,9 @@ const externalLinks = links.filter((link) => link.kind !== "demo");
 		<span>{status}</span>
 	</span>
 
-	<span class="project-row__arrow" aria-hidden="true">
+	<!-- <span class="project-row__arrow" aria-hidden="true">
 		<Icon name="tabler:plus" />
-	</span>
+	</span> -->
 </article>
 
 <style>
