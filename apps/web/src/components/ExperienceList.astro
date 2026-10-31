@@ -21,10 +21,19 @@ roles.sort((a, b) => {
 	return b.startDate.localeCompare(a.startDate);
 });
 
-const formatPeriod = (role: (typeof roles)[number]) =>
-	role.current
-		? `${role.startDate}-actualidad`
-		: `${role.startDate}-${role.endDate ?? role.startDate}`;
+const formatPeriod = (role: (typeof roles)[number]) => {
+  if (role.current) {
+    return {
+      statusText: "Puesto actual",
+      periodText: `Desde ${role.startDate}`
+    };
+  }
+  
+  return {
+    statusText: "Finalizada", // o el estado que corresponda
+    periodText: `${role.startDate}-${role.endDate ?? role.startDate}`
+  };
+};
 ---
 
 <div class="roles">
@@ -51,7 +60,7 @@ const formatPeriod = (role: (typeof roles)[number]) =>
 						)}
 					</h3>
 					<p class="role__role">
-						<em>{role.role} ({formatPeriod(role)})</em>
+						<em>{role.role}</em>
 					</p>
 					<p class="role__summary">{role.summary}</p>
 					<ul class="role__contributions">
@@ -63,9 +72,14 @@ const formatPeriod = (role: (typeof roles)[number]) =>
 
 				<div class="role__meta">
 					<span>{role.location}</span>
-					<span class:list={["role__status", { "is-current": role.current }]}>
-						{role.current ? "Puesto actual" : "Finalizada"}
-					</span>
+					{role.current ? (
+						<>
+							<span class="role__status is-current">Puesto actual</span>
+							<span>Desde {role.startDate}</span>
+						</>
+					) : (
+						<span>{role.startDate}-{role.endDate ?? role.startDate}</span>
+					)}
 				</div>
 			</article>
 		))
