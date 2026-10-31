@@ -15,13 +15,13 @@ interface Props {
 	location: string;
 }
 
-const { name, navigation, email, github, location } = Astro.props;
+const { navigation, email, github } = Astro.props;
 ---
 
 <div id="site-menu" class="menu" data-menu hidden>
 	<div class="menu__panel dark-field" data-menu-panel>
 		<div class="menu__top shell">
-			<span class="mono menu__eyebrow">Menú / {name}</span>
+			<span class="mono menu__eyebrow">Menú / Portfolio</span>
 			<button class="menu__close" type="button" data-menu-close>
 				<span>Cerrar</span>
 				<Icon name="tabler:x" aria-hidden="true" />
@@ -47,11 +47,12 @@ const { name, navigation, email, github, location } = Astro.props;
 		<div class="menu__foot shell">
 			<div class="menu__contact">
 				<a class="text-link" href={`mailto:${email}`}>{email}</a>
+			</div>
+			<span class="mono menu__place">
 				<a class="text-link" href={github} rel="me noopener" target="_blank">
 					GitHub
 				</a>
-			</div>
-			<span class="mono menu__place">{location}</span>
+			</span>
 		</div>
 
 		<div class="menu__backdrop" data-menu-backdrop aria-hidden="true"></div>

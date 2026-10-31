@@ -16,7 +16,7 @@ interface Props {
 	contactHref: string;
 }
 
-const { name, role, navigation, availability, homeHref, contactHref } =
+const { name, role, navigation, homeHref, contactHref } =
 	Astro.props;
 ---
 
@@ -49,14 +49,9 @@ const { name, role, navigation, availability, homeHref, contactHref } =
 		</nav>
 
 		<div class="header__end">
-			<span class="status" title={availability.note}>
-				<span class="status__dot" aria-hidden="true"></span>
-				<span class="status__text">{availability.label}</span>
-			</span>
-			<span class="clock" data-clock aria-hidden="true">MAD --:--</span>
 			<a class="header__contact" href={contactHref}>
 				<span>Contacto</span>
-				<Icon name="tabler:arrow-up-right" aria-hidden="true" />
+				<Icon name="tabler:arrow-down" aria-hidden="true" />
 			</a>
 			<button
 				class="menu-toggle"

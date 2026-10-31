@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import BaseFooter from "@portfolio/ui/base-footer";
+import  NodeLabel from "@portfolio/ui/node-label";
 
 interface NavigationItem {
 	index: string;
@@ -18,24 +19,28 @@ interface Props {
 	homeHref: string;
 }
 
-const { name, navigation, email, github, location, footer, homeHref } =
+const { name, navigation, email, github, footer, homeHref } =
 	Astro.props;
 const year = new Date().getFullYear();
 ---
 
 <BaseFooter data-inert-when-menu>
+	<section id="contacto">
 		<div class="footer__top">
-			<span class="mono">Fin de la señal / {year}</span>
-			<a class="footer__back" href={homeHref}>
-				<span>Volver al inicio</span>
-				<Icon name="tabler:arrow-up-right" aria-hidden="true" />
-			</a>
+			<div class="contact__top">
+			<NodeLabel index="05" data-trace-anchor>Contacto</NodeLabel>
+		</div>
+		<a class="footer__back" href={homeHref}>
+			<span>Volver al inicio</span>
+			<Icon name="tabler:arrow-up" aria-hidden="true" />
+		</a>
 		</div>
 
 		<div class="footer__grid">
 			<div class="footer__about">
 				<p class="footer__note">{footer.note}</p>
 				<p class="footer__colophon">{footer.colophon}</p>
+				<!-- TODO: cambioar  -->
 			</div>
 
 			<nav class="footer__nav" aria-label="Navegación del pie" data-section-nav>
@@ -50,21 +55,29 @@ const year = new Date().getFullYear();
 								</a>
 							</li>
 						))
-					}
+					}<!-- TODO:revisar si mantener el contacto -->
 				</ul>
 			</nav>
 
 			<div class="footer__contact">
 				<span class="mono footer__label">Contacto</span>
 				<ul>
-					<li><a href={`mailto:${email}`}>{email}</a></li>
 					<li>
-						<a href={github} rel="me noopener" target="_blank">GitHub</a>
+						<a class="contact__mail" href={`mailto:${email}`} data-cursor="Escribir">
+							<span>{email}</span>
+							<Icon name="tabler:arrow-up-right" aria-hidden="true" />
+						</a><!--TODO: Cambiar svg por mail, gituhb, etc al principio como en mapa-->
 					</li>
 				</ul>
-				<p class="mono footer__place">
-					{location.city}, {location.country}
-				</p>
+				<span class="mono footer__label">Conectamos</span>
+				<ul>
+					<li>
+						<a href={github} rel="me noopener" target="_blank">GitHub</a>
+					</li><!--TODO: Cambiar svg por mail, gituhb, etc al principio como en mapa-->
+					<li>
+						<a href={"https://www.linkedin.com/in/juanmiguelrs/"} rel="me noopener" target="_blank">LinkedIn</a>
+					</li>
+				</ul>
 			</div>
 		</div>
 
@@ -73,6 +86,7 @@ const year = new Date().getFullYear();
 			<span>{footer.rights}</span>
 			<span class="footer__built">Diseño y código propios</span>
 		</div>
+  </section>
 </BaseFooter>
 
 <style>
@@ -214,5 +228,31 @@ const year = new Date().getFullYear();
 		.footer__bottom {
 			justify-content: flex-start;
 		}
+	}
+
+
+	.contact__mail {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		align-self: start;
+		padding-block-end: 0.25rem;
+		font-family: var(--f-mono);
+		font-size: clamp(0.85rem, 1.5vw, 1.15rem);
+		letter-spacing: -0.01em;
+		color: var(--c-paper);
+		background: linear-gradient(var(--c-accent-dark) 0 0) left bottom / 0 1px no-repeat;
+		transition: background-size 420ms var(--motion-easing);
+	}
+
+	.contact__mail :global(svg) { /* TODO Cambiar svg por mail, gituhb, etc al principio como en mapa*/
+		color: var(--c-accent-dark);
+		transition: transform var(--motion-base) var(--motion-easing);
+	}
+
+
+	.contact__mail:hover :global(svg),
+	.contact__mail:focus-visible :global(svg) {
+		transform: translate(3px, -3px);
 	}
 </style>
