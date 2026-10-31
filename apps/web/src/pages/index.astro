@@ -104,10 +104,9 @@ const capabilityIcons = [
 						site.capabilities.items.map((item, index) => (
 							<article class="capability" data-reveal="up" data-delay={String(index * 0.05)}>
 								<div class="capability__top">
-									<span class="mono">{String.fromCharCode(65 + index)}</span>
+									<h4>{item.title}</h4>
 									<Icon name={capabilityIcons[index]} aria-hidden="true" />
 								</div>
-								<h4>{item.title}</h4>
 								<p>{item.description}</p>
 								<ul class="capability__tools">
 									{item.tools.map((tool) => <li>{tool}</li>)}
@@ -300,12 +299,11 @@ const capabilityIcons = [
 
 	.capabilities__grid {
 		display: grid;
-		border-block-start: 1px solid var(--c-line);
 	}
 
 	.capability {
-		display: grid;
-		align-content: start;
+		display: flex;
+		flex-direction: column;
 		gap: 0.8rem;
 		padding-block: clamp(1.5rem, 3vw, 2.2rem);
 		border-block-end: 1px solid var(--c-line);
@@ -315,12 +313,13 @@ const capabilityIcons = [
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		color: var(--c-muted);
+		gap: 0.75rem;
 	}
 
 	.capability__top :global(svg) {
 		inline-size: 1.2rem;
 		block-size: 1.2rem;
+		flex-shrink: 0;
 		color: var(--c-accent);
 	}
 
@@ -328,6 +327,7 @@ const capabilityIcons = [
 		font-size: clamp(1.25rem, 2vw, 1.65rem);
 		font-weight: 500;
 		letter-spacing: -0.03em;
+		color: var(--c-ink);
 	}
 
 	.capability p {
@@ -340,7 +340,8 @@ const capabilityIcons = [
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.35rem;
-		padding-block-start: 0.3rem;
+		padding-block-start: 0.5rem;
+		margin-block-start: auto; /* Clave para que todas las listas de tags queden a la misma altura */
 	}
 
 	.capability__tools li {
@@ -415,8 +416,7 @@ const capabilityIcons = [
 	}
 
 	@media (min-width: 900px) {
-		.method,
-		.capabilities {
+		.method {
 			grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
 			align-items: start;
 		}
@@ -453,5 +453,23 @@ const capabilityIcons = [
 			padding-inline-start: 0;
 			border-inline-start: 0;
 		}
+
+    .capabilities__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .capability:nth-child(n) {
+      padding-inline: 1.5rem;
+      border-inline-end: 1px solid var(--c-line);
+    }
+
+    .capability:first-child {
+      padding-inline-start: 0;
+    }
+
+    .capability:last-child {
+      padding-inline-end: 0;
+      border-inline-end: 0;
+    }
 	}
 </style>
