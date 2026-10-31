@@ -20,20 +20,6 @@ roles.sort((a, b) => {
 	if (a.current !== b.current) return a.current ? -1 : 1;
 	return b.startDate.localeCompare(a.startDate);
 });
-
-const formatPeriod = (role: (typeof roles)[number]) => {
-  if (role.current) {
-    return {
-      statusText: "Puesto actual",
-      periodText: `Desde ${role.startDate}`
-    };
-  }
-  
-  return {
-    statusText: "Finalizada", // o el estado que corresponda
-    periodText: `${role.startDate}-${role.endDate ?? role.startDate}`
-  };
-};
 ---
 
 <div class="roles">
