@@ -28,25 +28,20 @@ interface Props {
 const {
 	name,
 	role,
-	kicker,
 	firstName,
 	lastName,
 	intro,
 	primaryAction,
 	secondaryAction,
-	portraitCaption,
-	scrollCue,
-	location,
-	availability,
 } = Astro.props;
 ---
 
 <BaseHero id="inicio" aria-labelledby="hero-title">
-		<div class="hero__meta">
+		<!-- <div class="hero__meta">
 			<span class="mono">{kicker}</span>
 			<span class="mono hero__coords">{location.coordinates}</span>
 			<span class="mono hero__signal">Señal activa</span>
-		</div>
+		</div> -->
 
 		<div class="hero__main">
 			<h1 id="hero-title" class="hero__name" aria-label={name}>
@@ -76,9 +71,8 @@ const {
 						fetchpriority="high"
 						data-critical
 					/>
-					<figcaption class="mono">{portraitCaption}</figcaption>
+					<figcaption class="mono">{role}</figcaption>
 				</figure>
-				<p class="hero__role">{role}</p>
 			</aside>
 		</div>
 
@@ -94,18 +88,18 @@ const {
 				</div>
 			</div>
 
-			<div class="hero__status" data-reveal="fade" data-intro data-delay="0.7">
+			<!-- <div class="hero__status" data-reveal="fade" data-intro data-delay="0.7">
 				<span class="hero__availability">
 					<span class="status-dot" aria-hidden="true"></span>
 					{availability.label}
 				</span>
 				<span class="mono hero__note">{availability.note}</span>
-			</div>
+			</div> -->
 
-			<a class="hero__scroll" href="#disciplina" data-cursor="Bajar">
+			<!-- <a class="hero__scroll" href="#disciplina" data-cursor="Bajar">
 				<span class="mono">{scrollCue}</span>
 				<span class="hero__scroll-line" aria-hidden="true"><span></span></span>
-			</a>
+			</a> -->
 		</div>
 </BaseHero>
 
@@ -134,6 +128,7 @@ const {
 
 	.hero__name {
 		grid-column: 1 / -1;
+		grid-row: 1;
 		font-size: clamp(4.2rem, 15.4vw, 14rem);
 		font-weight: 500;
 		line-height: 0.79;
@@ -149,7 +144,13 @@ const {
 
 	.hero__line--second {
 		padding-inline-start: 0.62em;
+		margin-block-end: -0.14em;
 	}
+
+	.hero__line--second :global(.split-line) {
+  /* Amplía la caja interna antes de que la máscara de GSAP la recorte */
+  padding-block-end: 0.22em;
+}
 
 	.hero__dot {
 		color: var(--c-accent);
