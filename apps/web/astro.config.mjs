@@ -1,6 +1,6 @@
 import sitemap from "@astrojs/sitemap";
-import icon from "astro-icon";
 import { defineConfig } from "astro/config";
+import icon from "astro-icon";
 
 export default defineConfig({
 	site: "https://juan-miii.github.io",
@@ -18,6 +18,8 @@ export default defineConfig({
 			include: {
 				tabler: [
 					"arrow-up-right",
+					"arrow-down",
+					"arrow-up",
 					"arrow-right",
 					"x",
 					"plus",
