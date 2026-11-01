@@ -173,3 +173,42 @@
 	--z-sheet: 85;
 	--z-loader: 100;
 }
+
+/* Dark theme. Applied via <html data-theme="dark">. */
+html[data-theme="dark"] {
+	color-scheme: dark;
+
+	/* Signal path palette: roles, not hues. Inverted for dark. */
+	--c-ground: #0f0f0e;
+	--c-ink: #f2f1ec;
+	--c-dark: #0a0a0a;
+	--c-muted: #8c8c88;
+	--c-line: rgb(242 241 236 / 12%);
+	--c-line-strong: rgb(242 241 236 / 20%);
+	--c-accent: #d93a2b;
+	--c-accent-ink: #ff7a6b;
+	--c-accent-dark: #b72c20;
+	--c-paper: #1a1a19;
+	--c-muted-dark: #62615b;
+
+	/* Compatibility aliases for the existing UI package. */
+	--color-bg: var(--c-ground);
+	--color-surface: #1a1a19;
+	--color-surface-elevated: #232322;
+	--color-border: var(--c-line);
+	--color-border-subtle: var(--c-line);
+	--color-text: var(--c-ink);
+	--color-text-muted: var(--c-muted);
+	--color-text-subtle: var(--c-muted);
+	--color-text-inverse: var(--c-ground);
+	--color-accent: var(--c-accent);
+	--color-accent-hover: var(--c-accent-ink);
+	--color-accent-subtle: rgb(217 58 43 / 15%);
+	--color-focus: var(--c-accent-ink);
+	--color-danger: #ff7a6b;
+	--color-success: #4da377;
+	--color-warning: #d4a34c;
+	--color-info: #5d8bb5;
+	--color-surface-inverse: var(--c-ink);
+	--color-surface-active: #2a2a29;
+}
