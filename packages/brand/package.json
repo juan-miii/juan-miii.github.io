@@ -1,8 +1,36 @@
 {
-	"name": "@portfolio/brand",
+	"name": "@juan-miii/brand",
 	"version": "0.0.0",
-	"private": true,
+	"description": "Design tokens, base styles and motion CSS for Juan Miguel's portfolio brand. Published as an unscoped package by renaming the scope first.",
+	"private": false,
 	"type": "module",
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	},
+	"author": "Juan Miguel",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/juan-miii/juan-miii.github.io.git",
+		"directory": "packages/brand"
+	},
+	"homepage": "https://github.com/juan-miii/juan-miii.github.io/tree/main/packages/brand",
+	"bugs": {
+		"url": "https://github.com/juan-miii/juan-miii.github.io/issues"
+	},
+	"keywords": [
+		"design-tokens",
+		"css",
+		"brand",
+		"ui",
+		"astro",
+		"portfolio"
+	],
+	"files": [
+		"src/**",
+		"README.md"
+	],
 	"exports": {
 		"./styles/tokens.css": "./src/styles/tokens.css",
 		"./styles/base.css": "./src/styles/base.css",

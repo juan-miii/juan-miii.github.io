@@ -1,0 +1,24 @@
+# See https://github.com/evilmartians/lefthook
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      glob: "*.{ts,tsx,js,jsx,json,astro,md,mdx,css,yml,yaml}"
+      run: pnpm format:check
+    lint:
+      glob: "*.{ts,tsx,js,jsx,json,astro,md,mdx,css,yml,yaml}"
+      run: pnpm lint
+    content:
+      glob: "apps/web/src/content/**/*"
+      run: pnpm content:check
+    typecheck:
+      skip: true  # slower, run in pre-push
+      run: pnpm typecheck
+  # Full check before push
+pre-push:
+  commands:
+    full-check:
+      run: pnpm check
+    tests:
+      skip: true
+      run: pnpm test && pnpm test:e2e

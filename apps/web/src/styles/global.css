@@ -1,10 +1,10 @@
-@import "@portfolio/brand/styles/base.css";
-@import "@portfolio/brand/styles/icons.css";
-@import "@portfolio/brand/styles/layout.css";
-@import "@portfolio/brand/styles/components.css";
-@import "@portfolio/brand/styles/motion.css";
-@import "@portfolio/brand/styles/loader.css";
-@import "@portfolio/brand/styles/cursor.css";
+@import "@juan-miii/brand/styles/base.css";
+@import "@juan-miii/brand/styles/icons.css";
+@import "@juan-miii/brand/styles/layout.css";
+@import "@juan-miii/brand/styles/components.css";
+@import "@juan-miii/brand/styles/motion.css";
+@import "@juan-miii/brand/styles/loader.css";
+@import "@juan-miii/brand/styles/cursor.css";
 
 /* Page shell and stacking. The trace sits behind the content. */
 main {

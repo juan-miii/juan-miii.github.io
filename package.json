@@ -20,10 +20,14 @@
 		"test": "turbo run test",
 		"test:e2e": "pnpm build && node apps/web/scripts/smoke.test.mjs",
 		"test:a11y": "pnpm build && pnpm --filter @portfolio/web test:a11y",
-		"test:visual": "echo 'No visual tests configured yet'"
+		"test:visual": "echo 'No visual tests configured yet'",
+		"changeset": "changeset",
+		"version": "changeset version"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "catalog:",
+		"@changesets/cli": "3.0.3",
+		"lefthook": "^1.13.4",
 		"turbo": "catalog:"
 	}
 }

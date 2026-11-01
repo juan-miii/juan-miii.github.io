@@ -18,7 +18,7 @@
 		"test": "echo 'No unit tests yet'"
 	},
 	"dependencies": {
-		"@portfolio/brand": "workspace:*"
+		"@juan-miii/brand": "workspace:*"
 	},
 	"peerDependencies": {
 		"astro": "catalog:"
