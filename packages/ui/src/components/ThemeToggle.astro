@@ -1,0 +1,113 @@
+---
+interface Props {
+	label?: string;
+}
+
+const { label = "Cambiar tema" } = Astro.props;
+---
+
+<button
+	class="theme-toggle"
+	type="button"
+	data-theme-toggle
+	aria-label={label}
+>
+	<svg
+		class="theme-toggle__icon theme-toggle__icon--light"
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		aria-hidden="true"
+	>
+		<circle cx="12" cy="12" r="5" />
+		<line x1="12" y1="1" x2="12" y2="3" />
+		<line x1="12" y1="21" x2="12" y2="23" />
+		<line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+		<line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+		<line x1="1" y1="12" x2="3" y2="12" />
+		<line x1="21" y1="12" x2="23" y2="12" />
+		<line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+		<line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+	</svg>
+	<svg
+		class="theme-toggle__icon theme-toggle__icon--dark"
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="2"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		aria-hidden="true"
+	>
+		<path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 0 0 21 12.79" />
+	</svg>
+</button>
+
+<style>
+	.theme-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		inline-size: 2rem;
+		block-size: 2rem;
+		border: 1px solid var(--c-line);
+		color: var(--c-muted);
+		background: transparent;
+		cursor: pointer;
+		transition:
+			color var(--motion-base) var(--motion-easing),
+			border-color var(--motion-base) var(--motion-easing);
+	}
+
+	.theme-toggle:hover,
+	.theme-toggle:focus-visible {
+		color: var(--c-ink);
+		border-color: var(--c-ink);
+		outline: none;
+	}
+
+	.theme-toggle__icon {
+		inline-size: 1rem;
+		block-size: 1rem;
+	}
+
+	html[data-theme="dark"] .theme-toggle__icon--light {
+		display: none;
+	}
+
+	html:not([data-theme="dark"]) .theme-toggle__icon--dark {
+		display: none;
+	}
+</style>
+
+<script>
+	(function () {
+		const toggle = document.querySelector("[data-theme-toggle]");
+		if (!toggle) return;
+		const root = document.documentElement;
+		toggle.addEventListener("click", () => {
+			const next =
+				root.getAttribute("data-theme") === "dark"
+					? "light"
+					: "dark";
+			root.setAttribute("data-theme", next);
+			root.style.colorScheme = next;
+			try {
+				localStorage.setItem("theme", next);
+			} catch {}
+			const meta = document.querySelector(
+				'meta[name="theme-color"]',
+			);
+			if (meta)
+				meta.setAttribute(
+					"content",
+					next === "dark" ? "#0f0f0e" : "#F2F1EC",
+				);
+		});
+	})();
+</script>

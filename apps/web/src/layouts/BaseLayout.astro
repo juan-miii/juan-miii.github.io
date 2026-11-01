@@ -224,32 +224,6 @@ const person = {
 		</div>
 
 		<script>
-			// Theme toggle persistence.
-			(function () {
-				const toggle = document.querySelector("[data-theme-toggle]");
-				if (!toggle) return;
-				const root = document.documentElement;
-				toggle.addEventListener("click", () => {
-					const next =
-						root.getAttribute("data-theme") === "dark"
-							? "light"
-							: "dark";
-					root.setAttribute("data-theme", next);
-					root.style.colorScheme = next;
-					try {
-						localStorage.setItem("theme", next);
-					} catch {}
-					const meta = document.querySelector(
-						'meta[name="theme-color"]',
-					);
-					if (meta)
-						meta.setAttribute(
-							"content",
-							next === "dark" ? "#0f0f0e" : "#F2F1EC",
-						);
-				});
-			})();
-
 			import { start } from "../engine/astro";
 			import { setupMotion } from "../motion/setup";
 
