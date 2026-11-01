@@ -54,6 +54,23 @@ const { name, role, navigation, homeHref, contactHref } =
 				<Icon name="tabler:arrow-down" aria-hidden="true" />
 			</a>
 			<button
+				class="theme-toggle"
+				type="button"
+				data-theme-toggle
+				aria-label="Cambiar tema"
+			>
+				<Icon
+					name="tabler:sun"
+					class="theme-toggle__icon theme-toggle__icon--light"
+					aria-hidden="true"
+				/>
+				<Icon
+					name="tabler:moon"
+					class="theme-toggle__icon theme-toggle__icon--dark"
+					aria-hidden="true"
+				/>
+			</button>
+			<button
 				class="menu-toggle"
 				type="button"
 				data-menu-toggle
@@ -193,6 +210,41 @@ const { name, role, navigation, homeHref, contactHref } =
 		display: flex;
 		align-items: center;
 		gap: 1rem;
+	}
+
+	.theme-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		inline-size: 2rem;
+		block-size: 2rem;
+		border: 1px solid var(--c-line);
+		color: var(--c-muted);
+		background: transparent;
+		cursor: pointer;
+		transition:
+			color var(--motion-base) var(--motion-easing),
+			border-color var(--motion-base) var(--motion-easing);
+	}
+
+	.theme-toggle:hover,
+	.theme-toggle:focus-visible {
+		color: var(--c-ink);
+		border-color: var(--c-ink);
+		outline: none;
+	}
+
+	.theme-toggle__icon {
+		inline-size: 1rem;
+		block-size: 1rem;
+	}
+
+	html[data-theme="dark"] .theme-toggle__icon--light {
+		display: none;
+	}
+
+	html:not([data-theme="dark"]) .theme-toggle__icon--dark {
+		display: none;
 	}
 
 	.status {

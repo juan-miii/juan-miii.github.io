@@ -28,6 +28,8 @@ export default defineConfig({
 					"terminal-2",
 					"git-branch",
 					"route",
+					"sun",
+					"moon",
 				],
 			},
 		}),
