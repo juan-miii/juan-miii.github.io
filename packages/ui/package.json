@@ -10,7 +10,8 @@
 		"./section-heading": "./src/components/SectionHeading.astro",
 		"./button": "./src/components/Button.astro",
 		"./node-label": "./src/components/NodeLabel.astro",
-		"./prose": "./src/components/Prose.astro"
+		"./prose": "./src/components/Prose.astro",
+		"./theme-toggle": "./src/components/ThemeToggle.astro"
 	},
 	"scripts": {
 		"check": "astro check",

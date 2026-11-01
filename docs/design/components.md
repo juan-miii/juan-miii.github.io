@@ -9,6 +9,7 @@
 - `button`: botón/enlace con variantes `solid`, `line`, `light`, `accent`.
 - `node-label`: etiqueta de nodo con puerto.
 - `prose`: contenedor de prosa larga.
+- `theme-toggle`: interruptor de tema claro/oscuro con persistencia.
 
 ## Importación recomendada
 
