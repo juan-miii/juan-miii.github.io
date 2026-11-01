@@ -6,6 +6,9 @@ saveExact: true
 pmOnFail: error
 strictDepBuilds: true
 
+allowBuilds:
+  lefthook: true
+
 catalog:
   astro: 7.4.2
   typescript: 6.0.3
