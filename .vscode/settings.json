@@ -16,8 +16,15 @@
 	"editor.wordWrap": "on",
 	"json.schemaDownload.trustedDomains": {
 		"https://turborepo.dev/schema.json": true,
-		"https://biomejs.dev/": true
+		"https://biomejs.dev/": true,
+		"https://unpkg.com/": true
 	},
+	"json.schemas": [
+		{
+			"fileMatch": [".changeset/config.json"],
+			"url": "https://unpkg.com/@changesets/config/schema.json"
+		}
+	],
 	"[jsonc]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},

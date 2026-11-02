@@ -1,6 +1,6 @@
 {
 	"name": "portfolio",
-	"version": "0.0.0",
+	"version": "2.0.0",
 	"private": true,
 	"type": "module",
 	"packageManager": "pnpm@12.16.1",
@@ -22,7 +22,7 @@
 		"test:a11y": "pnpm build && pnpm --filter @portfolio/web test:a11y",
 		"test:visual": "echo 'No visual tests configured yet'",
 		"changeset": "changeset",
-		"version": "changeset version"
+		"version:packages": "changeset version"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "catalog:",

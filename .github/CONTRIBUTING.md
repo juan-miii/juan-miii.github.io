@@ -75,6 +75,35 @@ Or all at once:
 pnpm check
 ```
 
+## Versioning and releases
+
+The monorepo uses [Changesets](https://github.com/changesets/changesets) to version packages and generate changelogs. `@juan-miii/brand` is the only package published to npm; `@portfolio/ui` and `@portfolio/web` are private but still versioned.
+
+When a change affects a package's observable behaviour:
+
+```bash
+pnpm changeset
+```
+
+Select the packages and the bump type (`patch`, `minor`, `major`), then write a short English summary. Commit the generated `.changeset/*.md` file with the change. Changesets uses semver, so a `major` bump on a `0.x` package produces `1.0.0`.
+
+Check the pending release before merging:
+
+```bash
+pnpm changeset status
+```
+
+Apply the pending changesets:
+
+```bash
+pnpm version:packages
+# or: pnpm changeset version
+```
+
+This consumes the `.changeset/*.md` files and updates the `package.json` and `CHANGELOG.md` files of the affected packages. The root `portfolio` package is not managed by Changesets; bump it by hand when the whole repository gets a new version.
+
+On `main`, `.github/workflows/release.yml` runs `changesets/action`: it opens or updates a `chore: version packages` pull request and publishes `@juan-miii/brand` when that pull request is merged.
+
 ## Repository structure
 
 - `apps/web`: Astro application, routes, layout, components, motion and content.
