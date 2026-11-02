@@ -14,6 +14,7 @@ function readJsonDir(dir) {
 
 function readMarkdownDir(dir) {
 	const path = join(root, dir);
+	if (!existsSync(path)) return [];
 	return readdirSync(path)
 		.filter((file) => file.endsWith(".md"))
 		.map((file) => {

@@ -98,7 +98,7 @@ function auditIssues(result) {
 	return issues;
 }
 
-async function openSheet(page, slug) {
+async function _openSheet(page, slug) {
 	const trigger = page.locator(
 		`.project-row__title a[data-project-open="${slug}"]`,
 	);
@@ -111,7 +111,7 @@ async function openSheet(page, slug) {
 	await page.waitForTimeout(900);
 }
 
-async function checkOpenSheet(page, slug) {
+async function _checkOpenSheet(page, slug) {
 	const state = await page.evaluate((id) => {
 		const dialog = document.getElementById(id);
 		const panel = dialog?.querySelector("[data-project-panel]");
@@ -147,7 +147,7 @@ async function checkOpenSheet(page, slug) {
 	return issues;
 }
 
-async function closeSheet(page, slug) {
+async function _closeSheet(page, slug) {
 	await page.keyboard.press("Escape");
 	await page.waitForFunction(
 		(id) => document.getElementById(id)?.open === false,
@@ -157,7 +157,7 @@ async function closeSheet(page, slug) {
 	await page.waitForTimeout(150);
 }
 
-async function checkClosedSheet(page, slug) {
+async function _checkClosedSheet(page, slug) {
 	return page.evaluate((id) => {
 		const style = getComputedStyle(document.body);
 		const trigger = document.querySelector(
