@@ -1,6 +1,10 @@
 name: security
 
 on:
+  pull_request:
+    paths:
+      - "package.json"
+      - "pnpm-lock.yaml"
   schedule:
     - cron: "0 6 * * 1"
   push:

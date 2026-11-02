@@ -5,7 +5,7 @@
 # Default behavior
 *               	text=auto eol=lf
 
-# Shell and Unix scripts shuold use lf
+# Shell and Unix scripts should use lf
 *.sh              text eol=lf
 
 # Web source

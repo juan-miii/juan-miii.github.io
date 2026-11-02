@@ -4,7 +4,7 @@
 	"slug": "tfg-correccion-practicas",
 	"title": "Automatización de la corrección de prácticas académicas",
 	"summary": "Sistema de evaluación continua y escalable con GitHub Actions y GitHub Classroom.",
-	"highlights": "Como Trabajo de Fin de Grado de Ingeniería Informárica en la UPM, desarrollé un corrector automático de código Java basado en pruebas definidas por el docente, incluyendo la ejecución automática de pruebas y retroalimentación inmediata al estudiante tras cada entrega.",
+	"highlights": "Como Trabajo de Fin de Grado de Ingeniería Informática en la UPM, desarrollé un corrector automático de código Java basado en pruebas definidas por el docente, incluyendo la ejecución automática de pruebas y retroalimentación inmediata al estudiante tras cada entrega.",
 	"year": "2025",
 	"relatedOrg": "Universidad Politécnica de Madrid",
 	"featuredOrder": 2,
