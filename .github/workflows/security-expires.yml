@@ -60,6 +60,7 @@ jobs:
           FILE=apps/web/public/.well-known/security.txt
           sed -i -E 's/^Expires:.*/Expires: '"$NEW_DATE"'/' "$FILE"
           test -s "$FILE"
+          diff <(git show HEAD:"$FILE") "$FILE" >/dev/null && { echo "$FILE is unchanged; aborting." >&2; exit 1; }
           git add "$FILE"
           git commit -m "chore: refresh security.txt expiry to $NEW_DATE"
           git push -u origin "$BRANCH"
@@ -84,26 +85,100 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7.0.1
 
-      - name: Merge PRs open for at least 14 days
+      - name: Validate and merge eligible PRs
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          open_prs=$(gh pr list --state open --label update-security-expires \
-            --json number,createdAt,title --limit 100)
-          count=$(echo "$open_prs" | jq 'length')
-          echo "Found $count pending PR(s)."
+
+          expected_branch_re='^chore/security-expires-update-[0-9]{8}$'
+          expected_base='main'
+          expected_title='chore: update security.txt expiry date'
+          expected_author='github-actions[bot]'
+          expected_file='apps/web/public/.well-known/security.txt'
           now_epoch=$(date -u +%s)
-          echo "$open_prs" | jq -c '.[]' | while IFS= read -r pr; do
-            num=$(echo "$pr" | jq -r '.number')
-            created=$(echo "$pr" | jq -r '.createdAt')
-            created_epoch=$(date -u -d "$created" +%s)
+          min_age_days=14
+
+          open_prs=$(gh pr list --state open --label update-security-expires \
+            --limit 100 --json number,createdAt,title,headRefName,baseRefName,author,isDraft,isCrossRepository)
+          count=$(printf '%s' "$open_prs" | jq 'length')
+          echo "Found $count open PR(s) with label update-security-expires."
+
+          printf '%s' "$open_prs" | jq -c '.[]' | while IFS= read -r pr; do
+            num=$(printf '%s' "$pr" | jq -r '.number')
+            created=$(printf '%s' "$pr" | jq -r '.createdAt')
+            title=$(printf '%s' "$pr" | jq -r '.title // ""')
+            branch=$(printf '%s' "$pr" | jq -r '.headRefName // ""')
+            base=$(printf '%s' "$pr" | jq -r '.baseRefName // ""')
+            author=$(printf '%s' "$pr" | jq -r '.author.login // ""')
+            draft=$(printf '%s' "$pr" | jq -r '.isDraft')
+            cross=$(printf '%s' "$pr" | jq -r '.isCrossRepository')
+
+            reject() {
+              echo "PR #$num rejected: $1"
+              continue
+            }
+
+            if [ "$base" != "$expected_base" ]; then
+              reject "target branch is '$base', expected '$expected_base'"
+              continue
+            fi
+            if [ "$title" != "$expected_title" ]; then
+              reject "title is '$title', expected '$expected_title'"
+              continue
+            fi
+            case "$branch" in
+              chore/security-expires-update-[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]) ;;
+              *)
+                reject "branch '$branch' is not a security-expires update branch"
+                continue
+                ;;
+            esac
+            if [ "$author" != "$expected_author" ]; then
+              reject "author is '$author', expected '$expected_author'"
+              continue
+            fi
+            if [ "$draft" != "false" ]; then
+              reject "PR is a draft"
+              continue
+            fi
+            if [ "$cross" != "false" ]; then
+              reject "PR is cross-repository"
+              continue
+            fi
+
+            # The PR must not be concurrently merged/closed.
+            live_state=$(gh pr view "$num" --json state,isDraft --jq '[.state, (.isDraft|tostring)] | join(":")')
+            case "$live_state" in
+              OPEN:false) ;;
+              *) reject "live state is '$live_state', expected 'OPEN:false'"; continue ;;
+            esac
+
+            # Validate changed paths (also catches renames and multi-file PRs).
+            changed_files=$(gh pr diff "$num" --name-only 2>/dev/null || true)
+            normalized_files="$(printf '%s\n' "$changed_files" | sed -e '/^[[:space:]]*$/d')"
+            if [ "$normalized_files" != "$expected_file" ]; then
+              changed_summary="$(printf '%s' "$changed_files" | tr '\n' ' ')"
+              reject "changed files are not exactly '$expected_file' (seen: $changed_summary)"
+              continue
+            fi
+
+            body=$(gh pr view "$num" --json body --jq '.body // ""')
+            case "$body" in
+              *'security.txt'*) ;;
+              *) reject "PR body does not mention security.txt"; continue ;;
+            esac
+
+            created_epoch=$(date -u -d "$created" +%s) || {
+              reject "invalid createdAt value"
+              continue
+            }
             age=$(( (now_epoch - created_epoch) / 86400 ))
-            if [ "$age" -ge 14 ]; then
+            if [ "$age" -ge "$min_age_days" ]; then
               echo "PR #$num is ${age}d old → merging."
               gh pr merge "$num" --squash --delete-branch \
                 --subject "chore: refresh security.txt expiry" \
-                --body "Auto-merged after 14 days without objections."
+                --body "Auto-merged after $age days without objections."
               gh pr comment "$num" --body "Auto-merged by security-expires workflow: $age days elapsed without objections."
             else
               echo "PR #$num is only ${age}d old → deferring."
