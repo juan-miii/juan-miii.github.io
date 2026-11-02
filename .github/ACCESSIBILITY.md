@@ -6,7 +6,7 @@ The site targets **WCAG 2.2 AA**.
 
 Every pull request and push to `main` runs `.github/workflows/ci.yml` and `.github/workflows/deploy.yml`, which include:
 
-- `pnpm test:a11y`: accessibility audit with axe-core, horizontal overflow check, focus visibility and console errors, on the home page, project sheets and the 404, in desktop, mobile and reduced-motion modes.
+- `pnpm test:a11y`: accessibility audit with axe-core, horizontal overflow check, focus visibility and console errors, on the home page, in desktop, mobile and reduced-motion modes.
 
 ## Manual requirements
 

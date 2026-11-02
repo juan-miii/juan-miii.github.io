@@ -34,8 +34,7 @@ chore: update GitHub Actions dependencies
 
 ## Local requirements
 
-- Node.js `24.22.1` (`.node-version`)
-- pnpm `12.16.1`
+[Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/) are required. Both are included in `mise.toml` config file. Then, project dependencies can be installed using the following command:
 
 ```bash
 pnpm install --frozen-lockfile

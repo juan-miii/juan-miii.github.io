@@ -80,7 +80,7 @@ pnpm test:a11y
 │       │   ├── engine/         # Lifecycle, scroll, loader, revelations
 │       │   ├── layouts/        # BaseLayout (head, loader, header, footer, menu)
 │       │   ├── motion/         # Trace, scrollspy, sheets, menu, clock
-│       │   ├── pages/          # index.astro, 404.astro
+│       │   ├── pages/          # index.astro
 │       │   ├── scripts/        # e2e, a11y and content validation scripts
 │       │   ├── styles/         # global.css (brand imports plus app rules)
 │       │   └── content.config.ts
@@ -90,15 +90,7 @@ pnpm test:a11y
 │   ├── brand/                  # Visual identity: tokens, base, layout, components, motion, loader
 │   ├── ui/                     # Reusable Astro base components (PageWrapper, BaseHero, BaseFooter...)
 ├── .devcontainer/              # Containerized development environment (Codespaces / devcontainer)
-├── .github/                    # CI, deploy, security workflows and templates
-├── docs/                       # Design and component documentation
-├── DESIGN.md                   # Concept, art direction and design decisions
-├── COMPONENTS.md               # Edit map for every visible element
-├── DETALLES.md                 # Architecture and contracts between packages
-├── README.md
-├── CONTRIBUTING.md
-├── CODE_OF_CONDUCT.md
-├── SECURITY.md
+├── .github/                    # CI, deploy, security workflows and documentation
 ├── package.json
 ├── pnpm-workspace.yaml
 ├── pnpm-lock.yaml
@@ -140,7 +132,3 @@ This project follows the [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md). By partic
 ## License
 
 The repository's code is under this repository's license. Professional text, brand and graphic assets are not considered open source unless stated otherwise.
-
----
-
-Built with [`astro`](https://astro.build/), [`pnpm`](https://pnpm.io/) and [`turborepo`](https://turbo.build/).
