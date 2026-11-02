@@ -47,7 +47,7 @@ const scenarios = [
 		name: "duplicate-project-id",
 		mutate: (fixture) => {
 			const project = readJson(fixture, "projects/portfolio-platform.json");
-			project.id = "accenture";
+			project.id = "tfg-automation";
 			writeJson(fixture, "projects/portfolio-platform.json", project);
 		},
 		expected: false,
@@ -58,18 +58,6 @@ const scenarios = [
 			const role = readJson(fixture, "experience/accenture-consultant.json");
 			role.organizationId = "missing-organization";
 			writeJson(fixture, "experience/accenture-consultant.json", role);
-		},
-		expected: false,
-	},
-	{
-		name: "invalid-project-reference-in-case",
-		mutate: (fixture) => {
-			const mdPath = join(fixture, "cases/entrega-verificable.md");
-			const text = readFileSync(mdPath, "utf8").replace(
-				"projectId: portfolio-platform",
-				"projectId: missing-project",
-			);
-			writeFileSync(mdPath, text);
 		},
 		expected: false,
 	},
@@ -89,18 +77,6 @@ const scenarios = [
 			const project = readJson(fixture, "projects/portfolio-platform.json");
 			project.cover = "/images/does-not-exist.svg";
 			writeJson(fixture, "projects/portfolio-platform.json", project);
-		},
-		expected: false,
-	},
-	{
-		name: "case-slug-collision",
-		mutate: (fixture) => {
-			const mdPath = join(fixture, "cases/entrega-verificable.md");
-			const text = readFileSync(mdPath, "utf8").replace(
-				"slug: entrega-verificable",
-				"slug: plataforma-portfolio",
-			);
-			writeFileSync(mdPath, text);
 		},
 		expected: false,
 	},

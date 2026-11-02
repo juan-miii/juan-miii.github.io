@@ -1,7 +1,6 @@
 import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import {
-	caseFrontmatterSchema,
 	experienceSchema,
 	organizationSchema,
 	pageSchema,
@@ -44,18 +43,9 @@ const projects = defineCollection({
 	schema: projectSchema,
 });
 
-const cases = defineCollection({
-	loader: glob({
-		pattern: "*.md",
-		base: "./src/content/cases",
-	}),
-	schema: caseFrontmatterSchema,
-});
-
 export const collections = {
 	pages,
 	organizations,
 	experience,
 	projects,
-	cases,
 };

@@ -1,0 +1,35 @@
+# Juan Miguel
+
+> Personal portfolio of Juan Miguel, software engineer and technology consultant in Madrid.
+
+Juan Miguel designs and builds systems that can be explained, operated and verified. Work spans system architecture, applied security and delivery automation. Copy is in Spanish.
+
+## Pages
+
+- [Home](https://juan-miii.github.io/): single page portfolio. Discipline, work, experience, profile, contact.
+- [llms.txt](https://juan-miii.github.io/llms.txt): this file.
+
+## Projects
+
+- [Portfolio platform](https://github.com/juan-miii/juan-miii.github.io): content-driven personal site with a verifiable delivery chain. Astro monorepo, pnpm, Turborepo.
+- [TFG automation](https://github.com/juan-miii/tfg): automated academic exercise correction with GitHub Actions and GitHub Classroom. Java, JUnit, Maven.
+
+## Experience
+
+- [Accenture](https://www.accenture.com): digital identity consulting in public sector (2024-2025).
+- [PricewaterhouseCoopers](https://www.pwc.es): business security solutions, governance, risk and compliance (current).
+
+## Contact
+
+- [GitHub](https://github.com/juan-miii): source code and open source.
+- [LinkedIn](https://www.linkedin.com/in/juanmiguelrs/): Get in contact
+
+## Source
+
+- [Repository](https://github.com/juan-miii/juan-miii.github.io): full source code.
+
+## Constraints
+
+- Copy is in Spanish. No invented clients, awards or metrics.
+- Single page, static output, no client-side routing.
+- No em or en dashes in visible text.

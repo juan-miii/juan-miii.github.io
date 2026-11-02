@@ -61,7 +61,7 @@
 	--c-accent-ink: #b72c20;
 	--c-accent-dark: #ff7a6b;
 	--c-paper: #f2f1ec;
-	--c-muted-dark: #a3a29b;
+	--c-muted-dark: #c0c0ba;
 
 	/* Compatibility aliases for the existing UI package. */
 	--color-bg: var(--c-ground);
@@ -187,7 +187,7 @@ html[data-theme="dark"] {
 	--c-line-strong: rgb(242 241 236 / 20%);
 	--c-accent: #d93a2b;
 	--c-accent-ink: #ff7a6b;
-	--c-accent-dark: #b72c20;
+	--c-accent-dark: #ff7a6b;
 	--c-paper: #1a1a19;
 	--c-muted-dark: #62615b;
 
