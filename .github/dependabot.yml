@@ -19,6 +19,3 @@ updates:
       npm-all:
         patterns:
           - "*"
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
