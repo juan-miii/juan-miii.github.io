@@ -1,6 +1,6 @@
 {
 	"name": "@juan-miii/brand",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"description": "Design tokens, base styles and motion CSS for Juan Miguel's portfolio brand. Published as an unscoped package by renaming the scope first.",
 	"private": false,
 	"type": "module",

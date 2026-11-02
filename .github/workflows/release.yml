@@ -9,9 +9,6 @@ permissions:
   pull-requests: write
   id-token: write  # Required for provenance attestation
 
-env:
-  PNPM_VERSION: "12.16.1"
-
 concurrency:
   group: release
   cancel-in-progress: true
