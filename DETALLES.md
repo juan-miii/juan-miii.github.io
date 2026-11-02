@@ -141,7 +141,6 @@ La separación entre aplicaciones desplegables y bibliotecas internas seguirá e
 | `packages/brand` | Identidad visual, tokens, recursos de marca y principios de movimiento |
 | `packages/ui` | Componentes reutilizables de presentación e interacción |
 | `packages/content` | Información editorial, textos, esquemas y recursos de contenido |
-| `packages/typescript-config` | Configuraciones TypeScript compartidas |
 
 Los paquetes se crearán porque tienen responsabilidades diferentes, no porque deban publicarse ni porque ya existan varias aplicaciones.
 
@@ -245,12 +244,6 @@ Cuando una responsabilidad crezca, se extraerá desde una implementación real.
 │   │   ├── README.md
 │   │   └── package.json
 │   │
-│   └── typescript-config/
-│       ├── base.json
-│       ├── library.json
-│       ├── README.md
-│       └── package.json
-│
 ├── docs/
 │   ├── architecture/
 │   ├── decisions/
@@ -304,9 +297,6 @@ apps/web ────────────────► packages/ui
     │                          └──► packages/brand
     │
     ├────────────────────► packages/brand
-
-Configuraciones de desarrollo:
-apps y paquetes ─────────► packages/typescript-config
 ```
 
 ### Restricciones

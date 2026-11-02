@@ -8,6 +8,6 @@
 	"createGithubReleases": true,
 	"baseBranch": "main",
 	"updateInternalDependencies": "patch",
-	"ignore": ["@portfolio/ui", "@portfolio/web", "@portfolio/typescript-config"],
+	"ignore": ["@portfolio/ui", "@portfolio/web"],
 	"___experimentalUnsafeIncludeAllChangesetTypes": false
 }

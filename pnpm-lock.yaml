@@ -245,8 +245,6 @@ importers:
 
   packages/brand: {}
 
-  packages/typescript-config: {}
-
   packages/ui:
     dependencies:
       '@juan-miii/brand':
