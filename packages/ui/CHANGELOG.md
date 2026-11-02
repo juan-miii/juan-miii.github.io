@@ -1,5 +1,13 @@
 # @portfolio/ui
 
+## 1.0.1
+
+### Patch Changes
+
+- Test release: validate Changesets versioning and the npm trusted-publisher workflow.
+- Updated dependencies
+  - @juan-miii/brand@1.0.1
+
 ## 1.0.0
 
 ### Major Changes
