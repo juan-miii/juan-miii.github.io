@@ -21,7 +21,6 @@ Juan Miguel designs and builds systems that can be explained, operated and verif
 
 ## Contact
 
-- [GitHub](https://github.com/juan-miii): source code and open source.
 - [LinkedIn](https://www.linkedin.com/in/juanmiguelrs/): Get in contact
 
 ## Source

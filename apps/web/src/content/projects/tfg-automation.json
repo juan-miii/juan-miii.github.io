@@ -16,7 +16,6 @@
 		"JUnit",
 		"Maven"
 	],
-	"plate": "pipeline",
 	"links": [
 		{
 			"kind": "repository",

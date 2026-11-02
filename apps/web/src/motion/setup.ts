@@ -4,7 +4,6 @@ import { gsap } from "gsap";
 import { onPage, setLoaderExit, setLoaderFormat } from "../engine";
 import { ease } from "../engine/env";
 import { initMenu } from "./menu";
-import { initProjectSheets } from "./projects";
 import { initSectionNav } from "./scrollspy";
 import { initSignal } from "./signal";
 
@@ -25,7 +24,6 @@ export function setupMotion() {
 	});
 
 	initMenu();
-	initProjectSheets();
 	initSectionNav();
 
 	onPage(() => initSignal());

@@ -12,7 +12,6 @@ export const projectSchema = z.object({
 	statusLabel: z.string().min(1),
 	relatedOrg: z.string().min(1),
 	technologies: z.array(z.string().min(1)),
-	plate: z.enum(["content", "pipeline"]),
 	links: z.array(
 		z.object({
 			kind: z.enum(["repository", "demo", "documentation", "other"]),

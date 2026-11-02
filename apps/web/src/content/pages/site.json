@@ -10,12 +10,7 @@
 		"country": "España",
 		"coordinates": "40.4168 N / 3.7038 O"
 	},
-	"email": "94069179-juan-miii@proton.me",
 	"github": "https://github.com/juan-miii",
-	"availability": {
-		"label": "Abierto a nuevos proyectos",
-		"note": "Respuesta en 48 horas laborables."
-	},
 	"navigation": [
 		{
 			"index": "01",
@@ -118,8 +113,22 @@
 	},
 	"footer": {
 		"note": "Diseñado y construido en Madrid.",
-		"colophon": "Astro, TypeScript y GSAP. Contenido validado, salida estática.",
-		"rights": "Todos los derechos reservados."
+		"colophon": "Ahora, hablemos de tu proyecto. Dejo enlaces a mis redes para conectar.",
+		"rights": "Todos los derechos reservados.",
+		"links": [
+			{
+				"label": "LinkedIn",
+				"url": "https://www.linkedin.com/in/juanmiguelrs/"
+			},
+			{
+				"label": "GitHub",
+				"url": "https://github.com/juan-miii"
+			},
+			{
+				"label": "GitLab",
+				"url": "https://gitlab.com/juan-miii"
+			}
+		]
 	},
 	"process": [
 		{
