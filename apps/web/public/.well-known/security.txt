@@ -1,3 +1,4 @@
-Contact: mailto:tu-correo@ejemplo.com
-Expires: 2027-10-25T00:00:00.000Z
-Preferred-Languages: es
+Contact: https://github.com/juan-miii/juan-miii.github.io/security/advisories/new
+Expires: 2027-11-02T00:00:00.000Z
+Preferred-Languages: en, es
+Canonical: https://juan-miii.github.io/.well-known/security.txt

@@ -1,23 +1,23 @@
 ---
-name: Solicitud de funcionalidad
-about: Sugiere una idea para este proyecto
+name: Feature request
+about: Suggest an idea for this project
 title: "[FEATURE] "
 labels: ["enhancement"]
-assignees: ["@juan-miii"]
+assignees: []
 ---
 
-## ¿Está tu solicitud de funcionalidad relacionada con un problema? Por favor, describe.
+## Is your feature request related to a problem? Please describe.
 
-Una descripción clara y concisa del problema. Ej. Me frustra cuando [...]
+A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
-## Describe la solución que te gustaría
+## Describe the solution you'd like
 
-Una descripción clara y concisa de lo que quieres que suceda.
+A clear and concise description of what you want to happen.
 
-## Describe alternativas que hayas considerado
+## Describe alternatives you've considered
 
-Una descripción clara y concisa de soluciones o alternativas alternativas que hayas considerado.
+A clear and concise description of any alternative solutions or features you've considered.
 
-## Contexto adicional
+## Additional context
 
-Añade cualquier otro contexto o capturas de pantalla sobre la solicitud de funcionalidad aquí.
+Add any other context or screenshots about the feature request here.

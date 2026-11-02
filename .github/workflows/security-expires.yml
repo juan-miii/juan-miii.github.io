@@ -1,0 +1,111 @@
+name: security-expires
+
+on:
+  schedule:
+    - cron: "0 9 1 */3 *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: security-expires
+  cancel-in-progress: false
+
+jobs:
+  propose:
+    name: Propose security.txt expiry update
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Parse expiry and days remaining
+        id: expiry
+        run: |
+          FILE=apps/web/public/.well-known/security.txt
+          EXP=$(grep -i '^Expires:' "$FILE" | head -1 | sed -E 's/^Expires:\s*//i' | tr -d '\r '
+            )
+          if [ -z "$EXP" ]; then
+            echo "No Expires field found; aborting." >&2
+            exit 1
+          fi
+          NOW=$(date -u +%s)
+          END=$(date -u -d "$EXP" +%s)
+          DAYS=$(( (END - NOW) / 86400 ))
+          echo "expires=$EXP" >> "$GITHUB_OUTPUT"
+          echo "days=$DAYS" >> "$GITHUB_OUTPUT"
+          echo "Current expiry: $EXP (in $DAYS days)"
+
+      - name: Propose +1 year extension if near expiry
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: fromJSON(steps.expiry.outputs.days) < 30 && fromJSON(steps.expiry.outputs.days) > -1
+        run: |
+          set -euo pipefail
+          # already a pending PR?
+          EXISTING=$(gh pr list --state open --label update-security-expires \
+            --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            echo "A pending PR already exists: #$EXISTING. Skipping."
+            exit 0
+          fi
+          CURRENT="${{ steps.expiry.outputs.expires }}"
+          NEW_DATE=$(date -u -d "$CURRENT +1 year" +%Y-%m-%dT00:00:00.000Z)
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          BRANCH="chore/security-expires-update-$(date -u +%Y%m%d)"
+          git checkout -b "$BRANCH"
+          FILE=apps/web/public/.well-known/security.txt
+          sed -i -E 's/^Expires:.*/Expires: '"$NEW_DATE"'/' "$FILE"
+          test -s "$FILE"
+          git add "$FILE"
+          git commit -m "chore: refresh security.txt expiry to $NEW_DATE"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --title "chore: update security.txt expiry date" \
+            --label update-security-expires \
+            --body "$(printf '%s\n' \
+              'The `security.txt` `Expires` field is within 30 days (currently `'"$CURRENT"'`).' \
+              '' \
+              'This PR extends it to `'"$NEW_DATE"'`.' \
+              '' \
+              '@juan-miii: reply **OK** or edit the file to confirm, or leave it; **if no' \
+              'objection is raised and no edit is pushed within 14 days, this bot will' \
+              'auto-merge it (squash). If you prefer to handle it manually, close the PR' \
+              'and update `security.txt` yourself.')"
+
+  auto-merge:
+    name: Auto-merge old security.txt PRs
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Merge PRs open for at least 14 days
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          open_prs=$(gh pr list --state open --label update-security-expires \
+            --json number,createdAt,title --limit 100)
+          count=$(echo "$open_prs" | jq 'length')
+          echo "Found $count pending PR(s)."
+          now_epoch=$(date -u +%s)
+          echo "$open_prs" | jq -c '.[]' | while IFS= read -r pr; do
+            num=$(echo "$pr" | jq -r '.number')
+            created=$(echo "$pr" | jq -r '.createdAt')
+            created_epoch=$(date -u -d "$created" +%s)
+            age=$(( (now_epoch - created_epoch) / 86400 ))
+            if [ "$age" -ge 14 ]; then
+              echo "PR #$num is ${age}d old → merging."
+              gh pr merge "$num" --squash --delete-branch \
+                --subject "chore: refresh security.txt expiry" \
+                --body "Auto-merged after 14 days without objections."
+              gh pr comment "$num" --body "Auto-merged by security-expires workflow: $age days elapsed without objections."
+            else
+              echo "PR #$num is only ${age}d old → deferring."
+            fi
+          done

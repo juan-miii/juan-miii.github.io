@@ -81,14 +81,6 @@ export const pageSchema = z.object({
 		colophon: z.string().min(1),
 		rights: z.string().min(1),
 	}),
-	notFound: z.object({
-		index: z.string().min(1),
-		label: z.string().min(1),
-		title: z.string().min(1),
-		description: z.string().min(1),
-		backLabel: z.string().min(1),
-		backHref: z.string().min(1),
-	}),
 	process: z.array(
 		z.object({
 			index: z.string().min(1),

@@ -1,0 +1,44 @@
+name: Typo or Error
+description: Report typos, incorrect info, or other small fixes
+title: "[BUG] "
+labels: ["bug"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the portfolio! Please describe the issue below.
+  - type: input
+    id: summary
+    attributes:
+      label: Brief Summary of the Error
+      description: Short description of the typo or mistake you found.
+      placeholder: e.g. Typo in the last paragraph
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Provide a clear description of the error, plus any suggested correction.
+      placeholder: Please specify the exact location and the correct text.
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional Information
+      description: Feel free to add any context or screenshots here.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: agreement
+    attributes:
+      label: Code of Conduct
+      description: By submitting, you confirm you have read and will follow our Code of Conduct.
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
