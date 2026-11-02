@@ -14,6 +14,9 @@ pre-commit:
     typecheck:
       skip: true  # slower, run in pre-push
       run: pnpm typecheck
+    gitleaks:
+      skip: false
+      run: 'if command -v gitleaks >/dev/null 2>&1; then gitleaks protect --staged --redact; else echo "warning: gitleaks not installed locally; skipping. CI still scans." >&2; fi'
   # Full check before push
 pre-push:
   commands:
