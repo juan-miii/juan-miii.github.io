@@ -194,7 +194,7 @@ importers:
         specifier: 3.0.3
         version: 3.0.3
       lefthook:
-        specifier: ^1.13.4
+        specifier: ^1.13.6
         version: 1.13.6
       turbo:
         specifier: 'catalog:'
