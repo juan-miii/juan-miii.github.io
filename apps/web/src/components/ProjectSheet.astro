@@ -58,7 +58,7 @@
 				<div class="sheet__hero-grid">
 					<div class="sheet__intro">
 						<span class="mono sheet__kicker">
-							Proyecto / {data.period} / {data.client}
+							Proyecto / {data.relatedOrg}
 						</span>
 						<h2 id={titleId} class="sheet__title">{data.title}</h2>
 						<p class="sheet__summary">{data.summary}</p>
@@ -102,12 +102,8 @@
 
 					<dl class="sheet__meta">
 						<div>
-							<dt class="mono">Rol</dt>
-							<dd>{data.role}</dd>
-						</div>
-						<div>
-							<dt class="mono">Periodo</dt>
-							<dd>{data.period}</dd>
+							<dt class="mono">Organización</dt>
+							<dd>{data.relatedOrg}</dd>
 						</div>
 						<div>
 							<dt class="mono">Estado</dt>
@@ -123,7 +119,7 @@
 				<div class="sheet__plate">
 					<ProjectPlate
 						variant={data.plate}
-						title={data.coverAlt ?? data.title}
+						title={data.title}
 						caption={`${data.title} / esquema`}
 						figure={String(index).padStart(2, "0")}
 					/>

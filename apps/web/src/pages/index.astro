@@ -15,12 +15,10 @@ const entry = await getEntry("pages", "site");
 if (!entry) throw new Error("No existe el contenido del sitio.");
 const site = entry.data;
 
-const projects = (await getCollection("projects"))
-	.filter((project) => project.data.publicationStatus === "published")
-	.sort(
-		(a, b) =>
-			(a.data.featuredOrder ?? 999) - (b.data.featuredOrder ?? 999),
-	);
+const projects = (await getCollection("projects")).sort(
+	(a, b) =>
+		(a.data.featuredOrder ?? 999) - (b.data.featuredOrder ?? 999),
+);
 
 // const sheets = projects.map((project, index) => {
 // 	const next = projects[(index + 1) % projects.length] ?? project;
@@ -47,17 +45,11 @@ const capabilityIcons = [
 >
 	<Hero
 		name={site.name}
-		role={site.role}
-		kicker={site.hero.kicker}
 		firstName={site.hero.firstName}
 		lastName={site.hero.lastName}
 		intro={site.hero.intro}
 		primaryAction={site.hero.primaryAction}
 		secondaryAction={site.hero.secondaryAction}
-		portraitCaption={site.hero.portraitCaption}
-		scrollCue={site.hero.scrollCue}
-		location={site.location}
-		availability={site.availability}
 	/>
 
 	<section id="disciplina" class="section approach" aria-labelledby="approach-title">
@@ -139,7 +131,7 @@ const capabilityIcons = [
 							summary={project.data.summary}
 							highlights={project.data.highlights}
 							links={project.data.links}
-							role={project.data.role}
+							relatedOrg={project.data.relatedOrg}
 							year={project.data.year}
 							status={project.data.statusLabel}
 							technologies={project.data.technologies}

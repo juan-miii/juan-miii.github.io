@@ -44,7 +44,6 @@
 		}
 	],
 	"hero": {
-		"kicker": "Portafolio / 2026",
 		"firstName": "Juan",
 		"lastName": "Miguel",
 		"intro": "Diseño y construyo sistemas que se pueden explicar, operar y verificar. Trabajo entre la arquitectura, la seguridad y la entrega.",
@@ -55,9 +54,7 @@
 		"secondaryAction": {
 			"label": "Trayectoria",
 			"href": "#trayectoria"
-		},
-		"portraitCaption": "Madrid, ES",
-		"scrollCue": "Desplaza para recorrer la señal"
+		}
 	},
 	"approach": {
 		"index": "01",
@@ -77,23 +74,23 @@
 		"items": [
 			{
 				"title": "Arquitectura de sistemas",
-				"description": "Diseño servicios y monorepos con límites claros, dependencias explícitas y una ruta de evolución que no obliga a reescribir.",
+				"description": "Diseño servicios con límites claros, dependencias explícitas y una ruta de evolución que no obliga a reescribir.",
 				"tools": ["TypeScript", "Astro", "Node.js", "APIs"]
 			},
 			{
 				"title": "Seguridad aplicada",
 				"description": "Reviso superficie de ataque, permisos y cadena de suministro. Aplico controles proporcionados al riesgo, no teatro de cumplimiento.",
-				"tools": ["Modelo de amenazas", "Secretos", "Permisos mínimos"]
+				"tools": ["Modelo de amenazas", "ISO 27001", "ISO 22301"]
 			},
 			{
 				"title": "Automatización e IA",
-				"description": "Integro agentes y flujos donde reducen trabajo real. Cada automatización tiene una entrada, una salida y una forma de evaluar si acertó.",
-				"tools": ["Agentes", "Integraciones", "Evaluación"]
+				"description": "Integro agentes y flujos donde reducen trabajo real. Cada automatización tiene una entrada, una salida y una forma de ser evaluada.",
+				"tools": ["Agentes", "Integraciones"]
 			},
 			{
 				"title": "Entrega y operación",
 				"description": "Construyo cadenas reproducibles con pruebas, procedencia y artefactos verificables. Lo que llega a producción se puede rastrear hasta su origen.",
-				"tools": ["CI/CD", "SHA-256", "Playwright", "Documentación"]
+				"tools": ["Atestación", "Certificados", "Firma", "CI/CD"]
 			}
 		]
 	},
@@ -114,19 +111,10 @@
 		"label": "Perfil",
 		"title": "Perfil",
 		"long": [
-			"Soy Juan Miguel, ingeniero informático y consultor tecnológico. Empecé en esto escribiendo scripts en Python que resolvían problemas cotidianos, y de ahí pasé a la consultoría, donde aprendí a leer un problema antes de proponer una solución.",
-			"Con el tiempo, he concentrado mi práctica en la intersección entre la arquitectura de sistemas, la seguridad aplicada y la automatización de la entrega. No entiendo estas disciplinas como compartimentos estancos: una solución técnica que no se puede auditar y operar con seguridad no resuelve el problema real de una organización.",
-			"Trabajo con la convicción de que la tecnología útil debe ser comprensible, sostenible y estar lista para funcionar cuando ya no estoy delante.",
-			"Si te encaja el enfoque y tienes algún reto técnico o de arquitectura entre manos, la puerta está abierta para charlar."
+			"Soy Juan Miguel, ingeniero informático por la UPM y consultor tecnológico. Empecé escribiendo scripts en Python que resolvían problemas cotidianos, y de ahí pasé a la consultoría, donde aprendí a leer un problema y entenderlo para poder proponer una solución.",
+			"Con el tiempo, he concentrado mi práctica en la intersección entre la arquitectura de sistemas, la seguridad aplicada y la automatización de la entrega. No entiendo estas disciplinas separadas: una solución técnica que no se puede auditar y operar (en suma, entender) no resuelve el problema real de una organización.",
+			"Trabajo con la convicción de que la tecnología útil debe ser comprensible, sostenible y estar lista para funcionar cuando ya no estoy delante. Si te encaja el enfoque y tienes algún reto técnico o de arquitectura entre manos, la puerta está abierta para charlar."
 		]
-	},
-	"contact": {
-		"index": "05",
-		"label": "Contacto",
-		"title": "Hablemos.",
-		"body": "Si tienes un sistema que ordenar, una entrega que asegurar o una decisión técnica que necesita criterio, escríbeme. Cuéntame el contexto y qué intentas resolver.",
-		"emailLabel": "Escribir un correo",
-		"note": "Sin formularios ni intermediarios. El correo llega directamente."
 	},
 	"footer": {
 		"note": "Diseñado y construido en Madrid.",

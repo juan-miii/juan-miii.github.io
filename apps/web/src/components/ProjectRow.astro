@@ -12,9 +12,9 @@ interface Props {
 	slug: string;
 	title: string;
 	summary: string;
-	highlights: string[];
+	highlights: string;
 	links: ProjectLink[];
-	role: string;
+	relatedOrg: string;
 	year: string;
 	status: string;
 	technologies: string[];
@@ -27,7 +27,7 @@ const {
 	summary,
 	highlights,
 	links,
-	role,
+	relatedOrg,
 	year,
 	status,
 	technologies,
@@ -54,9 +54,7 @@ const externalLinks = links.filter((link) => link.kind !== "demo");
 
 		<p class="project-row__summary">{summary}</p>
 
-		<ul class="project-row__highlights">
-			{highlights.map((highlight) => <li>{highlight}</li>)}
-		</ul>
+		<p class="project-row__highlights">{highlights}</p>
 
 		<div class="project-row__links">
 			{
@@ -86,7 +84,7 @@ const externalLinks = links.filter((link) => link.kind !== "demo");
 
 	<span class="project-row__meta">
 		<span>{year}</span>
-		<span>{role}</span>
+		<span>{relatedOrg}</span>
 		<span>{status}</span>
 	</span>
 
@@ -173,27 +171,11 @@ const externalLinks = links.filter((link) => link.kind !== "demo");
 	}
 
 	.project-row__highlights {
-		display: grid;
-		gap: 0.2rem;
 		max-inline-size: 58ch;
-	}
-
-	.project-row__highlights li {
-		display: grid;
-		grid-template-columns: 0.7rem minmax(0, 1fr);
-		gap: 0.4rem;
 		font-size: var(--t-s);
 		line-height: 1.45;
 		color: var(--c-muted);
 		transition: color var(--motion-base) var(--motion-easing);
-	}
-
-	.project-row__highlights li::before {
-		content: "";
-		inline-size: 0.45rem;
-		block-size: 1px;
-		margin-block-start: 0.65em;
-		background: var(--c-accent);
 	}
 
 	.project-row__links {
@@ -297,8 +279,8 @@ const externalLinks = links.filter((link) => link.kind !== "demo");
 	.project-row:is(:hover, :focus-within) .project-row__summary,
 	.project-row:is(:hover, :focus-within) .project-row__meta,
 	.project-row:is(:hover, :focus-within) .project-row__tech span,
-	.project-row:is(:hover, :focus-within) .project-row__highlights li {
-		color: var(--c-muted-dark);
+	.project-row:is(:hover, :focus-within) .project-row__highlights {
+		color: var(--c-paper);
 	}
 
 	.project-row:is(:hover, :focus-within) .project-row__tech span {

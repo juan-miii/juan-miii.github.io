@@ -118,9 +118,6 @@ try {
 		if (project.publicationStatus === "draft" && project.featuredOrder) {
 			errors.push(`Project ${project.id}: un borrador no puede ser destacado.`);
 		}
-		if (project.cover) {
-			checkMedia(project.cover, `Project ${project.id}`);
-		}
 	}
 } catch (error) {
 	console.error(error.message);
