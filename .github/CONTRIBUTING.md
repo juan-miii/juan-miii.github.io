@@ -78,9 +78,8 @@ pnpm check
 ## Repository structure
 
 - `apps/web`: Astro application, routes, layout, components, motion and content.
-- `packages/brand`: visual identity (tokens, base, layout, components, motion, loader, cursor).
+- `packages/brand`: visual identity (tokens, base, layout, components, motion, loader).
 - `packages/ui`: reusable base Astro components.
-- `packages/typescript-config`: shared TypeScript configurations.
 - `.github/workflows`: CI, deploy and security.
 
 ## Content rules
