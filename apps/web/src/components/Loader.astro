@@ -1,0 +1,33 @@
+---
+interface Props {
+	name: string;
+	city: string;
+	country: string;
+}
+
+const { name, city, country } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<div id="loader" class="loader" aria-hidden="true">
+	<div class="loader__top shell" data-loader-out>
+		<span class="mono">{name} / Portfolio</span>
+		<span class="mono">{city}, {country}</span>
+	</div>
+	<div class="loader__center shell" data-loader-out>
+		<p class="loader__mark" data-loader-mark>JM<span>.</span></p>
+		<div class="loader__row">
+			<span class="mono">Cargando el sitio</span>
+			<span class="loader__count">
+				<span data-loader-count>000</span><span class="loader__of">/100</span>
+			</span>
+		</div>
+		<div class="loader__track" data-loader-rule>
+			<span data-loader-bar></span>
+		</div>
+	</div>
+	<div class="loader__foot shell" data-loader-out>
+		<span class="mono">Ingeniería y Consultoría</span>
+		<span class="mono">© {year}</span>
+	</div>
+</div>

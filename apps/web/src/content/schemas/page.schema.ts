@@ -79,3 +79,5 @@ export const pageSchema = z.object({
 		}),
 	),
 });
+
+export type PageContent = z.infer<typeof pageSchema>;

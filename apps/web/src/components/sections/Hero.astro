@@ -1,0 +1,143 @@
+---
+import { Icon } from "astro-icon/components";
+import BaseHero from "@portfolio/ui/base-hero";
+import Button from "@portfolio/ui/button";
+import type { Action } from "../../types";
+
+interface Props {
+	name: string;
+	firstName: string;
+	lastName: string;
+	intro: string;
+	primaryAction: Action;
+	secondaryAction: Action;
+}
+
+const {
+	name,
+	firstName,
+	lastName,
+	intro,
+	primaryAction,
+	secondaryAction,
+} = Astro.props;
+---
+
+<BaseHero id="inicio" aria-labelledby="hero-title">
+	<div class="hero__main">
+		<h1 id="hero-title" class="hero__name" aria-label={name}>
+			<span class="hero__line" data-split="lines" data-intro data-delay="0.55">
+				{firstName}
+			</span>
+			<span
+				class="hero__line hero__line--second"
+				data-split="lines"
+				data-intro
+				data-delay="0.63"
+			>
+				{lastName}<span class="hero__dot">.</span>
+			</span>
+		</h1>
+	</div>
+
+	<div class="hero__bottom">
+		<div class="hero__intro" data-reveal="up" data-intro data-delay="0.5">
+			<p>{intro}</p>
+			<div class="hero__actions">
+				<Button variant="solid" href={primaryAction.href}>
+					{primaryAction.label}
+					<Icon name="tabler:arrow-right" aria-hidden="true" />
+				</Button>
+				<Button variant="line" href={secondaryAction.href}>
+					{secondaryAction.label}
+				</Button>
+			</div>
+		</div>
+	</div>
+</BaseHero>
+
+<style>
+	.hero__main {
+		display: grid;
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+		column-gap: var(--gutter);
+		row-gap: clamp(1.5rem, 3vw, 2.5rem);
+		padding-block: clamp(2rem, 5vw, 4.5rem);
+	}
+
+	.hero__name {
+		grid-column: 1 / -1;
+		grid-row: 1;
+		font-size: clamp(4.2rem, 15.4vw, 14rem);
+		font-weight: 500;
+		line-height: 0.79;
+		letter-spacing: -0.065em;
+		color: var(--c-ink);
+	}
+
+	.hero__line {
+		display: block;
+		overflow: hidden;
+		padding-block-end: 0.04em;
+	}
+
+	.hero__line--second {
+		padding-inline-start: 0.62em;
+		margin-block-end: -0.14em;
+	}
+
+	.hero__line--second :global(.split-line) {
+		/* Widen the inner box before GSAP masks it. */
+		padding-block-end: 0.22em;
+	}
+
+	.hero__dot {
+		color: var(--c-accent);
+	}
+
+	.hero__bottom {
+		display: grid;
+		gap: clamp(1.5rem, 3vw, 2rem);
+		padding-block-start: 1rem;
+		border-block-start: 1px solid var(--c-line);
+	}
+
+	.hero__intro {
+		display: grid;
+		gap: 1.25rem;
+		max-inline-size: 43ch;
+	}
+
+	.hero__intro p {
+		font-size: clamp(1.1rem, 1.55vw, 1.5rem);
+		line-height: 1.4;
+		letter-spacing: -0.015em;
+	}
+
+	.hero__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+	}
+
+	@media (min-width: 640px) {
+		.hero__bottom {
+			grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
+			align-items: end;
+		}
+	}
+
+	@media (min-width: 900px) {
+		.hero__name {
+			grid-column: 1 / 10;
+			font-size: clamp(7rem, 13.8vw, 14rem);
+		}
+
+		.hero__bottom {
+			grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.55fr) minmax(
+					0,
+					0.55fr
+				);
+		}
+	}
+</style>

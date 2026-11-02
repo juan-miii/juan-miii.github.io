@@ -1,25 +1,12 @@
 ---
 import { Icon } from "astro-icon/components";
-import { getCollection, getEntry } from "astro:content";
+import type { ExperienceRole } from "../types";
 
-const experience = await getCollection("experience");
-const roles = await Promise.all(
-	experience.map(async (role) => {
-		const organization = await getEntry(
-			"organizations",
-			role.data.organizationId,
-		);
-		return {
-			...role.data,
-			organization: organization?.data ?? null,
-		};
-	}),
-);
+interface Props {
+	roles: ExperienceRole[];
+}
 
-roles.sort((a, b) => {
-	if (a.current !== b.current) return a.current ? -1 : 1;
-	return b.startDate.localeCompare(a.startDate);
-});
+const { roles } = Astro.props;
 ---
 
 <div class="roles">

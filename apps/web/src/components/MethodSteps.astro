@@ -1,0 +1,143 @@
+---
+import type { Method, ProcessStep } from "../types";
+
+interface Props {
+	method: Method;
+	process: ProcessStep[];
+}
+
+const { method, process } = Astro.props;
+---
+
+<div class="method" aria-labelledby="method-title">
+	<div class="method__head">
+		<span class="mono method__label">{method.label}</span>
+		<h2 id="method-title" class="method__title">{method.title}</h2>
+		<p class="method__body">{method.body}</p>
+	</div>
+
+	<ol class="method__steps">
+		{
+			process.map((step) => (
+				<li data-reveal="up">
+					<span class="mono">{step.index}</span>
+					<h3>{step.title}</h3>
+					<p>{step.description}</p>
+				</li>
+			))
+		}
+	</ol>
+</div>
+
+<style>
+	.method {
+		display: grid;
+		gap: clamp(1.8rem, 4vw, 3rem);
+		margin-block-start: clamp(2.5rem, 6vw, 4.5rem);
+		padding-block-start: clamp(1.5rem, 3vw, 2.2rem);
+		border-block-start: 1px solid var(--c-line);
+	}
+
+	.method__head {
+		display: grid;
+		gap: 0.6rem;
+	}
+
+	.method__label {
+		color: var(--c-muted);
+	}
+
+	.method__title {
+		max-inline-size: 22ch;
+		font-size: var(--t-l);
+		font-weight: 500;
+		line-height: 1.02;
+		letter-spacing: -0.04em;
+	}
+
+	.method__body {
+		max-inline-size: 58ch;
+		font-size: var(--t-s);
+		color: var(--c-muted);
+	}
+
+	.method__steps {
+		display: grid;
+		gap: 0;
+		border-block-start: 1px solid var(--c-line);
+	}
+
+	.method__steps li {
+		display: grid;
+		gap: 0.45rem;
+		padding-block: 1rem;
+		border-block-end: 1px solid var(--c-line);
+	}
+
+	.method__steps .mono {
+		color: var(--c-accent-ink);
+	}
+
+	.method__steps h3 {
+		font-size: 1.05rem;
+		font-weight: 500;
+		letter-spacing: -0.02em;
+	}
+
+	.method__steps p {
+		max-inline-size: 44ch;
+		font-size: var(--t-s);
+		color: var(--c-muted);
+	}
+
+	@media (min-width: 720px) {
+		.method__steps {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.method__steps li {
+			padding-inline: 1.2rem;
+			border-inline-start: 1px solid var(--c-line);
+		}
+
+		.method__steps li:nth-child(odd) {
+			padding-inline-start: 0;
+			border-inline-start: 0;
+		}
+
+		.method__steps li:nth-last-child(-n + 2) {
+			border-block-end: 0;
+		}
+	}
+
+	@media (min-width: 900px) {
+		.method {
+			grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+			align-items: start;
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.method__steps {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+
+		.method__steps li {
+			padding-inline: 1.1rem;
+			border-block-end: 0;
+		}
+
+		.method__steps li:not(:first-child) {
+			border-inline-start: 1px solid var(--c-line);
+		}
+
+		.method__steps li:nth-child(odd) {
+			padding-inline-start: 1.1rem;
+		}
+
+		.method__steps li:first-child {
+			padding-inline-start: 0;
+			border-inline-start: 0;
+		}
+	}
+</style>

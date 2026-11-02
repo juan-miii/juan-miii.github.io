@@ -1,0 +1,49 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import SectionHeading from "@portfolio/ui/section-heading";
+import ExperienceList from "../ExperienceList.astro";
+import type { ExperienceRole, SectionCopy } from "../../types";
+
+interface Props {
+	section: SectionCopy;
+}
+
+const { section } = Astro.props;
+
+const experience = await getCollection("experience");
+const roles: ExperienceRole[] = await Promise.all(
+	experience.map(async (role) => {
+		const organization = await getEntry(
+			"organizations",
+			role.data.organizationId,
+		);
+		return {
+			...role.data,
+			organization: organization?.data ?? null,
+		};
+	}),
+);
+
+roles.sort((a, b) => {
+	if (a.current !== b.current) return a.current ? -1 : 1;
+	return b.startDate.localeCompare(a.startDate);
+});
+---
+
+<section
+	id="trayectoria"
+	class="section experience"
+	aria-labelledby="experience-title"
+>
+	<div class="shell">
+		<SectionHeading
+			id="experience-title"
+			index={section.index}
+			label={section.label}
+			title={section.title}
+			body={section.body}
+		/>
+
+		<ExperienceList {roles} />
+	</div>
+</section>

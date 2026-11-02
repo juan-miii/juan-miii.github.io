@@ -1,0 +1,39 @@
+---
+import SectionHeading from "@portfolio/ui/section-heading";
+import CapabilityGrid from "../CapabilityGrid.astro";
+import MethodSteps from "../MethodSteps.astro";
+import type {
+	Capabilities,
+	Method,
+	ProcessStep,
+	SectionCopy,
+} from "../../types";
+
+interface Props {
+	approach: SectionCopy;
+	method: Method;
+	process: ProcessStep[];
+	capabilities: Capabilities;
+}
+
+const { approach, method, process, capabilities } = Astro.props;
+---
+
+<section
+	id="disciplina"
+	class="section approach"
+	aria-labelledby="approach-title"
+>
+	<div class="shell">
+		<SectionHeading
+			id="approach-title"
+			index={approach.index}
+			label={approach.label}
+			title={approach.title}
+			body={approach.body}
+		/>
+
+		<MethodSteps {method} {process} />
+		<CapabilityGrid {capabilities} />
+	</div>
+</section>

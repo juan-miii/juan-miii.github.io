@@ -32,14 +32,14 @@ apps/web/
 │   ├── robots.txt
 │   └── fonts/                    Switzer y JetBrains Mono
 └── src/
-    ├── layouts/BaseLayout.astro  html, head, loader, header, main, footer, menú, cursor
+    ├── layouts/BaseLayout.astro  html, head, loader, header, main, footer, menú
     ├── pages/index.astro         orden y composición de la portada
     ├── pages/404.astro           única ruta adicional
     ├── components/               cada bloque visible
     ├── content/                  textos, proyectos, casos, experiencia
     ├── engine/                   ciclo de vida, scroll, loader, revelaciones
     ├── motion/                   traza, scrollspy, fichas, menú, reloj
-    ├── styles/global.css         botones, prosa, loader, cursor, utilidades
+    ├── styles/global.css         utilidades propias de la app
     └── assets/profile.webp       retrato original
 
 packages/brand/src/styles/
@@ -50,7 +50,6 @@ packages/brand/src/styles/
 ├── components.css                botones, prosa
 ├── motion.css                    visibilidad de revelaciones
 ├── loader.css                    loader de entrada
-└── cursor.css                    seguidor del puntero
 
 packages/ui/src/                  componentes compartidos (ver sección 9)
 ```
@@ -182,19 +181,7 @@ La traza se oculta por debajo de 900 px y con `prefers-reduced-motion`. Se dibuj
 a partir de posiciones reales, no de coordenadas escritas a mano. Si añades una
 sección con `SectionHeading`, la traza la detecta sin tocar `signal.ts`.
 
-### 4.5 Cursor
-
-| Elemento | Archivo |
-| --- | --- |
-| Punto y etiqueta | `BaseLayout.astro` (`#cursor`) |
-| Estilos | `styles/global.css` (`#cursor`, `.cursor__inner`) |
-| Movimiento | `engine/interactions.ts` |
-| Etiquetas | `data-cursor="Perfil"`, `"Bajar"`, `"Abrir ficha"`, `"Escribir"` |
-
-El cursor nativo nunca se oculta. En táctil o con movimiento reducido el seguidor
-desaparece.
-
-### 4.6 Menú móvil
+### 4.5 Menú móvil
 
 Componente: `components/Menu.astro`. Comportamiento: `motion/menu.ts`.
 
@@ -458,7 +445,7 @@ Archivo: `packages/brand/src/styles/tokens.css`.
 | Espacio | `--s-1` a `--s-10` | Ritmo vertical y horizontal |
 | Forma | `--radius*`, `--shadow*` | Radio 0 y sin sombras |
 | Movimiento | `--motion-fast/base/slow/scene`, `--motion-easing` | Duraciones y curva |
-| Capas | `--z-trace`, `--z-content`, `--z-header`, `--z-menu`, `--z-cursor`, `--z-sheet`, `--z-loader` | Apilado |
+| Capas | `--z-trace`, `--z-content`, `--z-header`, `--z-menu`, `--z-loader` | Apilado |
 
 Para cambiar el acento de todo el sitio, edita las tres variables
 `--c-accent*`. Para invertir el cierre, edita `--c-dark` y `--c-paper`.
@@ -491,7 +478,6 @@ Archivo: `apps/web/src/styles/global.css`.
 | `.link-arrow` | Enlace con flecha |
 | `.prose` | Caso dentro de la ficha: párrafos, listas, código, capítulos |
 | `.loader*` | Loader de entrada |
-| `#cursor`, `.cursor__inner` | Seguidor del puntero |
 | `html:has(.sheet ...)` | Fallback de scroll sin JavaScript |
 
 Cada componente guarda sus propios estilos en un `<style>` con ámbito. Si un
@@ -515,15 +501,16 @@ Iconos:
 - El set permitido se declara en `apps/web/astro.config.mjs`. Si usas un icono
   nuevo de Tabler o Simple Icons, añádelo allí antes de referenciarlo.
 - Los iconos de capacidad se eligen en `capabilityIcons` dentro de
-  `pages/index.astro`.
+  `components/CapabilityGrid.astro`.
 - Los tamaños compartidos están en `packages/brand/src/styles/icons.css`.
 
 Paquetes:
 
-- `packages/brand` sí se usa: tokens, base, iconos, layout, components, motion, loader y cursor.
+- `packages/brand` sí se usa: tokens, base, iconos, layout, components, motion y loader.
 - `packages/ui` aporta las bases compartidas (`PageWrapper`, `BaseHero`, `BaseFooter`,
-  `SectionHeading`, `Button`, `NodeLabel`, `Prose`); la portada las compone con sus
-  componentes locales. Su catálogo está en `docs/design/components.md`.
+  `SectionHeading`, `Button`, `NodeLabel`, `Prose`, `ThemeScript`, `ThemeToggle`);
+  la portada las compone con sus componentes locales. Su catálogo está en
+  `docs/design/components.md`.
 
 ## 10. Movimiento y comportamiento
 
@@ -534,11 +521,9 @@ Paquetes:
 | `engine/scroll.ts` | Lenis, ScrollTrigger y estado de scroll |
 | `engine/reveal.ts` | Revelaciones por líneas y bloques (`data-reveal`, `data-split`, `data-intro`, `data-delay`) |
 | `engine/loader.ts` | Espera de assets críticos y retirada del loader |
-| `engine/interactions.ts` | Cursor seguidor y `data-magnetic` (soportado, sin uso actual) |
 | `motion/setup.ts` | Une todo, configura el loader y el reloj de Madrid |
 | `motion/signal.ts` | Dibuja la traza desde `data-trace-anchor` |
 | `motion/scrollspy.ts` | Marca el nodo activo en todas las navegaciones |
-| `motion/projects.ts` | Abre, cierra y encadena fichas |
 | `motion/menu.ts` | Abre y cierra el menú, foco e inercia |
 
 Atributos de datos que puedes usar al editar marcado:
@@ -551,11 +536,6 @@ Atributos de datos que puedes usar al editar marcado:
 | `data-delay="0.2"` | Retraso en segundos |
 | `data-trace-anchor` | Punto de conexión de la traza |
 | `data-section-nav` | Sincroniza el estado activo de esa navegación |
-| `data-project-open="slug"` | Abre la ficha |
-| `data-project-close` | Cierra la ficha |
-| `data-cursor="Texto"` | Etiqueta del cursor |
-| `data-magnetic="0.35"` | Atracción al puntero (disponible, sin uso) |
-| `data-clock` | Reloj de Madrid |
 | `data-critical` | Asset que el loader espera |
 
 Todo el movimiento pasa por el reloj de GSAP. No añadas `scroll` listeners ni

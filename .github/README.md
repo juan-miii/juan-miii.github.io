@@ -87,7 +87,7 @@ pnpm test:a11y
 │       ├── astro.config.mjs
 │       └── package.json
 ├── packages/
-│   ├── brand/                  # Visual identity: tokens, base, layout, components, motion, loader, cursor
+│   ├── brand/                  # Visual identity: tokens, base, layout, components, motion, loader
 │   ├── ui/                     # Reusable Astro base components (PageWrapper, BaseHero, BaseFooter...)
 │   └── typescript-config/      # Shared TypeScript configurations
 ├── .devcontainer/              # Containerized development environment (Codespaces / devcontainer)

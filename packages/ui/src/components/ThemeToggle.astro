@@ -86,28 +86,38 @@ const { label = "Cambiar tema" } = Astro.props;
 </style>
 
 <script>
+	import { themeDefaults } from "../theme";
+
 	(function () {
-		const toggle = document.querySelector("[data-theme-toggle]");
-		if (!toggle) return;
+		const toggles = document.querySelectorAll("[data-theme-toggle]");
+		if (toggles.length === 0) return;
+
 		const root = document.documentElement;
-		toggle.addEventListener("click", () => {
-			const next =
-				root.getAttribute("data-theme") === "dark"
-					? "light"
-					: "dark";
-			root.setAttribute("data-theme", next);
-			root.style.colorScheme = next;
-			try {
-				localStorage.setItem("theme", next);
-			} catch {}
-			const meta = document.querySelector(
-				'meta[name="theme-color"]',
-			);
-			if (meta)
-				meta.setAttribute(
-					"content",
-					next === "dark" ? "#0f0f0e" : "#F2F1EC",
+		const storageKey = root.dataset.themeStorageKey ?? themeDefaults.storageKey;
+		const lightColor = root.dataset.themeLight ?? themeDefaults.lightColor;
+		const darkColor = root.dataset.themeDark ?? themeDefaults.darkColor;
+
+		for (const toggle of toggles) {
+			toggle.addEventListener("click", () => {
+				const next =
+					root.getAttribute("data-theme") === "dark"
+						? "light"
+						: "dark";
+				root.setAttribute("data-theme", next);
+				root.style.colorScheme = next;
+				try {
+					localStorage.setItem(storageKey, next);
+				} catch {}
+				const meta = document.querySelector(
+					'meta[name="theme-color"]',
 				);
-		});
+				if (meta) {
+					meta.setAttribute(
+						"content",
+						next === "dark" ? darkColor : lightColor,
+					);
+				}
+			});
+		}
 	})();
 </script>

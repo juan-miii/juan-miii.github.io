@@ -1,21 +1,34 @@
 ---
-interface Props {
+import type { HTMLAttributes } from "astro/types";
+import NodeLabel from "./NodeLabel.astro";
+
+interface Props extends HTMLAttributes<"header"> {
 	id: string;
 	index: string;
 	label: string;
 	title: string;
 	body?: string;
+	/** Mark the node label as a trace anchor. Defaults to true. */
+	anchor?: boolean;
 }
 
-const { id, index, label, title, body } = Astro.props;
+const {
+	id,
+	index,
+	label,
+	title,
+	body,
+	anchor = true,
+	class: className,
+	...attributes
+} = Astro.props;
 ---
 
-<header class="base-section-head">
+<header {...attributes} class:list={["base-section-head", className]}>
 	<div class="base-section-head__label">
-		<span class="node-label" data-trace-anchor>
-			<span class="node-label__index">{index}</span>
+		<NodeLabel index={index} data-trace-anchor={anchor ? "" : undefined}>
 			{label !== title && label}
-		</span>
+		</NodeLabel>
 	</div>
 	<h2 id={id} class="base-section-head__title" data-split="lines">{title}</h2>
 	{body && <p class="base-section-head__body">{body}</p>}

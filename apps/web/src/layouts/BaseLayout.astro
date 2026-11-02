@@ -1,10 +1,12 @@
 ---
-import { getEntry } from "astro:content";
+import PageWrapper from "@portfolio/ui/page-wrapper";
+import ThemeScript from "@portfolio/ui/theme-script";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import Loader from "../components/Loader.astro";
 import Menu from "../components/Menu.astro";
-import PageWrapper from "@portfolio/ui/page-wrapper";
 import SignalTrace from "../components/SignalTrace.astro";
+import { getSite } from "../lib/site";
 import "../styles/global.css";
 
 interface Props {
@@ -14,9 +16,7 @@ interface Props {
 	bodyClass?: string;
 }
 
-const entry = await getEntry("pages", "site");
-if (!entry) throw new Error("No existe el contenido del sitio.");
-const site = entry.data;
+const site = await getSite();
 
 const {
 	title = site.title,
@@ -66,31 +66,10 @@ const person = {
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="color-scheme" content="light dark" />
+		<meta name="theme-color" content="#F2F1EC" />
+		<ThemeScript />
 		<script is:inline>
-			// Theme: respect stored preference, then system, default light.
-			(function () {
-				const root = document.documentElement;
-				try {
-					const stored = localStorage.getItem("theme");
-					const prefersDark = window.matchMedia(
-						"(prefers-color-scheme: dark)",
-					).matches;
-					const theme =
-						stored === "dark" || (!stored && prefersDark)
-							? "dark"
-							: "light";
-					root.setAttribute("data-theme", theme);
-					root.style.colorScheme = theme;
-					const meta = document.querySelector(
-						'meta[name="theme-color"]',
-					);
-					if (meta)
-						meta.setAttribute(
-							"content",
-							theme === "dark" ? "#0f0f0e" : "#F2F1EC",
-						);
-				} catch {}
-			})();
 			document.documentElement.classList.add("js");
 			// Failsafe: if the engine never finishes booting, reveal the static page.
 			window.setTimeout(() => {
@@ -102,8 +81,6 @@ const person = {
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<meta name="author" content={site.name} />
-		<meta name="color-scheme" content="light dark" />
-		<meta name="theme-color" content="#F2F1EC" />
 		<meta name="generator" content={Astro.generator} />
 		{noindex && <meta name="robots" content="noindex, nofollow" />}
 		<link rel="canonical" href={canonicalUrl} />
@@ -144,8 +121,7 @@ const person = {
 		/>
 		<noscript>
 			<style>
-				#loader,
-				#cursor {
+				#loader {
 					display: none !important;
 				}
 				.js [data-reveal],
@@ -158,28 +134,11 @@ const person = {
 	<body class:list={["page", bodyClass]}>
 		<a class="skip-link" href="#main">Saltar al contenido</a>
 
-		<div id="loader" class="loader" aria-hidden="true">
-			<div class="loader__top shell" data-loader-out>
-				<span class="mono">{site.name} / Portfolio</span> <!-- TODO: traer portfolio de algun lado almacenar todas estas palabras en content por algun sitio -->
-				<span class="mono">{site.location.city}, {site.location.country}</span>
-			</div>
-			<div class="loader__center shell" data-loader-out>
-				<p class="loader__mark" data-loader-mark>JM<span>.</span></p>
-				<div class="loader__row">
-					<span class="mono">Cargando el sitio</span> <!-- TODO: revisar -->
-					<span class="loader__count">
-						<span data-loader-count>000</span><span class="loader__of">/100</span>
-					</span>
-				</div>
-				<div class="loader__track" data-loader-rule>
-					<span data-loader-bar></span>
-				</div>
-			</div>
-			<div class="loader__foot shell" data-loader-out>
-				<span class="mono">Ingeniería y Consultoría</span>
-				<span class="mono">© 2026</span>
-			</div>
-		</div>
+		<Loader
+			name={site.name}
+			city={site.location.city}
+			country={site.location.country}
+		/>
 
 		<Header
 			name={site.name}
@@ -203,17 +162,7 @@ const person = {
 			homeHref={homeHref}
 		/>
 
-		<slot name="overlays" />
-
-		<Menu
-			name={site.name}
-			navigation={navigation}
-			github={site.github}
-		/>
-
-		<div id="cursor" class="cursor" aria-hidden="true">
-			<span class="cursor__inner" data-cursor-label></span>
-		</div>
+		<Menu navigation={navigation} links={site.footer.links} />
 
 		<script>
 			import { start } from "../engine/astro";

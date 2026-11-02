@@ -11,7 +11,8 @@
 		"./button": "./src/components/Button.astro",
 		"./node-label": "./src/components/NodeLabel.astro",
 		"./prose": "./src/components/Prose.astro",
-		"./theme-toggle": "./src/components/ThemeToggle.astro"
+		"./theme-toggle": "./src/components/ThemeToggle.astro",
+		"./theme-script": "./src/components/ThemeScript.astro"
 	},
 	"scripts": {
 		"check": "astro check",
