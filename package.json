@@ -27,7 +27,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "catalog:",
 		"@changesets/cli": "3.0.3",
-		"lefthook": "^1.13.4",
+		"lefthook": "^1.13.6",
 		"turbo": "catalog:"
 	}
 }
