@@ -1,0 +1,17 @@
+title = "gitleaks configuration"
+# https://github.com/gitleaks/gitleaks
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Allow-listed paths and known false positives"
+paths = [
+  '''node_modules/''',
+  '''dist/''',
+  '''\.astro/''',
+  '''pnpm-lock.yaml''',
+  '''.changeset/''',
+]
+regexTarget = "line"
+regexes = []
