@@ -1,12 +1,11 @@
-# Juan Miguel — Portfolio
+# Portfolio & GitHub Page
 
 [![CI](https://github.com/juan-miii/juan-miii.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/juan-miii/juan-miii.github.io/actions/workflows/ci.yml)
 [![Deploy](https://github.com/juan-miii/juan-miii.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/juan-miii/juan-miii.github.io/actions/workflows/deploy.yml)
-[![Security](https://github.com/juan-miii/juan-miii.github.io/actions/workflows/security.yml/badge.svg)](https://github.com/juan-miii/juan-miii.github.io/actions/workflows/security.yml)
 
 My personal porfolio as a software engineer and technology consultant in Madrid. Built following best practices, creating a monorepo with [`pnpm`](https://pnpm.io/) and [Turborepo](https://turborepo.dev/); the site is built statically with [Astro](https://astro.build/) and published to [GitHub Pages](https://docs.github.com/en/pages).
 
-The concept, art direction and design decisions live in [`DESIGN.md`](./DESIGN.md). The map of every visible element and the file where it is edited lives in [`COMPONENTS.md`](./COMPONENTS.md).
+The concept, art direction and design decisions live in [`DESIGN.md`](./docs/DESIGN.md). The map of every visible element and the file where it is edited lives in [`COMPONENTS.md`](./docs/COMPONENTS.md).
 
 ## Table of contents
 
@@ -22,8 +21,8 @@ The concept, art direction and design decisions live in [`DESIGN.md`](./DESIGN.m
 
 ## Requirements
 
-- Node.js
-- pnpm
+- [Node.js](https://nodejs.org)
+- [pnpm](https://pnpm.io/)
 
 _Both are installed and managed using [`mise`](https://mise.jdx.dev/)._ 
 
@@ -132,3 +131,10 @@ This project follows the [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md). By partic
 ## License
 
 The repository's code is under this repository's license. Professional text, brand and graphic assets are not considered open source unless stated otherwise.
+
+<!-- Pending things:
+ - Update README links and add icons
+ - Add icons for tech
+ - Add arrow icons correct placement
+ - Lychee or similar for links (curate them first)
+-->
