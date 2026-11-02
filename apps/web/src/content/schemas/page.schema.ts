@@ -43,14 +43,11 @@ export const pageSchema = z.object({
 	}),
 	navigation: z.array(linkSchema.extend({ index: z.string().min(1) })),
 	hero: z.object({
-		kicker: z.string().min(1),
 		firstName: z.string().min(1),
 		lastName: z.string().min(1),
 		intro: z.string().min(1),
 		primaryAction: actionSchema,
 		secondaryAction: actionSchema,
-		portraitCaption: z.string().min(1),
-		scrollCue: z.string().min(1),
 	}),
 	approach: sectionSchema,
 	work: sectionSchema,
@@ -67,14 +64,6 @@ export const pageSchema = z.object({
 	method: subSectionSchema,
 	profile: sectionSchema.omit({ body: true }).extend({
 		long: z.array(z.string().min(1)),
-	}),
-	contact: z.object({
-		index: z.string().min(1),
-		label: z.string().min(1),
-		title: z.string().min(1),
-		body: z.string().min(1),
-		emailLabel: z.string().min(1),
-		note: z.string().min(1),
 	}),
 	footer: z.object({
 		note: z.string().min(1),

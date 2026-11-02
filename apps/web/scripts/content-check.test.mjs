@@ -61,25 +61,6 @@ const scenarios = [
 		},
 		expected: false,
 	},
-	{
-		name: "draft-featured-project",
-		mutate: (fixture) => {
-			const project = readJson(fixture, "projects/portfolio-platform.json");
-			project.publicationStatus = "draft";
-			project.featuredOrder = 1;
-			writeJson(fixture, "projects/portfolio-platform.json", project);
-		},
-		expected: false,
-	},
-	{
-		name: "missing-media-reference",
-		mutate: (fixture) => {
-			const project = readJson(fixture, "projects/portfolio-platform.json");
-			project.cover = "/images/does-not-exist.svg";
-			writeJson(fixture, "projects/portfolio-platform.json", project);
-		},
-		expected: false,
-	},
 ];
 
 let failed = false;

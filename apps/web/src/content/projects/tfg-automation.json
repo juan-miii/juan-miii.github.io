@@ -2,23 +2,13 @@
 	"id": "tfg-automation",
 	"locale": "es",
 	"slug": "tfg-correccion-practicas",
-	"title": "TFG: Automatización de la corrección de prácticas académicas",
+	"title": "Automatización de la corrección de prácticas académicas",
 	"summary": "Sistema de evaluación continua y escalable con GitHub Actions y GitHub Classroom.",
-	"highlights": [
-		"Ejecución automática de pruebas y retroalimentación inmediata para cada entrega.",
-		"Soporte para pruebas personalizadas y scripts externos.",
-		"Análisis comparativo de plataformas como Deliverit, GitLab CI, Jenkins, Gradescope y Codeboard."
-	],
-	"kind": "personal",
-	"sourceAvailability": "public",
-	"lifecycle": "completed",
-	"publicationStatus": "published",
-	"featuredOrder": 2,
+	"highlights": "Como Trabajo de Fin de Grado de Ingeniería Informárica en la UPM, desarrollé un corrector automático de código Java basado en pruebas definidas por el docente, incluyendo la ejecución automática de pruebas y retroalimentación inmediata al estudiante tras cada entrega.",
 	"year": "2025",
-	"period": "2024-2025",
-	"client": "Trabajo Fin de Grado",
-	"role": "Diseño, implementación y evaluación",
-	"statusLabel": "Completado",
+	"relatedOrg": "Universidad Politécnica de Madrid",
+	"featuredOrder": 2,
+	"statusLabel": "Publicado",
 	"technologies": [
 		"GitHub Actions",
 		"GitHub Classroom",
@@ -35,9 +25,8 @@
 		},
 		{
 			"kind": "documentation",
-			"label": "Ver documentación",
+			"label": "Ver publicación",
 			"url": "https://oa.upm.es/90150/"
 		}
-	],
-	"coverAlt": "Esquema del flujo de corrección automática con GitHub Actions."
+	]
 }
