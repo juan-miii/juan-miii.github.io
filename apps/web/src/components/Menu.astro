@@ -1,19 +1,13 @@
 ---
 import { Icon } from "astro-icon/components";
-
-interface NavigationItem {
-	index: string;
-	label: string;
-	href: string;
-}
+import type { NavigationItem, SocialLink } from "../types";
 
 interface Props {
-	name: string;
 	navigation: NavigationItem[];
-	github: string;
+	links: SocialLink[];
 }
 
-const { navigation, github } = Astro.props;
+const { navigation, links } = Astro.props;
 ---
 
 <div id="site-menu" class="menu" data-menu hidden>
@@ -44,11 +38,19 @@ const { navigation, github } = Astro.props;
 
 		<div class="menu__foot shell">
 			<div class="menu__contact">
-				<a class="text-link" href={github} rel="me noopener" target="_blank">
-					GitHub
-				</a>
+				{
+					links.map((link) => (
+						<a
+							class="text-link"
+							href={link.url}
+							rel="me noopener"
+							target="_blank"
+						>
+							{link.label}
+						</a>
+					))
+				}
 			</div>
-			<span class="mono menu__place">{github}</span>
 		</div>
 
 		<div class="menu__backdrop" data-menu-backdrop aria-hidden="true"></div>
@@ -191,10 +193,6 @@ const { navigation, github } = Astro.props;
 		display: flex;
 		flex-wrap: wrap;
 		gap: 1.2rem;
-	}
-
-	.menu__place {
-		color: var(--c-muted);
 	}
 
 	.menu__backdrop {

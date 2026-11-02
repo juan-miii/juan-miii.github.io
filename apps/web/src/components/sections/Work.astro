@@ -1,0 +1,32 @@
+---
+import SectionHeading from "@portfolio/ui/section-heading";
+import ProjectRow from "../ProjectRow.astro";
+import type { ProjectEntry, SectionCopy } from "../../types";
+
+interface Props {
+	work: SectionCopy;
+	projects: ProjectEntry[];
+}
+
+const { work, projects } = Astro.props;
+---
+
+<section id="trabajo" class="section work" aria-labelledby="work-title">
+	<div class="shell">
+		<SectionHeading
+			id="work-title"
+			index={work.index}
+			label={work.label}
+			title={work.title}
+			body={work.body}
+		/>
+
+		<div class="work__list">
+			{
+				projects.map((project, index) => (
+					<ProjectRow index={index + 1} project={project.data} />
+				))
+			}
+		</div>
+	</div>
+</section>

@@ -3,7 +3,6 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { prefersReducedMotion } from "./env";
-import { initMagnetic } from "./interactions";
 import { runLoader } from "./loader";
 import { initReveals } from "./reveal";
 import { initScroll, startScroll, stopScroll } from "./scroll";
@@ -56,10 +55,8 @@ export function syncFlags() {
 
 function initPage() {
 	syncFlags();
-	document.getElementById("cursor")?.classList.remove("is-active");
 	ctx = gsap.context(() => {
 		intro = initReveals(document);
-		initMagnetic(document);
 	});
 	ready = true;
 	for (const fn of pageFns) runPageFn(fn);

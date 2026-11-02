@@ -4,7 +4,6 @@
 @import "@juan-miii/brand/styles/components.css";
 @import "@juan-miii/brand/styles/motion.css";
 @import "@juan-miii/brand/styles/loader.css";
-@import "@juan-miii/brand/styles/cursor.css";
 
 /* Page shell and stacking. The trace sits behind the content. */
 main {
@@ -16,17 +15,6 @@ main > *:not(#signal-trace) {
 	z-index: var(--z-content);
 }
 
-body.menu-open,
-html.sheet-open,
-html.sheet-open body {
-	overflow: hidden;
-}
-
-/* No-JS fallback: the sheet is shown through :target, so the page behind it
-   must stop scrolling too. */
-html:has(.sheet:target),
-html:has(.sheet:target) body,
-html:has(.sheet [id]:target),
-html:has(.sheet [id]:target) body {
+body.menu-open {
 	overflow: hidden;
 }

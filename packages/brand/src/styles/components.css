@@ -1,5 +1,4 @@
 /* Buttons: square, one border, a fill that rises from the bottom. */
-.btn,
 .base-btn {
 	position: relative;
 	display: inline-flex;
@@ -18,7 +17,6 @@
 		border-color var(--motion-base) var(--motion-easing);
 }
 
-.btn::before,
 .base-btn::before {
 	content: "";
 	position: absolute;
@@ -30,91 +28,70 @@
 	transition: transform 360ms var(--motion-easing);
 }
 
-.link-arrow svg,
-.btn svg,
 .base-btn svg {
 	transition: transform var(--motion-base) var(--motion-easing);
 }
 
-.btn:hover::before,
-.btn:focus-visible::before,
 .base-btn:hover::before,
 .base-btn:focus-visible::before {
 	transform: scaleY(1);
 	transform-origin: top;
 }
 
-.btn:hover svg,
-.btn:focus-visible svg,
 .base-btn:hover svg,
 .base-btn:focus-visible svg {
 	transform: translate(2px, -2px);
 }
 
-.btn--solid,
 .base-btn--solid {
 	background: var(--c-ink);
 	border-color: var(--c-ink);
 	color: var(--c-paper);
 }
 
-.btn--solid::before,
 .base-btn--solid::before {
 	background: var(--c-accent);
 }
 
-.btn--solid:hover,
-.btn--solid:focus-visible,
 .base-btn--solid:hover,
 .base-btn--solid:focus-visible {
 	border-color: var(--c-accent);
 	color: var(--c-paper);
 }
 
-.btn--line,
 .base-btn--line {
 	color: var(--c-ink);
 }
 
-.btn--line:hover,
-.btn--line:focus-visible,
 .base-btn--line:hover,
 .base-btn--line:focus-visible {
 	color: var(--c-paper);
 }
 
-.btn--light,
 .base-btn--light {
 	border-color: var(--c-paper);
 	color: var(--c-paper);
 }
 
-.btn--light::before,
 .base-btn--light::before {
 	background: var(--c-paper);
 }
 
-.btn--light:hover,
-.btn--light:focus-visible,
 .base-btn--light:hover,
 .base-btn--light:focus-visible {
 	color: var(--c-ink);
 }
 
-.btn--accent,
 .base-btn--accent {
 	background: var(--c-accent);
 	border-color: var(--c-accent);
 	color: var(--c-paper);
 }
 
-.btn--accent::before,
 .base-btn--accent::before {
 	background: var(--c-ink);
 }
 
-.btn--accent:hover,
-.btn--accent:focus-visible,
 .base-btn--accent:hover,
 .base-btn--accent:focus-visible {
 	border-color: var(--c-ink);

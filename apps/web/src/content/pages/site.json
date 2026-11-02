@@ -70,7 +70,7 @@
 			{
 				"title": "Arquitectura de sistemas",
 				"description": "Diseño servicios con límites claros, dependencias explícitas y una ruta de evolución que no obliga a reescribir.",
-				"tools": ["TypeScript", "Astro", "Node.js", "APIs"]
+				"tools": ["Design Thinking", "Domain-Driven Design (DDD)", "Tech Stack"]
 			},
 			{
 				"title": "Seguridad aplicada",
@@ -80,12 +80,12 @@
 			{
 				"title": "Automatización e IA",
 				"description": "Integro agentes y flujos donde reducen trabajo real. Cada automatización tiene una entrada, una salida y una forma de ser evaluada.",
-				"tools": ["Agentes", "Integraciones"]
+				"tools": ["Agentes", "Integraciones", "CI/CD"]
 			},
 			{
 				"title": "Entrega y operación",
 				"description": "Construyo cadenas reproducibles con pruebas, procedencia y artefactos verificables. Lo que llega a producción se puede rastrear hasta su origen.",
-				"tools": ["Atestación", "Certificados", "Firma", "CI/CD"]
+				"tools": ["Atestación", "Certificados", "Firma"]
 			}
 		]
 	},

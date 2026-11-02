@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 // Local accessibility and layout audit for the production build.
 //   node apps/web/scripts/a11y.test.mjs
-// Serves dist/ with Astro preview, then audits the single-page portfolio, every
-// project sheet (open and closed) and the 404 at desktop and phone widths for
-// axe violations, horizontal overflow, console errors, focus and scroll lock.
+// Serves dist/ with Astro preview, then audits the single-page portfolio at
+// desktop and phone widths for axe violations, horizontal overflow, console
+// errors and failed requests.
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
@@ -98,83 +98,6 @@ function auditIssues(result) {
 	return issues;
 }
 
-async function _openSheet(page, slug) {
-	const trigger = page.locator(
-		`.project-row__title a[data-project-open="${slug}"]`,
-	);
-	await trigger.click();
-	await page.waitForFunction(
-		(id) => document.getElementById(id)?.open === true,
-		`proyecto-${slug}`,
-		{ timeout: 5_000 },
-	);
-	await page.waitForTimeout(900);
-}
-
-async function _checkOpenSheet(page, slug) {
-	const state = await page.evaluate((id) => {
-		const dialog = document.getElementById(id);
-		const panel = dialog?.querySelector("[data-project-panel]");
-		const rect = panel?.getBoundingClientRect();
-		const style = getComputedStyle(document.body);
-		return {
-			open: dialog?.open === true,
-			labelled:
-				dialog?.getAttribute("aria-labelledby") === `${id}-title` &&
-				Boolean(document.getElementById(`${id}-title`)),
-			focusInside: Boolean(dialog?.contains(document.activeElement)),
-			scrollLocked:
-				document.documentElement.classList.contains("sheet-open") &&
-				(style.overflow === "hidden" || style.overflowY === "hidden"),
-			panelInside:
-				Boolean(rect) &&
-				rect.left >= -1 &&
-				rect.top >= -1 &&
-				rect.right <= window.innerWidth + 1 &&
-				rect.bottom <= window.innerHeight + 1,
-		};
-	}, `proyecto-${slug}`);
-
-	const issues = [];
-	if (!state.open) issues.push("la ficha no se abrió");
-	if (!state.labelled) issues.push("falta el nombre accesible de la ficha");
-	if (!state.focusInside) issues.push("el foco no está dentro de la ficha");
-	if (!state.scrollLocked) issues.push("el documento no está bloqueado");
-	if (!state.panelInside) issues.push("el panel desborda la ventana");
-
-	const result = await audit(page);
-	issues.push(...auditIssues(result));
-	return issues;
-}
-
-async function _closeSheet(page, slug) {
-	await page.keyboard.press("Escape");
-	await page.waitForFunction(
-		(id) => document.getElementById(id)?.open === false,
-		`proyecto-${slug}`,
-		{ timeout: 5_000 },
-	);
-	await page.waitForTimeout(150);
-}
-
-async function _checkClosedSheet(page, slug) {
-	return page.evaluate((id) => {
-		const style = getComputedStyle(document.body);
-		const trigger = document.querySelector(
-			`.project-row__title a[data-project-open="${id.replace("proyecto-", "")}"]`,
-		);
-		const issues = [];
-		if (document.getElementById(id)?.open)
-			issues.push("la ficha sigue abierta");
-		if (document.documentElement.classList.contains("sheet-open"))
-			issues.push("el bloqueo de scroll no se retiró");
-		if (style.overflowY === "hidden") issues.push("el cuerpo sigue bloqueado");
-		if (trigger && document.activeElement !== trigger)
-			issues.push("el foco no volvió al disparador");
-		return issues;
-	}, `proyecto-${slug}`);
-}
-
 try {
 	for (const viewport of viewports) {
 		const context = await browser.newContext({
@@ -204,9 +127,6 @@ try {
 				issues.push(`HTTP ${response?.status() ?? "sin respuesta"}`);
 			}
 			report(`${viewport.name} ${route}`, issues);
-
-			// Project sheets are currently commented out in index.astro by
-			// design decision; nothing to audit here until they are restored.
 
 			report(
 				`${viewport.name} ${route} consola`,

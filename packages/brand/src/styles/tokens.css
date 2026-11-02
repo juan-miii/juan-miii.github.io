@@ -63,34 +63,10 @@
 	--c-paper: #f2f1ec;
 	--c-muted-dark: #c0c0ba;
 
-	/* Compatibility aliases for the existing UI package. */
-	--color-bg: var(--c-ground);
-	--color-surface: #e9e8e2;
-	--color-surface-elevated: #e2e1da;
-	--color-border: var(--c-line);
-	--color-border-subtle: var(--c-line);
-	--color-text: var(--c-ink);
-	--color-text-muted: var(--c-muted);
-	--color-text-subtle: var(--c-muted);
-	--color-text-inverse: var(--c-paper);
-	--color-accent: var(--c-accent);
-	--color-accent-hover: var(--c-accent-ink);
-	--color-accent-subtle: rgb(217 58 43 / 10%);
-	--color-focus: var(--c-accent);
-	--color-danger: #b72c20;
-	--color-success: #2f6f4e;
-	--color-warning: #8a5a12;
-	--color-info: #275b93;
-	--color-surface-inverse: var(--c-ink);
-	--color-surface-active: #dcdbd4;
-
 	/* Type families */
 	--f-display: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	--f-body: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	--f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-	--font-display: var(--f-display);
-	--font-body: var(--f-body);
-	--font-mono: var(--f-mono);
 
 	/* Fluid scale, large jumps. */
 	--t-mega: clamp(4.4rem, 17vw, 17rem);
@@ -101,24 +77,10 @@
 	--t-body: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
 	--t-s: 0.875rem;
 	--t-xs: 0.75rem;
-	--text-xs: var(--t-xs);
-	--text-sm: var(--t-s);
-	--text-base: 1rem;
-	--text-lg: var(--t-m);
-	--text-xl: var(--t-l);
-	--text-2xl: var(--t-xl);
-	--text-3xl: var(--t-xl);
-	--text-4xl: var(--t-display);
-	--text-5xl: var(--t-display);
-	--text-6xl: var(--t-mega);
-	--text-7xl: var(--t-mega);
-	--text-body: var(--t-body);
-	--text-display: var(--t-display);
 
 	/* Grid and space. */
 	--shell: min(100% - 2 * var(--gutter), 92rem);
 	--gutter: clamp(1rem, 3vw, 2.5rem);
-	--u: clamp(0.5rem, 0.35rem + 0.55vw, 1rem);
 	--s-1: 0.25rem;
 	--s-2: 0.5rem;
 	--s-3: 0.75rem;
@@ -129,32 +91,10 @@
 	--s-8: 4rem;
 	--s-9: 6rem;
 	--s-10: 8rem;
-	--space-1: var(--s-1);
-	--space-2: var(--s-2);
-	--space-3: var(--s-3);
-	--space-4: var(--s-4);
-	--space-5: var(--s-5);
-	--space-6: var(--s-6);
-	--space-8: var(--s-6);
-	--space-10: var(--s-7);
-	--space-12: var(--s-8);
-	--space-16: var(--s-9);
-	--space-20: var(--s-10);
-	--space-24: var(--s-10);
 	--header-h: 3.75rem;
 
-	/* One radius rule and no shadow. */
+	/* One shape rule: square. */
 	--radius: 0px;
-	--radius-sm: 0px;
-	--radius-md: 0px;
-	--radius-lg: 0px;
-	--radius-xl: 0px;
-	--radius-2xl: 0px;
-	--radius-full: 0px;
-	--shadow-sm: none;
-	--shadow-md: none;
-	--shadow-lg: none;
-	--shadow-xl: none;
 
 	/* Motion */
 	--motion-fast: 180ms;
@@ -169,8 +109,6 @@
 	--z-content: 1;
 	--z-header: 50;
 	--z-menu: 60;
-	--z-cursor: 80;
-	--z-sheet: 85;
 	--z-loader: 100;
 }
 
@@ -190,25 +128,4 @@ html[data-theme="dark"] {
 	--c-accent-dark: #ff7a6b;
 	--c-paper: #1a1a19;
 	--c-muted-dark: #62615b;
-
-	/* Compatibility aliases for the existing UI package. */
-	--color-bg: var(--c-ground);
-	--color-surface: #1a1a19;
-	--color-surface-elevated: #232322;
-	--color-border: var(--c-line);
-	--color-border-subtle: var(--c-line);
-	--color-text: var(--c-ink);
-	--color-text-muted: var(--c-muted);
-	--color-text-subtle: var(--c-muted);
-	--color-text-inverse: var(--c-ground);
-	--color-accent: var(--c-accent);
-	--color-accent-hover: var(--c-accent-ink);
-	--color-accent-subtle: rgb(217 58 43 / 15%);
-	--color-focus: var(--c-accent-ink);
-	--color-danger: #ff7a6b;
-	--color-success: #4da377;
-	--color-warning: #d4a34c;
-	--color-info: #5d8bb5;
-	--color-surface-inverse: var(--c-ink);
-	--color-surface-active: #2a2a29;
 }
