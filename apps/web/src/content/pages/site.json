@@ -133,14 +133,6 @@
 		"colophon": "Astro, TypeScript y GSAP. Contenido validado, salida estática.",
 		"rights": "Todos los derechos reservados."
 	},
-	"notFound": {
-		"index": "404",
-		"label": "Señal perdida",
-		"title": "Este nodo no existe.",
-		"description": "La ruta que buscabas no forma parte del circuito. El resto sigue conectado.",
-		"backLabel": "Volver al inicio",
-		"backHref": "/"
-	},
 	"process": [
 		{
 			"index": "01",

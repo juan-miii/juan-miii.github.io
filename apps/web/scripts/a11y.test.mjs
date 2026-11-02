@@ -16,8 +16,7 @@ const axeSource = readFileSync(require.resolve("axe-core/axe.min.js"), "utf8");
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const port = 4401;
-const routes = ["/", "/404.html"];
-const sheets = ["plataforma-portfolio", "tfg-correccion-practicas"];
+const routes = ["/"];
 const viewports = [
 	{ name: "desktop", width: 1440, height: 900 },
 	{ name: "phone", width: 390, height: 844 },
@@ -206,16 +205,8 @@ try {
 			}
 			report(`${viewport.name} ${route}`, issues);
 
-			if (route === "/") {
-				for (const slug of sheets) {
-					await openSheet(page, slug);
-					const sheetIssues = await checkOpenSheet(page, slug);
-					report(`${viewport.name} abrir ${slug}`, sheetIssues);
-					await closeSheet(page, slug);
-					const closedIssues = await checkClosedSheet(page, slug);
-					report(`${viewport.name} cerrar ${slug}`, closedIssues);
-				}
-			}
+			// Project sheets are currently commented out in index.astro by
+			// design decision; nothing to audit here until they are restored.
 
 			report(
 				`${viewport.name} ${route} consola`,
@@ -225,31 +216,6 @@ try {
 		}
 		await context.close();
 	}
-
-	// Deep link: a hash to a sheet opens it on first load and stays in-page.
-	const context = await browser.newContext({
-		viewport: { width: 1440, height: 900 },
-	});
-	const page = await context.newPage();
-	await page.goto(
-		`http://127.0.0.1:${port}/#proyecto-tfg-correccion-practicas`,
-		{
-			waitUntil: "load",
-		},
-	);
-	const deepLink = await page.evaluate(() => ({
-		open:
-			document.getElementById("proyecto-tfg-correccion-practicas")?.open ===
-			true,
-		hash: location.hash,
-	}));
-	report("desktop enlace directo a ficha", [
-		...(deepLink.open ? [] : ["la ficha no se abrió desde el hash"]),
-		...(deepLink.hash === "#proyecto-tfg-correccion-practicas"
-			? []
-			: [`hash inesperado: ${deepLink.hash}`]),
-	]);
-	await context.close();
 } finally {
 	await browser.close();
 	await server.stop();

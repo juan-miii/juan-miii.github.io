@@ -29,8 +29,7 @@ const origin = Astro.site ?? new URL("https://juan-miii.github.io");
 const canonicalUrl = new URL(Astro.url.pathname, origin).href;
 const ogUrl = new URL("/og.png", origin).href;
 
-// The home is the only navigable page. Hash links keep working on the 404 by
-// pointing back to the home instead of a section that does not exist there.
+// The home is the only navigable page.
 const isHome =
 	Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
 const navigation = site.navigation.map((item) => ({
