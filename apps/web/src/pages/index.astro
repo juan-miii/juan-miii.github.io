@@ -2,12 +2,10 @@
 import { Icon } from "astro-icon/components";
 import { getCollection, getEntry } from "astro:content";
 
-//import ContactSection from "../components/ContactSection.astro";
 import ExperienceList from "../components/ExperienceList.astro";
 import Hero from "../components/Hero.astro";
 import PortraitPlate from "../components/PortraitPlate.astro";
 import ProjectRow from "../components/ProjectRow.astro";
-//import ProjectSheet from "../components/ProjectSheet.astro";
 import SectionHeading from "@portfolio/ui/section-heading";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
@@ -19,16 +17,6 @@ const projects = (await getCollection("projects")).sort(
 	(a, b) =>
 		(a.data.featuredOrder ?? 999) - (b.data.featuredOrder ?? 999),
 );
-
-// const sheets = projects.map((project, index) => {
-// 	const next = projects[(index + 1) % projects.length] ?? project;
-// 	return {
-// 		project,
-// 		index: index + 1,
-// 		total: projects.length,
-// 		next: { slug: next.data.slug, title: next.data.title },
-// 	};
-// });
 
 const capabilityIcons = [
 	"tabler:route",
@@ -181,20 +169,6 @@ const capabilityIcons = [
 		</div>
 	</section>
 
-	<!-- <ContactSection contact={site.contact} email={site.email} /> -->
-
-	<!-- <Fragment slot="overlays">
-		{
-			sheets.map((sheet) => (
-				// <ProjectSheet
-				// 	project={sheet.project}
-				// 	index={sheet.index}
-				// 	total={sheet.total}
-				// 	next={sheet.next}
-				// />
-			))
-		}
-	</Fragment> -->
 </BaseLayout>
 
 <style>

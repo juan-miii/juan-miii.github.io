@@ -35,12 +35,7 @@ export const pageSchema = z.object({
 		country: z.string().min(1),
 		coordinates: z.string().min(1),
 	}),
-	email: z.email(),
 	github: z.url(),
-	availability: z.object({
-		label: z.string().min(1),
-		note: z.string().min(1),
-	}),
 	navigation: z.array(linkSchema.extend({ index: z.string().min(1) })),
 	hero: z.object({
 		firstName: z.string().min(1),
@@ -69,6 +64,12 @@ export const pageSchema = z.object({
 		note: z.string().min(1),
 		colophon: z.string().min(1),
 		rights: z.string().min(1),
+		links: z.array(
+			z.object({
+				label: z.string().min(1),
+				url: z.url(),
+			}),
+		),
 	}),
 	process: z.array(
 		z.object({

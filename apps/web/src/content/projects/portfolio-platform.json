@@ -10,7 +10,6 @@
 	"featuredOrder": 1,
 	"statusLabel": "Desplegado",
 	"technologies": ["Astro", "TypeScript", "pnpm", "Turborepo", "Zod", "GitHub"],
-	"plate": "content",
 	"links": [
 		{
 			"kind": "repository",

@@ -43,7 +43,6 @@ for (const content of [
 
 	"https://github.com/juan-miii/juan-miii.github.io",
 	"https://github.com/juan-miii/tfg",
-	"94069179-juan-miii@proton.me",
 ]) {
 	if (!home.includes(content)) {
 		console.error(`home smoke content missing: ${content}`);

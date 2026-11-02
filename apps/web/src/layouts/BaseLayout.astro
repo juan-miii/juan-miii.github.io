@@ -44,7 +44,6 @@ const person = {
 	"@type": "Person",
 	name: site.name,
 	url: origin.href,
-	email: `mailto:${site.email}`,
 	jobTitle: site.role,
 	description: site.description,
 	sameAs: [site.github],
@@ -186,7 +185,6 @@ const person = {
 			name={site.name}
 			role={site.role}
 			navigation={navigation}
-			availability={site.availability}
 			homeHref={homeHref}
 			contactHref={contactHref}
 		/>
@@ -201,9 +199,6 @@ const person = {
 		<Footer
 			name={site.name}
 			navigation={navigation}
-			email={site.email}
-			github={site.github}
-			location={site.location}
 			footer={site.footer}
 			homeHref={homeHref}
 		/>
@@ -213,9 +208,7 @@ const person = {
 		<Menu
 			name={site.name}
 			navigation={navigation}
-			email={site.email}
 			github={site.github}
-			location={site.location.city}
 		/>
 
 		<div id="cursor" class="cursor" aria-hidden="true">
