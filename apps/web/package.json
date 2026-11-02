@@ -13,7 +13,7 @@
 	},
 	"dependencies": {
 		"@astrojs/sitemap": "3.7.4",
-		"@iconify-json/tabler": "1.2.42",
+		"@iconify-json/tabler": "1.2.43",
 		"@juan-miii/brand": "workspace:*",
 		"@portfolio/ui": "workspace:*",
 		"astro": "catalog:",
