@@ -1,5 +1,11 @@
 # @juan-miii/brand
 
+## 1.0.1
+
+### Patch Changes
+
+- Test release: validate Changesets versioning and the npm trusted-publisher workflow.
+
 ## 1.0.0
 
 ### Major Changes
