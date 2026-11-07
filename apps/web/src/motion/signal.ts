@@ -174,7 +174,7 @@ export function initSignal() {
 	const observer = new ResizeObserver(scheduleMeasure);
 	observer.observe(scope);
 	window.addEventListener("resize", scheduleMeasure);
-	document.fonts.ready.then(scheduleMeasure);
+	void document.fonts.ready.then(scheduleMeasure);
 
 	return () => {
 		cancelAnimationFrame(frame);

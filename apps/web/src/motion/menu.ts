@@ -163,7 +163,7 @@ export function initMenu() {
 		const available = focusables(root);
 		if (available.length === 0) return;
 		const first = available[0];
-		const last = available[available.length - 1];
+		const last = available.at(-1);
 		if (!first || !last) return;
 		if (event.shiftKey && document.activeElement === first) {
 			event.preventDefault();

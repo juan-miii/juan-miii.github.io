@@ -54,7 +54,7 @@ export async function runLoader(onExit?: () => void): Promise<void> {
 	const shown = { value: 0 };
 	const target = { value: 0 };
 	for (const task of tasks) {
-		task.then(() => {
+		void task.then(() => {
 			done++;
 			target.value = (done / tasks.length) * 100;
 		});

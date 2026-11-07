@@ -118,7 +118,7 @@ export function initReveals(root: ParentNode = document) {
 	const deferred = new Map<Element, () => void>();
 
 	for (const el of root.querySelectorAll<HTMLElement>("[data-split]")) {
-		const isIntro = el.hasAttribute("data-intro");
+		const isIntro = Object.hasOwn(el.dataset, "intro");
 		if (isIntro) {
 			intro.add(splitTween(el, true), 0);
 			continue;
@@ -127,7 +127,7 @@ export function initReveals(root: ParentNode = document) {
 	}
 
 	for (const el of root.querySelectorAll<HTMLElement>("[data-reveal]")) {
-		const isIntro = el.hasAttribute("data-intro");
+		const isIntro = Object.hasOwn(el.dataset, "intro");
 		if (isIntro) {
 			const tween = blockTween(el, true);
 			intro.add(() => tween.play(), 0);
