@@ -61,19 +61,26 @@ const { label = "Cambiar tema" } = Astro.props;
 		cursor: pointer;
 		transition:
 			color var(--motion-base) var(--motion-easing),
+			background-color var(--motion-base) var(--motion-easing),
 			border-color var(--motion-base) var(--motion-easing);
 	}
 
 	.theme-toggle:hover,
 	.theme-toggle:focus-visible {
-		color: var(--c-ink);
+		color: var(--c-paper);
+		background: var(--c-ink);
 		border-color: var(--c-ink);
-		outline: none;
 	}
 
 	.theme-toggle__icon {
 		inline-size: 1rem;
 		block-size: 1rem;
+		transition: transform var(--motion-base) var(--motion-easing);
+	}
+
+	.theme-toggle:hover .theme-toggle__icon,
+	.theme-toggle:focus-visible .theme-toggle__icon {
+		transform: rotate(30deg);
 	}
 
 	html[data-theme="dark"] .theme-toggle__icon--light {

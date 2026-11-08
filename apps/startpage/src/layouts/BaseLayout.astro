@@ -1,0 +1,116 @@
+---
+import PageWrapper from "@portfolio/ui/page-wrapper";
+import ThemeScript from "@portfolio/ui/theme-script";
+import ThemeToggle from "@portfolio/ui/theme-toggle";
+
+import "../styles/global.css";
+
+interface Props {
+	title?: string;
+	description?: string;
+	bodyClass?: string;
+}
+
+const { title = "Inicio", description = "Panel de arranque de la red local (.home.arpa).", bodyClass } =
+	Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
+const site = Astro.site ?? Astro.url.origin;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="color-scheme" content="light dark" />
+		<meta name="theme-color" content="#F2F1EC" />
+		<ThemeScript />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="author" content="Juan Miguel" />
+		<meta name="robots" content="noindex" />
+		<link rel="canonical" href={canonical} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={new URL("/og.png", site).href} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link
+			rel="preload"
+			href="/fonts/switzer-400-normal.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+		<link
+			rel="preload"
+			href="/fonts/switzer-500-normal.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+		<link
+			rel="preload"
+			href="/fonts/jetbrains-mono-400-normal.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+	</head>
+	<body class:list={["page", bodyClass]}>
+		<a class="skip-link" href="#main">Saltar al contenido</a>
+
+		<header class="site-header">
+			<div class="shell site-header__inner">
+				<a class="brand" href="/">
+					<span class="brand__pilot" aria-hidden="true"></span>
+					<span class="brand__name">Panel</span>
+					<span class="brand__host">.home.arpa</span>
+				</a>
+
+				<div class="site-header__end">
+					<nav class="site-nav" aria-label="Secciones">
+						<a class="site-nav__link" href="/#servicios">Servicios</a>
+						<a class="site-nav__link" href="/#redes">Redes</a>
+					</nav>
+					<span class="clock" data-clock aria-hidden="true">--:--</span>
+					<ThemeToggle />
+				</div>
+			</div>
+		</header>
+
+		<main id="main" tabindex="-1">
+			<PageWrapper>
+				<slot />
+			</PageWrapper>
+		</main>
+
+		<footer class="site-footer dark-field">
+			<div class="shell site-footer__inner">
+				<p class="site-footer__note">
+					Los enlaces .home.arpa solo responden dentro de la red local. Esta página no se indexa ni
+					sale de casa.
+				</p>
+				<p class="site-footer__place">Madrid · 40.4168 N, 3.7038 O</p>
+			</div>
+		</footer>
+
+		<script is:inline>
+			(() => {
+				const el = document.querySelector("[data-clock]");
+				if (!el) return;
+				const tick = () => {
+					el.textContent = new Intl.DateTimeFormat("es-ES", {
+						hour: "2-digit",
+						minute: "2-digit",
+					}).format(new Date());
+				};
+				tick();
+				setInterval(tick, 1000);
+			})();
+		</script>
+	</body>
+</html>

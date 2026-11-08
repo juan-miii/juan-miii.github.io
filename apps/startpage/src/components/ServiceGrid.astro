@@ -1,0 +1,51 @@
+---
+import { Icon } from "astro-icon/components";
+
+import { type ServiceGroup, services } from "../data";
+
+interface Props {
+	groups: ServiceGroup[];
+}
+
+const { groups } = Astro.props;
+---
+
+<div class="rack">
+	{
+		groups.map((group) => (
+			<section class="rack-group" aria-labelledby={`grupo-${group.id}`}>
+				<div class="rack-group__head">
+					<h2 class="rack-group__title" id={`grupo-${group.id}`}>
+						{group.label}
+					</h2>
+					<span class="rack-group__rule" aria-hidden="true" />
+					<span class="rack-group__count">{String(group.services.length).padStart(2, "0")}</span>
+				</div>
+
+				<ul class="rack-group__list">
+					{group.services.map((service) => (
+						<li>
+							<a
+								class="rack-row"
+								href={service.href}
+								style={`--pilot-delay: ${services.indexOf(service) * 0.13}s`}
+							>
+								<span class="rack-row__cell" aria-hidden="true">
+									<Icon class="rack-row__icon" name={service.icon} />
+									<span class="rack-row__pilot" />
+								</span>
+								<span class="rack-row__body">
+									<span class="rack-row__name">{service.label}</span>
+								</span>
+								<span class="rack-row__host">{service.host}</span>
+								<span class="rack-row__go" aria-hidden="true">
+									<Icon name="tabler:arrow-up-right" />
+								</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</section>
+		))
+	}
+</div>

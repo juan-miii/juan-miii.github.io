@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ServiceGrid from "../components/ServiceGrid.astro";
+import Socials from "../components/Socials.astro";
+import { groups, socials } from "../data/index";
+---
+
+<BaseLayout
+	title="Panel · .home.arpa"
+	description="Panel de arranque de la red local (.home.arpa): Immich, Pi-hole, Proxmox, Jellyfin, n8n, Ollama, Open WebUI, Uptime Kuma, Grafana y Prometheus."
+>
+	<section class="hero" aria-labelledby="panel-title">
+		<div class="shell hero__main">
+			<h1 id="panel-title" class="hero__title">Todo en casa<span class="hero__dot">.</span></h1>
+			<div class="hero__aside">
+				<p class="hero__lead">
+					Fotos, medios, métricas y modelos. Todo vive en la red de casa, a un clic.
+				</p>
+				<ul class="hero__meta">
+					<li><span>Servicios</span><span>10</span></li>
+					<li><span>Red</span><span>.home.arpa</span></li>
+					<li><span>Acceso</span><span>sólo LAN</span></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section id="servicios" class="rack-section" aria-label="Servicios de la red local">
+		<div class="shell">
+			<ServiceGrid groups={groups} />
+		</div>
+	</section>
+
+	<section id="redes" class="socials-band dark-field" aria-labelledby="redes-title">
+		<div class="shell">
+			<div class="socials-band__head">
+				<h2 id="redes-title" class="socials-band__title">Redes</h2>
+				<p class="socials-band__note">Estos enlaces salen de la red local.</p>
+			</div>
+			<Socials links={socials} />
+		</div>
+	</section>
+</BaseLayout>

@@ -1,0 +1,64 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+	title="404 · Panel · .home.arpa"
+	description="Esta dirección no existe en el panel de arranque de la red local."
+	bodyClass="not-found"
+>
+	<section class="hero not-found__hero" aria-labelledby="no-encontrado">
+		<div class="shell not-found__grid">
+			<p class="not-found__code">Error 404</p>
+			<h1 id="no-encontrado" class="hero__title">
+				No está en <span class="hero__dot">casa</span>.
+			</h1>
+			<p class="hero__lead not-found__lead">
+				La dirección que buscas no existe, o el servicio aún no tiene puerta en este panel. Los
+				enlaces buenos están en el inicio.
+			</p>
+
+			<p class="not-found__trace" aria-hidden="true">
+				<span class="not-found__trace-dot"></span>
+				<span>sin ruta en esta red</span>
+			</p>
+
+			<a class="rack-row not-found__back" href="/">
+				<span class="rack-row__cell" aria-hidden="true">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="rack-row__icon"
+					>
+						<path d="M19 12H5"></path>
+						<path d="M12 19l-7-7 7-7"></path>
+					</svg>
+					<span class="rack-row__pilot"></span>
+				</span>
+				<span class="rack-row__body">
+					<span class="rack-row__name">Volver al panel</span>
+				</span>
+				<span class="rack-row__host">panel.home.arpa</span>
+				<span class="rack-row__go" aria-hidden="true">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M7 17L17 7"></path>
+						<path d="M9 7h8v8"></path>
+					</svg>
+				</span>
+			</a>
+		</div>
+	</section>
+</BaseLayout>

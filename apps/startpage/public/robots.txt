@@ -1,0 +1,5 @@
+# Panel privado de la red local. No debe rastrearse.
+User-agent: *
+Disallow: /
+
+Sitemap: http://panel.home.arpa/sitemap.xml

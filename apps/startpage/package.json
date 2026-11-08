@@ -1,0 +1,27 @@
+{
+	"name": "@portfolio/startpage",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"description": "Panel de arranque de la red local (.home.arpa): servicios autoalojados y redes sociales. Construido sobre @juan-miii/brand y @portfolio/ui.",
+	"scripts": {
+		"dev": "astro dev --port 4401",
+		"build": "astro build",
+		"preview": "astro preview",
+		"check": "astro check",
+		"test": "echo 'No unit tests yet'"
+	},
+	"dependencies": {
+		"@iconify-json/tabler": "1.2.42",
+		"@juan-miii/brand": "workspace:*",
+		"@portfolio/ui": "workspace:*",
+		"astro": "catalog:",
+		"astro-icon": "1.2.0"
+	},
+	"devDependencies": {
+		"@astrojs/check": "catalog:",
+		"axe-core": "4.14.0",
+		"playwright": "1.64.1",
+		"typescript": "catalog:"
+	}
+}

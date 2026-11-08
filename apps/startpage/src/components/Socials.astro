@@ -1,0 +1,32 @@
+---
+import { Icon } from "astro-icon/components";
+
+import type { Social } from "../data";
+
+interface Props {
+	links: Social[];
+}
+
+const { links } = Astro.props;
+---
+
+<ul class="socials">
+	{
+		links.map((link) => (
+			<li>
+				<a class="social" href={link.url} target="_blank" rel="noopener">
+					<span class="social__icon" aria-hidden="true">
+						<Icon name={link.icon} />
+					</span>
+					<span class="social__body">
+						<span class="social__label">{link.label}</span>
+						<span class="social__handle">{link.handle}</span>
+					</span>
+					<span class="social__go" aria-hidden="true">
+						<Icon name="tabler:arrow-up-right" />
+					</span>
+				</a>
+			</li>
+		))
+	}
+</ul>
